@@ -1,12 +1,11 @@
 <script>
-	let currentPath = $state('/');
+	import { page } from '$app/stores';
+	import DarkModeToggle from './DarkModeToggle.svelte';
 
-	$effect(() => {
-		currentPath = window.location.pathname;
-	});
+	$: currentPath = $page.url.pathname;
 </script>
 
-<nav class="bg-base-100">
+<nav class="bg-base-100 shadow-lg">
 	<div class="navbar container mx-auto">
 		<div class="flex-1">
 			<a href="/" class="btn btn-ghost normal-case text-xl">Portfolio</a>
@@ -18,6 +17,7 @@
 				<li><a href="/projects" class:active={currentPath === '/projects'}>Projects</a></li>
 				<li><a href="/contact" class:active={currentPath === '/contact'}>Contact</a></li>
 			</ul>
+			<DarkModeToggle />
 		</div>
 	</div>
 </nav>
