@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import { Moon, Sun } from 'lucide-svelte';
+	import IconMoon from '~icons/lucide/moon';
+	import IconSun from '~icons/lucide/sun';
 
 	let darkMode = $state(false);
 
@@ -20,10 +21,10 @@
 	}
 </script>
 
-<button on:click={toggleDarkMode} class="btn btn-ghost btn-circle">
+<button onclick={toggleDarkMode} class="btn btn-ghost btn-circle">
 	{#if darkMode}
-		<Sun />
+		<IconSun />
 	{:else}
-		<Moon />
+		<IconMoon />
 	{/if}
 </button>
