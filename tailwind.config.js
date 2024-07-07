@@ -2,7 +2,11 @@
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {}
+    extend: {
+      minWidth: {
+        '800': '800px',
+      }
+    },
   },
   plugins: [
     require('daisyui'),
