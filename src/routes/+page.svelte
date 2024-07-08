@@ -27,23 +27,21 @@
 		<div class="hero-content text-center">
 			<div class="max-w-3xl w-full">
 				{#if visible}
-					<div in:fade={{ duration: 1000 }} class="card bg-base-200">
-						<div class="card-body">
-							<h1 class="text-5xl font-bold mb-4">{name}</h1>
-							<p class="py-6 text-2xl">{title}</p>
-							<p class="text-lg mb-6">
-								Currently working at STIM and running my own IT consulting company.
-							</p>
-							<div class="card-actions justify-center">
-								<a href={latestPost.url} class="btn btn-primary">
-									Latest Blog Post
-									<IconChevronRight class="w-4 h-4 ml-2" />
-								</a>
-								<a href={featuredProject.url} class="btn btn-secondary">
-									Featured Project
-									<IconChevronRight class="w-4 h-4 ml-2" />
-								</a>
-							</div>
+					<div in:fade={{ duration: 1000 }}>
+						<h1 class="text-5xl font-bold mb-4">{name}</h1>
+						<p class="py-6 text-2xl">{title}</p>
+						<p class="text-lg mb-6">
+							Currently working at STIM and running my own IT consulting company.
+						</p>
+						<div class="card-actions justify-center">
+							<a href={latestPost.url} class="btn btn-primary">
+								Latest Blog Post
+								<IconChevronRight class="w-4 h-4 ml-2" />
+							</a>
+							<a href={featuredProject.url} class="btn btn-secondary">
+								Featured Project
+								<IconChevronRight class="w-4 h-4 ml-2" />
+							</a>
 						</div>
 					</div>
 				{/if}
