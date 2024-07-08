@@ -33,7 +33,7 @@
 						<p class="text-lg mb-6">
 							Currently working at STIM and running my own IT consulting company.
 						</p>
-						<div class="card-actions justify-center">
+						<div class="flex justify-center space-x-4">
 							<a href={latestPost.url} class="btn btn-primary">
 								Latest Blog Post
 								<IconChevronRight class="w-4 h-4 ml-2" />

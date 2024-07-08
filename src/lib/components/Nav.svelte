@@ -29,6 +29,7 @@
 					<li><a href="/" class:active={currentPath === '/'}>Home</a></li>
 					<li><a href="/about" class:active={currentPath === '/about'}>About</a></li>
 					<li><a href="/projects" class:active={currentPath === '/projects'}>Projects</a></li>
+					<li><a href="/blog" class:active={currentPath.startsWith('/blog')}>Blog</a></li>
 					<li><a href="/contact" class:active={currentPath === '/contact'}>Contact</a></li>
 				</ul>
 			{/if}
@@ -40,6 +41,7 @@
 			<li><a href="/" class:active={currentPath === '/'}>Home</a></li>
 			<li><a href="/about" class:active={currentPath === '/about'}>About</a></li>
 			<li><a href="/projects" class:active={currentPath === '/projects'}>Projects</a></li>
+			<li><a href="/blog" class:active={currentPath.startsWith('/blog')}>Blog</a></li>
 			<li><a href="/contact" class:active={currentPath === '/contact'}>Contact</a></li>
 		</ul>
 	</div>

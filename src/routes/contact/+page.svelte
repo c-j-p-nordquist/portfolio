@@ -33,7 +33,7 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<div class="card bg-base-200">
 					<div class="card-body">
-						<h2 class="card-title mb-4">Get in Touch</h2>
+						<h2 class="card-title text-2xl mb-4">Get in Touch</h2>
 						<p class="mb-4">Feel free to reach out to me through any of the following methods:</p>
 						<div class="flex flex-col space-y-2">
 							<a href="mailto:philip@nordquist.me" class="btn btn-outline btn-primary">
@@ -64,7 +64,7 @@
 
 				<div class="card bg-base-200">
 					<div class="card-body">
-						<h2 class="card-title mb-4">Send a Message</h2>
+						<h2 class="card-title text-2xl mb-4">Send a Message</h2>
 						<form on:submit|preventDefault={handleSubmit}>
 							<div class="form-control">
 								<label class="label" for="name">
