@@ -17,6 +17,15 @@ export default {
           neutral: "#3d4451",
           "base-100": "#F5F7F8",
         },
+        dark: {
+          ...require("daisyui/src/theming/themes")["cyberpunk"],
+          primary: "#F4CE14",
+          secondary: "#495E57",
+          accent: "#45474B",
+          neutral: "#3d4451",
+          "base-100": "#1a1a1a",  // Dark background
+          "base-content": "#F5F7F8",  // Light text for dark background
+        },
       },
     ],
   },
