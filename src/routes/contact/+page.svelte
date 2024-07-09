@@ -31,12 +31,12 @@
 			<h1 class="text-4xl font-bold mb-8 text-center">Contact Me</h1>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-				<div class="card bg-base-200">
+				<div class="card bg-primary">
 					<div class="card-body">
 						<h2 class="card-title text-2xl mb-4">Get in Touch</h2>
 						<p class="mb-4">Feel free to reach out to me through any of the following methods:</p>
 						<div class="flex flex-col space-y-2">
-							<a href="mailto:philip@nordquist.me" class="btn btn-outline btn-primary">
+							<a href="mailto:philip@nordquist.me" class="btn btn-outline btn-secondary">
 								<IconMail class="w-5 h-5 mr-2" />
 								philip@nordquist.me
 							</a>
@@ -44,7 +44,7 @@
 								href="https://www.linkedin.com/in/philipnordquist/"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="btn btn-outline btn-primary"
+								class="btn btn-outline btn-secondary"
 							>
 								<IconLinkedin class="w-5 h-5 mr-2" />
 								LinkedIn
@@ -53,7 +53,7 @@
 								href="https://github.com/philipnordquist"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="btn btn-outline btn-primary"
+								class="btn btn-outline btn-secondary"
 							>
 								<IconGithub class="w-5 h-5 mr-2" />
 								GitHub

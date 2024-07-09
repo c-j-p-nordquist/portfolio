@@ -64,7 +64,7 @@
 						<li class="relative border-l-2 lg:border-l-0 lg:border-t-2 border-primary">
 							{#if index !== 0}<hr class="border-primary" />{/if}
 							<div class="timeline-start">{exp.year}</div>
-							<div class="timeline-end bg-base-200 p-4 rounded-box">
+							<div class="timeline-end bg-primary p-4 rounded-box">
 								<h3 class="text-lg font-semibold">{exp.title}</h3>
 								<p class="text-sm text-base-content opacity-70">{exp.company} • {exp.location}</p>
 								{#if exp.url}
@@ -72,7 +72,7 @@
 										href={exp.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="text-primary hover:text-primary-focus text-sm flex items-center gap-1 mt-1"
+										class="text-secondary hover:text-primary-focus text-sm flex items-center gap-1 mt-1"
 									>
 										Visit Website <IconExternalLink class="w-4 h-4" />
 									</a>

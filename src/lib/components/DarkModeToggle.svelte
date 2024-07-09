@@ -8,11 +8,11 @@
 	onMount(() => {
 		const isDarkMode = localStorage.getItem('darkMode') === 'true';
 		darkMode = isDarkMode;
-		document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+		document.documentElement.setAttribute('data-theme', isDarkMode ? 'black' : 'lofi');
 	});
 
 	$effect(() => {
-		document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+		document.documentElement.setAttribute('data-theme', darkMode ? 'black' : 'lofi');
 		localStorage.setItem('darkMode', darkMode);
 	});
 
