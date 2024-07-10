@@ -5,10 +5,7 @@
 	let {
 		name = 'Philip Nordquist',
 		title = 'Infrastructure & Security',
-		latestPost = {
-			title: 'Implementing Zero Trust Architecture',
-			url: '/blog/implementing-zero-trust-architecture'
-		},
+		latestPost,
 		featuredProject = {
 			title: 'Cloud-Native Monitoring Solution',
 			url: '/projects/cloud-native-monitoring'

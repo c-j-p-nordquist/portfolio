@@ -1,30 +1,12 @@
 <script>
-	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconTag from '~icons/lucide/tag';
 
+	let { data } = $props();
 	let visible = $state(false);
-	let blogPosts = $state([
-		{
-			slug: 'implementing-zero-trust-architecture',
-			title: 'Implementing Zero Trust Architecture',
-			date: '2023-12-01',
-			excerpt:
-				'An exploration of Zero Trust Architecture and its implementation in modern systems.',
-			topics: ['Security', 'Architecture']
-		},
-		{
-			slug: 'cloud-native-monitoring-solutions',
-			title: 'Cloud-Native Monitoring Solutions',
-			date: '2023-11-15',
-			excerpt: 'A deep dive into various cloud-native monitoring solutions and their benefits.',
-			topics: ['Cloud', 'Monitoring']
-		}
-		// Add more blog posts here
-	]);
 
-	onMount(() => {
+	$effect(() => {
 		document.title = 'Blog - Philip Nordquist';
 		visible = true;
 	});
@@ -36,7 +18,7 @@
 			<h1 class="text-4xl font-bold mb-8 text-center">Blog</h1>
 
 			<div class="space-y-8">
-				{#each blogPosts as post}
+				{#each data.posts as post}
 					<article class="card bg-base-200 shadow-xl">
 						<div class="card-body">
 							<h2 class="card-title text-2xl">

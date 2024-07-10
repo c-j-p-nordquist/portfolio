@@ -1,13 +1,12 @@
 <script>
 	import Hero from '$lib/components/Hero.svelte';
 
+	let { data } = $props();
+
 	let name = $state('Philip Nordquist');
 	let title = $state('Infrastructure & Security');
 
-	let latestPost = $state({
-		title: 'Implementing Zero Trust Architecture',
-		url: '/blog/implementing-zero-trust-architecture'
-	});
+	let latestPost = $derived(data.latestPost);
 	let featuredProject = $state({
 		title: 'Cloud-Native Monitoring Solution',
 		url: '/projects/cloud-native-monitoring'

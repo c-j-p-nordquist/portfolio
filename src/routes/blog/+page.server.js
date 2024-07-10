@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { error } from '@sveltejs/kit';
 
 function extractMetadata(content) {
     const match = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
@@ -14,24 +13,23 @@ function extractMetadata(content) {
     return {};
 }
 
-export function load({ params }) {
-    const { slug } = params;
+export function load() {
     const postsDirectory = path.join(process.cwd(), 'src/lib/data/posts');
-    const fullPath = path.join(postsDirectory, `${slug}.html`);
+    const fileNames = fs.readdirSync(postsDirectory);
 
-    try {
+    const posts = fileNames.map(fileName => {
+        const slug = fileName.replace(/\.html$/, '');
+        const fullPath = path.join(postsDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const metadata = extractMetadata(fileContents);
-        const content = fileContents.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '');
 
         return {
-            post: {
-                slug,
-                content,
-                ...metadata
-            }
+            slug,
+            ...metadata
         };
-    } catch (err) {
-        throw error(404, `Could not find post ${slug}`);
-    }
+    });
+
+    return {
+        posts: posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+    };
 }

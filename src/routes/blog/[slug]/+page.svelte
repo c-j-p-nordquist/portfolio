@@ -1,17 +1,14 @@
 <script>
-	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconTag from '~icons/lucide/tag';
 	import IconChevronLeft from '~icons/lucide/chevron-left';
 
 	let { data } = $props();
-
 	let visible = $state(false);
-	let post = $derived(data.post);
 
-	onMount(() => {
-		document.title = `${post.title} - Philip Nordquist's Blog`;
+	$effect(() => {
+		document.title = `${data.post.title} - Philip Nordquist's Blog`;
 		visible = true;
 	});
 </script>
@@ -23,20 +20,20 @@
 				<IconChevronLeft class="w-4 h-4 mr-2" />
 				Back to Blog
 			</a>
-			<h1>{post.title}</h1>
+			<h1>{data.post.title}</h1>
 			<div class="flex items-center text-sm text-gray-500 mb-4">
 				<IconCalendar class="w-4 h-4 mr-1" />
-				<time datetime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
+				<time datetime={data.post.date}>{new Date(data.post.date).toLocaleDateString()}</time>
 			</div>
 			<div class="mb-8">
-				{#each post.topics as topic}
+				{#each data.post.topics as topic}
 					<div class="badge badge-outline mr-2">
 						<IconTag class="w-4 h-4 mr-1" />
 						{topic}
 					</div>
 				{/each}
 			</div>
-			<div>{@html post.content}</div>
+			{@html data.post.content}
 		</article>
 	{/if}
 </main>
