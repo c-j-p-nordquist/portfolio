@@ -1,7 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
-  theme: {},
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Literata', 'Georgia', 'serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+    },
+  },
   plugins: [
     require('@tailwindcss/typography'),
     require('daisyui'),

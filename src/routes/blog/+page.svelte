@@ -29,7 +29,6 @@
 		const filtered = matches.filter((m) => m.key === key);
 		if (key === 'topics') {
 			return fullText.map((topic) => {
-				// Check if the topic matches the search term (case-insensitive)
 				const isMatch = searchTerm && topic.toLowerCase().includes(searchTerm.toLowerCase());
 				return [{ text: topic, matches: isMatch, key }];
 			});
@@ -41,10 +40,10 @@
 	}
 </script>
 
-<main class="container mx-auto px-4 py-8">
+<main class="container mx-auto px-4 py-8 font-sans">
 	{#if visible}
 		<div in:fade={{ duration: 1000 }}>
-			<h1 class="text-4xl font-bold mb-8 text-center">Blog</h1>
+			<h1 class="text-4xl font-bold mb-8 text-center font-mono">Blog</h1>
 
 			<div class="mb-8">
 				<SearchBar onSearch={handleSearch} />
@@ -54,7 +53,7 @@
 				{#each searchResults as { item: post, matches }}
 					<article class="card bg-base-200 shadow-xl">
 						<div class="card-body">
-							<h2 class="card-title text-2xl">
+							<h2 class="card-title text-2xl font-mono">
 								<a href={`/blog/${post.slug}`} class="hover:underline">
 									<Highlighter line={getHighlightLine(matches, 'title', post.title)} />
 								</a>
@@ -63,12 +62,12 @@
 								<IconCalendar class="w-4 h-4 mr-1" />
 								<time datetime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
 							</div>
-							<p class="mb-4">
+							<p class="mb-4 font-sans">
 								<Highlighter line={getHighlightLine(matches, 'excerpt', post.excerpt)} />
 							</p>
 							<div class="card-actions justify-end">
 								{#each getHighlightLine(matches, 'topics', post.topics) as topicLine}
-									<div class="badge badge-outline">
+									<div class="badge badge-outline font-mono">
 										<IconTag class="w-4 h-4 mr-1" />
 										<Highlighter line={topicLine} />
 									</div>
