@@ -53,7 +53,7 @@
 				{#each searchResults as { item: post, matches }}
 					<article class="card bg-base-200 shadow-xl">
 						<div class="card-body">
-							<h2 class="card-title text-2xl font-mono">
+							<h2 class="card-title text-2xl font-serif">
 								<a href={`/blog/${post.slug}`} class="hover:underline">
 									<Highlighter line={getHighlightLine(matches, 'title', post.title)} />
 								</a>

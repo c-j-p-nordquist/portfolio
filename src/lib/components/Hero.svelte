@@ -31,7 +31,7 @@
 		<div class="max-w-md">
 			{#if visible}
 				<div in:fade={{ duration: 1000 }}>
-					<h1 class="font-sans text-4xl sm:text-5xl font-bold mb-4">{name}</h1>
+					<h1 class="font-serif text-4xl sm:text-5xl font-bold mb-4">{name}</h1>
 					<p class="py-4 sm:py-6 text-xl sm:text-2xl">{title}</p>
 					<p class="text-base sm:text-lg mb-6">{subtitle}</p>
 					<div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
