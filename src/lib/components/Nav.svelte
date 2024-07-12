@@ -90,7 +90,10 @@
 				</label>
 			</div>
 			<div class="flex-1 px-2 mx-2 lg:flex-none">
-				<a href="/" class="btn btn-ghost normal-case text-xl">Portfolio</a>
+				<a href="/" class="btn btn-ghost normal-case text-xl flex items-center">
+					<img src="/images/logo.svg" alt="PN Logo" class="w-8 h-8 mr-2" />
+					philip.nordquist.me
+				</a>
 			</div>
 			<div class="flex-none hidden lg:flex lg:flex-1 lg:justify-center">
 				<ul class="menu menu-horizontal px-1 relative" bind:this={navContainer}>
