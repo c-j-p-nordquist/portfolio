@@ -2,9 +2,11 @@
 	import { onMount } from 'svelte';
 	import IconGithub from '~icons/lucide/github';
 	import IconExternalLink from '~icons/lucide/external-link';
+	import IconImage from '~icons/lucide/image';
 
 	let { title, description, imageUrl, tags, githubUrl, liveUrl } = $props();
 	let imageLoaded = $state(false);
+	let imageError = $state(false);
 	let truncatedDescription = $state('');
 
 	$effect(() => {
@@ -18,6 +20,9 @@
 			img.onload = () => {
 				imageLoaded = true;
 			};
+			img.onerror = () => {
+				imageError = true;
+			};
 			img.src = imageUrl;
 		}
 	});
@@ -26,15 +31,17 @@
 <div
 	class="card bg-base-200 shadow-xl h-full flex flex-col hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
 >
-	<figure class="relative overflow-hidden h-48">
+	<figure class="relative overflow-hidden h-48 bg-base-300">
 		{#if imageLoaded}
 			<img
 				src={imageUrl}
 				alt={title}
 				class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
 			/>
-		{:else}
-			<div class="skeleton w-full h-full"></div>
+		{:else if imageError || !imageUrl}
+			<div class="w-full h-full flex items-center justify-center">
+				<IconImage class="w-16 h-16 text-base-content opacity-30" />
+			</div>
 		{/if}
 	</figure>
 	<div class="card-body flex-grow flex flex-col justify-between">
