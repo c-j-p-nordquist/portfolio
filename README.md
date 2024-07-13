@@ -71,9 +71,12 @@ This repository contains the source code for Philip Nordquist's personal website
 - `Nav.svelte`: Main navigation component with integrated search functionality
 - `SearchModal.svelte`: Universal search modal using DaisyUI and the `<dialog>` element
 - `ProjectCard.svelte`: Reusable component for displaying project information
-- `DarkModeToggle.svelte`: Component for toggling between light and dark modes
-- `Hero.svelte`: Hero section component for the homepage
-- `SkillBadge.svelte`: Component for displaying skill badges
+- `+layout.svelte`: Main layout component that wraps all pages
+- `+layout.server.js`: Server-side logic for initializing search index and handling global data
+- `api/search/+server.js`: API endpoint for search functionality
+- `api/posts/+server.js`: API endpoint for retrieving blog posts
+- `utils/search.js`: Utility functions for search operations
+- `utils/posts.js`: Utility functions for handling blog posts
 
 ## Search Functionality
 
