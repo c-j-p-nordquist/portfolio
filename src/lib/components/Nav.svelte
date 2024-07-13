@@ -5,6 +5,8 @@
 	import { goto } from '$app/navigation';
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import IconMenu from '~icons/lucide/menu';
+	import IconSearch from '~icons/lucide/search';
+	import SearchModal from './SearchModal.svelte';
 
 	let currentPath = $derived($page.url.pathname);
 
@@ -19,6 +21,7 @@
 	let drawerChecked = $state(false);
 	let navContainer;
 	let trail = $state({ start: 0, end: 0, opacity: 0 });
+	let showSearchModal = $state(false);
 
 	function handleClickAndPrevent(index, event) {
 		event.preventDefault();
@@ -27,7 +30,6 @@
 
 	function handleClick(index, event) {
 		if (window.innerWidth >= 1024) {
-			// Only animate on larger screens
 			const items = navContainer.querySelectorAll('li');
 			const clickedItem = items[index];
 			const activeItem = navContainer.querySelector('.active');
@@ -39,10 +41,9 @@
 			const start = activeRect.left - containerRect.left;
 			const end = clickedRect.right - containerRect.left;
 
-			// Animate the trail
 			let progress = 0;
 			const animate = () => {
-				progress += 0.05; // Adjust this value to control speed
+				progress += 0.05;
 				const currentStart = start + (clickedRect.left - activeRect.left) * cubicOut(progress);
 				const currentEnd =
 					activeRect.right -
@@ -66,17 +67,24 @@
 			requestAnimationFrame(animate);
 		}
 
-		// Navigate to the clicked item
 		goto(navItems[index].link);
+		closeDrawerAndSearch();
 	}
 
-	function closeDrawerAndNavigate(link) {
+	function closeDrawerAndSearch() {
 		drawerChecked = false;
-		goto(link);
+		showSearchModal = false;
 	}
 
 	function menuItemFly(node, { delay = 0 }) {
 		return fly(node, { y: 20, duration: 200, delay });
+	}
+
+	function toggleSearchModal() {
+		showSearchModal = !showSearchModal;
+		if (showSearchModal) {
+			drawerChecked = false;
+		}
 	}
 </script>
 
@@ -92,7 +100,7 @@
 			<div class="flex-1 px-2 mx-2 lg:flex-none">
 				<a href="/" class="btn btn-ghost normal-case text-xl flex items-center">
 					<img src="/images/logo.svg" alt="PN Logo" class="w-8 h-8 mr-2" />
-					philip.nordquist.me
+					<span class="hidden lg:inline">philip.nordquist.me</span>
 				</a>
 			</div>
 			<div class="flex-none hidden lg:flex lg:flex-1 lg:justify-center">
@@ -118,6 +126,11 @@
 				</ul>
 			</div>
 			<div class="flex-none">
+				<button class="btn btn-ghost btn-circle" onclick={toggleSearchModal}>
+					<IconSearch />
+				</button>
+			</div>
+			<div class="flex-none ml-2">
 				<DarkModeToggle />
 			</div>
 		</div>
@@ -132,13 +145,23 @@
 							href={item.link}
 							class:active={currentPath === item.link ||
 								(item.link !== '/' && currentPath.startsWith(item.link))}
-							onclick={() => closeDrawerAndNavigate(item.link)}
+							onclick={() => handleClick(index)}
 						>
 							{item.name}
 						</a>
 					</li>
 				{/each}
+				<li class="mt-4">
+					<button onclick={toggleSearchModal} class="btn btn-ghost w-full justify-start">
+						<IconSearch class="mr-2" />
+						Search
+					</button>
+				</li>
 			</ul>
 		</div>
 	{/if}
 </div>
+
+{#if showSearchModal}
+	<SearchModal onClose={closeDrawerAndSearch} />
+{/if}
