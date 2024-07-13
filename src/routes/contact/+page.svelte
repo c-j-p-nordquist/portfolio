@@ -9,14 +9,46 @@
 	let email = $state('');
 	let message = $state('');
 	let visible = $state(false);
+	let formErrors = $state({});
+	let isSubmitting = $state(false);
 
-	function handleSubmit() {
-		// Here you would typically send the form data to a server
-		console.log('Form submitted', { name, email, message });
-		alert('Thank you for your message! I will get back to you soon.');
-		name = '';
-		email = '';
-		message = '';
+	function validateForm() {
+		formErrors = {};
+		if (!name.trim()) formErrors.name = 'Name is required';
+		if (!email.trim()) formErrors.email = 'Email is required';
+		else if (!/\S+@\S+\.\S+/.test(email)) formErrors.email = 'Invalid email format';
+		if (!message.trim()) formErrors.message = 'Message is required';
+		return Object.keys(formErrors).length === 0;
+	}
+
+	async function handleSubmit(event) {
+		event.preventDefault();
+		if (!validateForm()) return;
+
+		isSubmitting = true;
+		try {
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ name, email, message })
+			});
+
+			const result = await response.json();
+
+			if (response.ok) {
+				alert(result.message);
+				name = '';
+				email = '';
+				message = '';
+			} else {
+				throw new Error(result.message);
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			alert('There was an error sending your message. Please try again later.');
+		} finally {
+			isSubmitting = false;
+		}
 	}
 
 	onMount(() => {
@@ -65,47 +97,70 @@
 				<div class="card bg-base-200">
 					<div class="card-body">
 						<h2 class="card-title text-2xl mb-4">Send a Message</h2>
-						<form on:submit|preventDefault={handleSubmit}>
+						<form onsubmit={handleSubmit}>
 							<div class="form-control">
-								<label class="label" for="name">
+								<label for="name" class="label">
 									<span class="label-text">Name</span>
 								</label>
 								<input
 									type="text"
 									id="name"
-									bind:value={name}
+									value={name}
+									oninput={(e) => (name = e.target.value)}
 									placeholder="Your name"
 									class="input input-bordered"
+									class:input-error={formErrors.name}
 									required
 								/>
+								{#if formErrors.name}
+									<label for="name" class="label">
+										<span class="label-text-alt text-error">{formErrors.name}</span>
+									</label>
+								{/if}
 							</div>
 							<div class="form-control mt-4">
-								<label class="label" for="email">
+								<label for="email" class="label">
 									<span class="label-text">Email</span>
 								</label>
 								<input
 									type="email"
 									id="email"
-									bind:value={email}
+									value={email}
+									oninput={(e) => (email = e.target.value)}
 									placeholder="Your email"
 									class="input input-bordered"
+									class:input-error={formErrors.email}
 									required
 								/>
+								{#if formErrors.email}
+									<label for="email" class="label">
+										<span class="label-text-alt text-error">{formErrors.email}</span>
+									</label>
+								{/if}
 							</div>
 							<div class="form-control mt-4">
-								<label class="label" for="message">
+								<label for="message" class="label">
 									<span class="label-text">Message</span>
 								</label>
 								<textarea
 									id="message"
-									bind:value={message}
+									value={message}
+									oninput={(e) => (message = e.target.value)}
 									placeholder="Your message"
 									class="textarea textarea-bordered h-24"
+									class:textarea-error={formErrors.message}
 									required
 								></textarea>
+								{#if formErrors.message}
+									<label for="message" class="label">
+										<span class="label-text-alt text-error">{formErrors.message}</span>
+									</label>
+								{/if}
 							</div>
 							<div class="form-control mt-6">
-								<button type="submit" class="btn btn-primary">Send Message</button>
+								<button type="submit" class="btn btn-primary" disabled={isSubmitting}>
+									{isSubmitting ? 'Sending...' : 'Send Message'}
+								</button>
 							</div>
 						</form>
 					</div>

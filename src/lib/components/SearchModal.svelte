@@ -66,7 +66,7 @@
 		{:else if results.length > 0}
 			<ul class="space-y-2 max-h-96 overflow-y-auto" role="listbox">
 				{#each results as result}
-					<li role="option">
+					<li role="option" aria-selected="false">
 						<button
 							onclick={() => handleResultClick(result.slug)}
 							class="block w-full text-left p-2 hover:bg-base-200 rounded"
