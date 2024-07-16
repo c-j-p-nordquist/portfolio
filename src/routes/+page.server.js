@@ -1,42 +1,13 @@
-import fs from 'fs';
-import path from 'path';
+import { getPosts } from '$lib/utils/posts';
 
-function extractMetadata(content) {
-    const match = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-    if (match && match[1]) {
-        try {
-            return JSON.parse(match[1]);
-        } catch (e) {
-            console.error('Error parsing metadata:', e);
-        }
-    }
-    return {};
-}
-
-export function load() {
-    const postsDirectory = path.join(process.cwd(), 'src/lib/data/posts');
-    const fileNames = fs.readdirSync(postsDirectory);
-
-    const posts = fileNames.map(fileName => {
-        const slug = fileName.replace(/\.html$/, '');
-        const fullPath = path.join(postsDirectory, fileName);
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
-        const metadata = extractMetadata(fileContents);
-
-        return {
-            slug,
-            ...metadata
-        };
-    });
-
-    // Sort posts by date and get the latest one
-    const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const latestPost = sortedPosts[0];
+export async function load() {
+    const posts = await getPosts();
+    const latestPost = posts[0];
 
     return {
-        latestPost: {
+        latestPost: latestPost ? {
             title: latestPost.title,
             url: `/blog/${latestPost.slug}`
-        }
+        } : null
     };
 }

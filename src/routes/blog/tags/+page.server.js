@@ -1,6 +1,3 @@
-import { getAllPosts } from '$lib/utils/posts';
-
-export function load() {
-    const posts = getAllPosts();
-    return { posts };
+export function load({ parent }) {
+    return parent();
 }

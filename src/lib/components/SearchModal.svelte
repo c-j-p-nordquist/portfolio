@@ -24,7 +24,7 @@
 
 	$effect(() => {
 		if (dialogRef && dialogRef.open) {
-			inputRef.focus();
+			inputRef?.focus();
 		}
 	});
 
@@ -72,7 +72,7 @@
 							class="block w-full text-left p-2 hover:bg-base-200 rounded"
 						>
 							<div class="font-semibold">{@html result.title}</div>
-							<div class="text-sm mt-1">{@html result.content[0]}</div>
+							<div class="text-sm mt-1">{@html result.description}</div>
 						</button>
 					</li>
 				{/each}

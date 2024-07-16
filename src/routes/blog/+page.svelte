@@ -1,50 +1,31 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import IconCalendar from '~icons/lucide/calendar';
-	import IconTag from '~icons/lucide/tag';
+	import { formatDate } from '$lib/utils/formatDate';
 
 	let { data } = $props();
-	let visible = $state(false);
-
-	$effect(() => {
-		document.title = 'Blog - Philip Nordquist';
-		visible = true;
-	});
 </script>
 
-<main class="container mx-auto px-4 py-8 font-sans">
-	{#if visible}
-		<div in:fade={{ duration: 1000 }}>
-			<h1 class="text-4xl font-bold mb-8 text-center font-mono">Blog</h1>
-
-			<div class="space-y-8">
-				{#each data.posts as post}
-					<article class="card bg-base-200 shadow-xl">
-						<div class="card-body">
-							<h2 class="card-title text-2xl font-serif">
-								<a href={`/blog/${post.slug}`} class="hover:underline">
-									{post.title}
-								</a>
-							</h2>
-							<div class="flex items-center text-sm text-gray-500 mb-2">
-								<IconCalendar class="w-4 h-4 mr-1" />
-								<time datetime={post.date}>{new Date(post.date).toLocaleDateString()}</time>
-							</div>
-							<p class="mb-4 font-sans">
-								{post.excerpt}
-							</p>
-							<div class="card-actions justify-end">
-								{#each post.topics as topic}
-									<div class="badge badge-outline font-mono">
-										<IconTag class="w-4 h-4 mr-1" />
-										{topic}
-									</div>
-								{/each}
-							</div>
+<div class="container mx-auto px-4 py-8 max-w-3xl">
+	<h1 class="text-4xl font-bold mb-8">Blog Posts</h1>
+	<ul class="space-y-4">
+		{#each data.posts as post}
+			<li class="card bg-base-100 shadow-xl">
+				<div class="card-body">
+					<h2 class="card-title">
+						<a href={post.path} class="link link-hover">{post.title}</a>
+					</h2>
+					<p class="text-base-content text-opacity-60">Published on {formatDate(post.date)}</p>
+					{#if post.description}
+						<p>{post.description}</p>
+					{/if}
+					{#if post.topics}
+						<div class="card-actions justify-end">
+							{#each post.topics as topic}
+								<div class="badge badge-outline">{topic}</div>
+							{/each}
 						</div>
-					</article>
-				{/each}
-			</div>
-		</div>
-	{/if}
-</main>
+					{/if}
+				</div>
+			</li>
+		{/each}
+	</ul>
+</div>
