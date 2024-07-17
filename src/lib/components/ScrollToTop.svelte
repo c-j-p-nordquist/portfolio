@@ -1,16 +1,17 @@
 <script>
-	import { onMount } from 'svelte';
 	import IconArrowUp from '~icons/lucide/arrow-up';
 
 	let showButton = $state(false);
 
 	function scrollToTop() {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
+		// Dispatch a custom event to show the navbar
+		window.dispatchEvent(new CustomEvent('showNavbar'));
 	}
 
-	onMount(() => {
+	$effect(() => {
 		const handleScroll = () => {
-			showButton = window.pageYOffset > 300;
+			showButton = window.scrollY > 300;
 		};
 
 		window.addEventListener('scroll', handleScroll);

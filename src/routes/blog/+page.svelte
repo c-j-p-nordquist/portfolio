@@ -10,12 +10,14 @@
 		{#each data.posts as post}
 			<li class="card bg-base-100 shadow-xl">
 				<div class="card-body">
-					<h2 class="card-title">
+					<h2 class="card-title font-serif">
 						<a href={post.path} class="link link-hover">{post.title}</a>
 					</h2>
-					<p class="text-base-content text-opacity-60">Published on {formatDate(post.date)}</p>
+					<p class="text-base-content font-sans text-opacity-60">
+						Published on {formatDate(post.date)}
+					</p>
 					{#if post.description}
-						<p>{post.description}</p>
+						<p class="font-sans">{post.description}</p>
 					{/if}
 					{#if post.topics}
 						<div class="card-actions justify-end">

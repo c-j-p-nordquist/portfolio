@@ -21,7 +21,7 @@
 	}
 </script>
 
-<button onclick={toggleDarkMode} class="btn btn-ghost btn-circle">
+<button onclick={toggleDarkMode}>
 	{#if darkMode}
 		<IconSun />
 	{:else}

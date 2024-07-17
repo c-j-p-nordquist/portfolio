@@ -1,4 +1,5 @@
 <script>
+	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
 
 	let { children, title, date, topics } = $props();
@@ -16,7 +17,7 @@
 	{#if topics && topics.length > 0}
 		<div class="mb-8">
 			{#each topics as topic}
-				<span class="badge badge-outline mr-2">#{topic}</span>
+				<span class="badge badge-outline mr-2">{topic}</span>
 			{/each}
 		</div>
 	{/if}
@@ -24,3 +25,5 @@
 		{@render children()}
 	</div>
 </article>
+
+<ScrollToTop />

@@ -6,11 +6,8 @@
 </script>
 
 <div class="min-h-screen bg-base-100">
-	<div class="container mx-auto px-4 py-4">
-		<Nav />
-	</div>
-
-	<main>
+	<Nav />
+	<main class="pt-20 px-4 max-w-5xl mx-auto">
 		{@render children()}
 	</main>
 </div>
