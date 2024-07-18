@@ -4,24 +4,41 @@
 </script>
 
 <main class="container mx-auto px-4 py-8">
-	<h1 class="text-4xl font-bold mb-6">About Me</h1>
+	<article class="container mx-auto px-4 py-8 max-w-3xl">
+		<h1 class="text-4xl font-serif font-bold mb-4">About Me</h1>
+		<div class="prose lg:prose-xl font-sans">
+			<h2>Hi, I'm Philip</h2>
+			<p>
+				I'm a technology enthusiast with a keen interest in various tech fields. My curiosity drives
+				me to explore different areas of technology, from infrastructure and networking to software
+				development and beyond.
+			</p>
 
-	<section id="profile" class="mb-12">
-		<h2 class="text-3xl font-bold mb-4">Profile</h2>
-		<p class="text-lg mb-4">
-			As a passionate DevSecOps engineer and cloud infrastructure specialist, I thrive on creating
-			robust, secure, and scalable solutions. With a strong background in AWS and a keen interest in
-			cutting-edge technologies, I've successfully led teams in implementing zero-trust
-			architectures and optimizing CI/CD pipelines. My approach combines technical expertise with a
-			strategic mindset, always aiming to align infrastructure decisions with business goals.
-		</p>
-		<p class="text-lg mb-4">
-			One of my proudest achievements was orchestrating a company-wide migration to a microservices
-			architecture, which significantly improved our system's reliability and reduced deployment
-			times by 70%. I'm driven by the constant evolution in the tech world and am always eager to
-			learn and apply new technologies to solve complex problems.
-		</p>
-	</section>
+			<h3>My Approach to Tech</h3>
+			<p>
+				I appreciate the power of data-driven decision making in technology. When tackling a problem
+				or exploring a new tool, I always consider what questions we're trying to answer and how we
+				can measure outcomes effectively.
+			</p>
+
+			<h3>About This Blog</h3>
+			<p>
+				This blog is a personal project, separate from my professional work. It serves as a platform
+				for me to:
+			</p>
+			<ul>
+				<li>Share solutions to technical challenges I've encountered in my personal projects</li>
+				<li>Discuss interesting technology advancements and tools that catch my attention</li>
+				<li>Explore various tech-related topics that pique my curiosity</li>
+			</ul>
+			<p>
+				My aim is to contribute to the tech community by sharing my personal experiences and
+				insights. While the solutions or discussions here might be available elsewhere, I hope that
+				my perspective and the way I've applied these concepts might be helpful or interesting to
+				others with similar interests.
+			</p>
+		</div>
+	</article>
 
 	<section class="mb-12">
 		<h2 class="text-3xl font-bold mb-6 text-center">Key Skills</h2>
