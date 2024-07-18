@@ -3,47 +3,47 @@
 export const projects = [
     {
         id: 1,
-        title: "Cloud-Native Monitoring Solution",
-        description: "Developed a scalable monitoring system using Prometheus and Grafana for large-scale Kubernetes clusters.",
-        imageUrl: "/images/projects/monitoring-solution.jpg",
-        tags: ["DevOps", "Kubernetes", "Monitoring"],
-        githubUrl: "https://github.com/yourusername/cloud-native-monitoring",
-        liveUrl: "https://monitor.example.com"
+        title: "MacOS Development Environment Setup Scripts",
+        description: "A collection of bash scripts automating the setup of various development environments on MacOS. It includes scripts for DevOps, Golang, GPG, and terminal customization, streamlining the process of setting up a new development machine.",
+        imageUrl: "/images/projects/mac-terminal-bootstrap.png",
+        tags: ["DevOps", "Automation", "Bash", "MacOS"],
+        githubUrl: "https://github.com/c-j-p-nordquist/mac-terminal-bootstrap",
+        liveUrl: null
     },
     {
         id: 2,
-        title: "Infrastructure as Code Framework",
-        description: "Created a custom IaC framework using Terraform and Ansible to manage multi-cloud environments.",
-        imageUrl: "/images/projects/iac-framework.jpg",
-        tags: ["IaC", "Terraform", "Ansible"],
-        githubUrl: "https://github.com/yourusername/iac-framework",
+        title: "Insikt - Network Sniffer",
+        description: "A lightweight network sniffer written in Go, designed to capture and process network packets for analytics. It features a Data Capture Module for raw packet capture and traffic monitoring, with plans for expansion into data processing and integration with Prometheus.",
+        imageUrl: "/images/projects/insikt-network-sniffer.png",
+        tags: ["Go", "Networking", "Security", "Analytics"],
+        githubUrl: "https://github.com/c-j-p-nordquist/insikt",
         liveUrl: null
     },
     {
         id: 3,
-        title: "Automated CI/CD Pipeline",
-        description: "Implemented a robust CI/CD pipeline using GitLab CI and ArgoCD for seamless deployments to Kubernetes.",
-        imageUrl: "/images/projects/cicd-pipeline.jpg",
-        tags: ["CI/CD", "GitLab", "ArgoCD"],
-        githubUrl: "https://github.com/yourusername/automated-cicd",
-        liveUrl: "https://cicd-demo.example.com"
-    },
-    {
-        id: 4,
-        title: "Serverless ETL Data Pipeline",
-        description: "Designed and implemented a serverless ETL pipeline using AWS Lambda, S3, and Redshift for real-time data processing.",
-        imageUrl: "/images/projects/serverless-etl.jpg",
-        tags: ["AWS", "Serverless", "Data Engineering"],
-        githubUrl: "https://github.com/yourusername/serverless-etl",
+        title: "Argo CD on AWS EC2 Automation",
+        description: "An automation project that deploys an Argo CD control cluster on AWS EC2. It leverages Packer for image building, Terraform for infrastructure provisioning, and Helm for Kubernetes deployments, creating a robust and scalable GitOps pipeline for managing Kubernetes applications.",
+        imageUrl: "/images/projects/argocd-on-ec2.png",
+        tags: ["DevOps", "AWS", "Kubernetes", "GitOps", "Terraform", "Packer", "Helm"],
+        githubUrl: "https://github.com/c-j-p-nordquist/argocd-on-ec2",
         liveUrl: null
     },
     {
+        id: 4,
+        title: "Ekolod - Lightweight HTTP Status Probe",
+        description: "Ekolod is a versatile, lightweight HTTP probe designed for quick setup of status checks for web services. It features a built-in SvelteKit UI for easy visualization, supports deployment via Docker or Kubernetes, and offers Prometheus metrics export. While simple to set up for basic checks, Ekolod also allows for complex, customizable status checks with multiple operators and thresholds. Ideal for teams needing rapid deployment of comprehensive service monitoring, from simple endpoint checks to sophisticated API health monitoring.",
+        imageUrl: "/images/projects/ekolod-http-probe.png",
+        tags: ["Go", "SvelteKit", "Monitoring", "Docker", "Kubernetes", "DevOps"],
+        githubUrl: "https://github.com/c-j-p-nordquist/ekolod",
+        liveUrl: "https://status.nordquist.me"
+    },
+    {
         id: 5,
-        title: "Chaos Engineering Platform",
-        description: "Developed a chaos engineering platform to improve system resilience by simulating various failure scenarios.",
-        imageUrl: "/images/projects/chaos-engineering.jpg",
-        tags: ["SRE", "Chaos Engineering", "Resilience"],
-        githubUrl: "https://github.com/yourusername/chaos-platform",
-        liveUrl: "https://chaos.example.com"
+        title: "Personal Portfolio Website",
+        description: "A modern, responsive personal website showcasing projects, blog posts, and professional information in the field of DevOps and Software Engineering. Built with SvelteKit 5, TailwindCSS, and DaisyUI, it features a project showcase, a searchable blog system, and a universal search functionality. The site demonstrates proficiency in frontend development, SEO optimization through server-side rendering, and efficient search implementation using FlexSearch and web workers.",
+        imageUrl: "/images/projects/personal-portfolio.jpg",
+        tags: ["SvelteKit", "TailwindCSS", "DaisyUI", "Full-Stack", "SEO", "Web Development"],
+        githubUrl: "https://github.com/c-j-p-nordquist/portfolio",
+        liveUrl: "https://philip.nordquist.me"
     }
 ];
