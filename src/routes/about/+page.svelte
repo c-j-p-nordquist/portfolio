@@ -1,5 +1,4 @@
 <script>
-	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
 	import IconExternalLink from '~icons/lucide/external-link';
 	import { skills, experiences } from '$lib/data/profileData.js';
 </script>
@@ -85,5 +84,3 @@
 		</ul>
 	</section>
 </main>
-
-<ScrollToTop />

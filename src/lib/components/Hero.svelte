@@ -1,14 +1,8 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import IconChevronRight from '~icons/lucide/chevron-right';
+	import { fade, fly } from 'svelte/transition';
+	import IconChevronDown from '~icons/lucide/chevron-down';
 
-	let {
-		name = 'Philip Nordquist',
-		title = 'Infrastructure & Security Engineer',
-		subtitle = 'Exploring the Intersections of Cloud, Security, and DevOps',
-		latestPost,
-		featuredProject
-	} = $props();
+	let { name = 'PHILIP NORDQUIST', subtitle = 'PERSONAL PORTFOLIO' } = $props();
 
 	let visible = $state(false);
 
@@ -19,28 +13,47 @@
 
 		return () => clearTimeout(timer);
 	});
+
+	function scrollToContent() {
+		const contentSection = document.getElementById('main-content');
+		if (contentSection) {
+			contentSection.scrollIntoView({ behavior: 'smooth' });
+		}
+	}
 </script>
 
-<section class="hero min-h-[70vh] bg-base-200">
-	<div class="hero-content text-center">
-		<div class="max-w-2xl">
-			{#if visible}
-				<div in:fade={{ duration: 1000 }}>
-					<h1 class="font-serif text-5xl sm:text-6xl font-bold mb-4 text-primary">{name}</h1>
-					<p class="py-4 sm:py-6 text-2xl sm:text-3xl font-light text-secondary">{title}</p>
-					<p class="text-lg sm:text-xl mb-8 text-base-content text-opacity-80">{subtitle}</p>
-					<div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-						<a href={latestPost.url} class="btn btn-primary btn-lg text-primary-content">
-							Latest Insight
-							<IconChevronRight class="w-5 h-5 ml-2" />
-						</a>
-						<a href={featuredProject.url} class="btn btn-secondary btn-lg text-secondary-content">
-							Featured Project
-							<IconChevronRight class="w-5 h-5 ml-2" />
-						</a>
-					</div>
-				</div>
-			{/if}
-		</div>
+<section
+	class="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-br from-primary to-secondary"
+>
+	<div class="text-center text-primary-content z-10 px-4">
+		{#if visible}
+			<div class="flex flex-col items-center space-y-8" in:fade={{ duration: 1000, delay: 300 }}>
+				<img
+					src="/images/logo.svg"
+					alt="Logo"
+					class="w-32 h-32 mb-4"
+					in:fly={{ y: -50, duration: 1000, delay: 300 }}
+				/>
+				<h1
+					class="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight"
+					in:fly={{ y: 50, duration: 1000, delay: 600 }}
+				>
+					{name}
+				</h1>
+				<p
+					class="font-serif text-xl sm:text-2xl lg:text-3xl font-light tracking-wide"
+					in:fly={{ y: 50, duration: 1000, delay: 900 }}
+				>
+					{subtitle}
+				</p>
+				<button
+					onclick={scrollToContent}
+					class="btn btn-ghost btn-lg text-primary-content mt-8 animate-bounce"
+					in:fade={{ duration: 1000, delay: 1200 }}
+				>
+					<IconChevronDown class="w-8 h-8" />
+				</button>
+			</div>
+		{/if}
 	</div>
 </section>

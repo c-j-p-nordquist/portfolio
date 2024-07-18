@@ -1,5 +1,4 @@
 <script>
-	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
 
 	let { children, title, date, topics } = $props();
@@ -25,5 +24,3 @@
 		{@render children()}
 	</div>
 </article>
-
-<ScrollToTop />
