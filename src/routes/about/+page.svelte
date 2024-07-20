@@ -4,8 +4,8 @@
 </script>
 
 <main class="container mx-auto px-4 py-8">
-	<article class="container mx-auto px-4 py-8 max-w-3xl">
-		<h1 class="text-4xl font-serif font-bold mb-4">About Me</h1>
+	<section class="container mx-auto max-w-3xl">
+		<h1 class="text-4xl font-bold mb-8 text-center">About Me</h1>
 		<div class="prose lg:prose-xl font-sans">
 			<h2>Hi, I'm Philip</h2>
 			<p>
@@ -38,7 +38,7 @@
 				others with similar interests.
 			</p>
 		</div>
-	</article>
+	</section>
 
 	<section class="mb-12">
 		<h2 class="text-3xl font-bold mb-6 text-center">Key Skills</h2>
@@ -59,14 +59,16 @@
 	</section>
 
 	<section id="experience" class="mb-12">
-		<h2 class="text-3xl font-bold mb-6">Professional Experience</h2>
+		<h2 class="text-3xl font-bold mb-6 text-center">Professional Experience</h2>
 		<div class="space-y-6">
 			{#each experiences as exp, index}
 				<div class="flex flex-col md:flex-row md:space-x-4">
-					<div class=" font-bold text-primary md:mb-0 mb-2">{exp.year}</div>
+					<div class="font-bold text-primary md:mb-0 mb-2">{exp.year}</div>
 					<div class="md:w-3/4">
 						<h3 class="text-xl font-semibold">{exp.title}</h3>
-						<p class="text-base text-gray-600">{exp.company} • {exp.location}</p>
+						<p class="text-base text-base-content text-opacity-60">
+							{exp.company} • {exp.location}
+						</p>
 						{#if exp.url}
 							<a
 								href={exp.url}
@@ -85,7 +87,7 @@
 	</section>
 
 	<section id="education" class="mb-8">
-		<h2 class="text-3xl font-bold mb-4">Education</h2>
+		<h2 class="text-3xl font-bold mb-4 text-center">Education</h2>
 		<ul class="list-disc list-inside text-lg">
 			<li>Linköpings Universitet, Kommunikation, samhälle- och mediaproduktion (2008 - 2011)</li>
 			<li>Högskolan i Skövde, Dataspelsutveckling - Musik (2011 - 2014)</li>
@@ -93,7 +95,7 @@
 	</section>
 
 	<section id="certifications">
-		<h2 class="text-3xl font-bold mb-4">Certifications</h2>
+		<h2 class="text-3xl font-bold mb-4 text-center">Certifications</h2>
 		<ul class="list-disc list-inside text-lg">
 			<li>AWS Certified Solutions Architect – Associate (Oct 2021 - Oct 2024)</li>
 			<li>AWS Certified Cloud Practitioner (Aug 2020 - Aug 2023)</li>

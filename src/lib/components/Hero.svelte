@@ -2,7 +2,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import IconChevronDown from '~icons/lucide/chevron-down';
 
-	let { name = 'PHILIP NORDQUIST', subtitle = 'PERSONAL PORTFOLIO' } = $props();
+	let { name = 'PHILIP NORDQUIST', subtitle = 'PERSONAL PORTFOLIO', dispatch = {} } = $props();
 
 	let visible = $state(false);
 
@@ -15,15 +15,14 @@
 	});
 
 	function scrollToContent() {
-		const contentSection = document.getElementById('main-content');
-		if (contentSection) {
-			contentSection.scrollIntoView({ behavior: 'smooth' });
+		if (typeof dispatch.scrollToContent === 'function') {
+			dispatch.scrollToContent();
 		}
 	}
 </script>
 
 <section
-	class="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-br from-primary to-secondary"
+	class="relative w-full h-screen flex items-center justify-center bg-gradient-to-br from-primary to-secondary overflow-hidden"
 >
 	<div class="text-center text-primary-content z-10 px-4">
 		{#if visible}

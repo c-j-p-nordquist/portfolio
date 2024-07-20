@@ -1,24 +1,40 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import FilterModal from '$lib/components/FilterModal.svelte';
 	import { projects } from '$lib/data/projectData.js';
+	import IconFilter from '~icons/lucide/filter';
 
+	let isFilterOpen = $state(false);
+	let selectedTopics = $state([]);
+	let allTopics = $state([]);
 	let filteredProjects = $state([]);
-	let selectedTag = $state('All');
-	let allTags = $state(['All']);
 
 	$effect(() => {
-		allTags = ['All', ...new Set(projects.flatMap((project) => project.tags))];
+		allTopics = [...new Set(projects.flatMap((project) => project.tags))];
 	});
 
 	$effect(() => {
-		filteredProjects = projects.filter((project) => {
-			return selectedTag === 'All' || project.tags.includes(selectedTag);
-		});
+		filteredProjects =
+			selectedTopics.length === 0
+				? projects
+				: projects.filter((project) => project.tags.some((tag) => selectedTopics.includes(tag)));
 	});
 
-	function selectTag(tag) {
-		selectedTag = tag;
+	function toggleFilter() {
+		isFilterOpen = !isFilterOpen;
+	}
+
+	function toggleTopic(topic) {
+		if (selectedTopics.includes(topic)) {
+			selectedTopics = selectedTopics.filter((t) => t !== topic);
+		} else {
+			selectedTopics = [...selectedTopics, topic];
+		}
+	}
+
+	function clearFilters() {
+		selectedTopics = [];
 	}
 
 	$effect(() => {
@@ -27,32 +43,31 @@
 </script>
 
 <main class="container mx-auto px-4 py-8">
-	<h1 class="text-4xl font-bold mb-6">My Projects</h1>
-
-	<div class="mb-6 flex flex-col gap-4">
-		<h2 class="text-2xl font-semibold">Filters</h2>
-		<div class="flex flex-wrap gap-2">
-			{#each allTags as tag}
-				<button
-					class="btn btn-sm"
-					class:btn-primary={selectedTag === tag}
-					onclick={() => selectTag(tag)}
-				>
-					{tag}
-				</button>
-			{/each}
-		</div>
+	<div class="flex justify-between items-center mb-8">
+		<h1 class="text-4xl font-bold">My Projects</h1>
+		<button class="btn btn-primary" onclick={toggleFilter}>
+			<IconFilter class="mr-2" /> Filter
+		</button>
 	</div>
 
-	{#if filteredProjects.length > 0}
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{#each filteredProjects as project (project.id)}
-				<div in:fade={{ duration: 300 }}>
-					<ProjectCard {...project} />
-				</div>
-			{/each}
-		</div>
-	{:else}
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+		{#each filteredProjects as project (project.id)}
+			<div transition:fade={{ duration: 300 }}>
+				<ProjectCard {...project} />
+			</div>
+		{/each}
+	</div>
+
+	{#if filteredProjects.length === 0}
 		<p class="text-center text-xl mt-8">No projects found matching your criteria.</p>
 	{/if}
 </main>
+
+<FilterModal
+	isOpen={isFilterOpen}
+	{allTopics}
+	{selectedTopics}
+	onClose={toggleFilter}
+	onToggleTopic={toggleTopic}
+	onClearFilters={clearFilters}
+/>

@@ -22,7 +22,7 @@
 {#if showButton}
 	<button
 		onclick={scrollToTop}
-		class="btn btn-circle btn-primary fixed bottom-4 right-4 z-50 opacity-70 hover:opacity-100 transition-opacity duration-300"
+		class="btn btn-circle btn-primary fixed bottom-4 right-4 z-30 opacity-70 hover:opacity-100 transition-opacity duration-300"
 		aria-label="Scroll to top"
 	>
 		<IconArrowUp />

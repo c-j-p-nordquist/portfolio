@@ -41,7 +41,7 @@ export const projects = [
         id: 5,
         title: "Personal Portfolio Website",
         description: "A modern, responsive personal website showcasing projects, blog posts, and professional information in the field of DevOps and Software Engineering. Built with SvelteKit 5, TailwindCSS, and DaisyUI, it features a project showcase, a searchable blog system, and a universal search functionality. The site demonstrates proficiency in frontend development, SEO optimization through server-side rendering, and efficient search implementation using FlexSearch and web workers.",
-        imageUrl: "/images/projects/personal-portfolio.jpg",
+        imageUrl: "/images/projects/personal-portfolio.png",
         tags: ["SvelteKit", "TailwindCSS", "DaisyUI", "Full-Stack", "SEO", "Web Development"],
         githubUrl: "https://github.com/c-j-p-nordquist/portfolio",
         liveUrl: "https://philip.nordquist.me"
