@@ -2,16 +2,22 @@
 	import IconGithub from '~icons/lucide/github';
 	import IconExternalLink from '~icons/lucide/external-link';
 
-	let { title, description, imageUrl, tags, githubUrl, liveUrl, image } = $props();
+	let { id, title, summary, imageUrl, tags, githubUrl, liveUrl, image } = $props();
 </script>
 
 <div
 	class="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
 >
-	{@render image()}
+	<a href={`/projects/${id}`} class="cursor-pointer">
+		{@render image()}
+	</a>
 	<div class="card-body">
-		<h2 class="card-title">{title}</h2>
-		<p>{description}</p>
+		<h2 class="card-title">
+			<a href={`/projects/${id}`} class="hover:text-primary transition-colors duration-200">
+				{title}
+			</a>
+		</h2>
+		<p class="line-clamp-3">{summary}</p>
 		<div class="card-actions justify-end mt-4">
 			{#if githubUrl}
 				<a

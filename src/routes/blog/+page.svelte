@@ -46,6 +46,13 @@
 </script>
 
 <main class="container mx-auto px-4 py-8 max-w-3xl">
+	<div class="text-sm breadcrumbs mb-4">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li>Blog</li>
+		</ul>
+	</div>
+
 	<div class="flex justify-between items-center mb-8">
 		<h1 class="text-4xl font-bold">Blog Posts</h1>
 		<button class="btn btn-primary" onclick={toggleFilter}>

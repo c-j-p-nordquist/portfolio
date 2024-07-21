@@ -27,6 +27,10 @@
 		}
 	}
 
+	function closeDrawer() {
+		drawerChecked = false;
+	}
+
 	function closeDrawerAndSearch() {
 		drawerChecked = false;
 		showSearchModal = false;
@@ -69,7 +73,7 @@
 				{#await postsPromise}
 					<p>Loading...</p>
 				{:then featuredPosts}
-					<NavItems {currentPath} {featuredProjects} {featuredPosts} />
+					<NavItems {currentPath} {featuredProjects} {featuredPosts} {closeDrawer} />
 				{:catch error}
 					<p>Error loading posts: {error.message}</p>
 				{/await}
@@ -91,7 +95,13 @@
 				{#await postsPromise}
 					<p>Loading...</p>
 				{:then featuredPosts}
-					<NavItems {currentPath} isMobile={true} {featuredProjects} {featuredPosts} />
+					<NavItems
+						{currentPath}
+						isMobile={true}
+						{featuredProjects}
+						{featuredPosts}
+						{closeDrawer}
+					/>
 				{:catch error}
 					<p>Error loading posts: {error.message}</p>
 				{/await}

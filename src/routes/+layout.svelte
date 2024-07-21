@@ -24,6 +24,20 @@
 		}
 	}
 
+	function handleInternalNavigation(event) {
+		const target = event.target.closest('a');
+		if (target && target.hostname === window.location.hostname) {
+			const targetId = target.getAttribute('href').split('#')[1];
+			if (targetId) {
+				event.preventDefault();
+				const element = document.getElementById(targetId);
+				if (element) {
+					element.scrollIntoView({ behavior: 'smooth' });
+				}
+			}
+		}
+	}
+
 	$effect(() => {
 		if (browser) {
 			const handleScroll = () => {
@@ -37,9 +51,11 @@
 			};
 
 			window.addEventListener('scroll', handleScroll, false);
+			document.body.addEventListener('click', handleInternalNavigation);
 
 			return () => {
 				window.removeEventListener('scroll', handleScroll, false);
+				document.body.removeEventListener('click', handleInternalNavigation);
 			};
 		}
 	});

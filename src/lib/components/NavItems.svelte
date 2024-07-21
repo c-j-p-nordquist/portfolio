@@ -3,8 +3,15 @@
 	import IconChevronDown from '~icons/lucide/chevron-down';
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import { cn } from '$lib/utils';
+	import { goto } from '$app/navigation';
 
-	let { currentPath, isMobile = false, featuredProjects = [], featuredPosts = [] } = $props();
+	let {
+		currentPath,
+		isMobile = false,
+		featuredProjects = [],
+		featuredPosts = [],
+		closeDrawer
+	} = $props();
 
 	let navItems = $state([
 		{ id: 'home', name: 'Home', link: '/' },
@@ -20,13 +27,20 @@
 		if (!isMobile && navItems[index].hasDropdown) {
 			openDropdown = openDropdown === id ? null : id;
 		} else {
-			window.location.href = link;
+			goto(link);
+			if (isMobile && closeDrawer) closeDrawer();
 		}
 		activeIdx = index;
 	}
 
+	function handleItemClick(link) {
+		goto(link);
+		openDropdown = null;
+		if (isMobile && closeDrawer) closeDrawer();
+	}
+
 	function getProjectLink(project) {
-		return project.slug ? `/projects/${project.slug}` : '/projects';
+		return `/projects/${project.id}`;
 	}
 
 	let list = {
@@ -70,22 +84,36 @@
 						<ul>
 							{#if item.id === 'projects'}
 								{#each featuredProjects as project}
-									<li><a href={getProjectLink(project)}>{project.title}</a></li>
+									<li>
+										<a
+											href={getProjectLink(project)}
+											onclick={() => handleItemClick(getProjectLink(project))}>{project.title}</a
+										>
+									</li>
 								{/each}
 							{:else if item.id === 'blog'}
 								{#each featuredPosts as post}
-									<li><a href={`/blog/${post.slug}`}>{post.title}</a></li>
+									<li>
+										<a
+											href={`/blog/${post.slug}`}
+											onclick={() => handleItemClick(`/blog/${post.slug}`)}>{post.title}</a
+										>
+									</li>
 								{/each}
 							{/if}
 							<li>
-								<a href={item.link} class="text-primary">
+								<a href={item.link} class="text-primary" onclick={() => handleItemClick(item.link)}>
 									View all {item.name.toLowerCase()} →
 								</a>
 							</li>
 						</ul>
 					</details>
 				{:else}
-					<a href={item.link} class={cn(currentPath === item.link ? 'active' : '')}>
+					<a
+						href={item.link}
+						class={cn(currentPath === item.link ? 'active' : '')}
+						onclick={() => handleItemClick(item.link)}
+					>
 						{item.name}
 					</a>
 				{/if}
@@ -140,6 +168,7 @@
 										<li use:motion>
 											<a
 												href={getProjectLink(project)}
+												onclick={() => handleItemClick(getProjectLink(project))}
 												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2"
 											>
 												<span class="flex items-center gap-1 text-sm font-medium">
@@ -158,6 +187,7 @@
 										<li use:motion>
 											<a
 												href={`/blog/${post.slug}`}
+												onclick={() => handleItemClick(`/blog/${post.slug}`)}
 												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2"
 											>
 												<span class="flex items-center gap-1 text-sm font-medium">
@@ -179,6 +209,7 @@
 								<li use:motion>
 									<a
 										href={item.link}
+										onclick={() => handleItemClick(item.link)}
 										class="group flex items-center gap-2 rounded-md border border-transparent text-primary font-semibold hover:text-primary-focus focus-visible:text-primary-focus focus-visible:border-primary focus-visible:outline-none p-2"
 									>
 										<span class="flex items-center gap-1 text-sm">
