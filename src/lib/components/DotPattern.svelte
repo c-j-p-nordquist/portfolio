@@ -14,7 +14,14 @@
 		...props
 	} = $props();
 
-	let id = $state(crypto.randomUUID().toString().slice(0, 10));
+	function generateUniqueId() {
+		if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+			return crypto.randomUUID().toString().slice(0, 10);
+		}
+		return Math.random().toString(36).substring(2, 12);
+	}
+
+	let id = $state(generateUniqueId());
 </script>
 
 <svg

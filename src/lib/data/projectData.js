@@ -8,7 +8,8 @@ export const projects = [
         imageUrl: "/images/projects/mac-terminal-bootstrap.png",
         tags: ["DevOps", "Automation", "Bash", "MacOS"],
         githubUrl: "https://github.com/c-j-p-nordquist/mac-terminal-bootstrap",
-        liveUrl: null
+        liveUrl: null,
+        featured: true
     },
     {
         id: 2,
@@ -17,7 +18,8 @@ export const projects = [
         imageUrl: "/images/projects/insikt-network-sniffer.png",
         tags: ["Go", "Networking", "Security", "Analytics"],
         githubUrl: "https://github.com/c-j-p-nordquist/insikt",
-        liveUrl: null
+        liveUrl: null,
+        featured: true
     },
     {
         id: 3,
@@ -26,7 +28,9 @@ export const projects = [
         imageUrl: "/images/projects/argocd-on-ec2.png",
         tags: ["DevOps", "AWS", "Kubernetes", "GitOps", "Terraform", "Packer", "Helm"],
         githubUrl: "https://github.com/c-j-p-nordquist/argocd-on-ec2",
-        liveUrl: null
+        liveUrl: null,
+        featured: true
+
     },
     {
         id: 4,
@@ -35,7 +39,8 @@ export const projects = [
         imageUrl: "/images/projects/ekolod-http-probe.png",
         tags: ["Go", "SvelteKit", "Monitoring", "Docker", "Kubernetes", "DevOps"],
         githubUrl: "https://github.com/c-j-p-nordquist/ekolod",
-        liveUrl: "https://status.nordquist.me"
+        liveUrl: "https://status.nordquist.me",
+        featured: false
     },
     {
         id: 5,
@@ -44,6 +49,7 @@ export const projects = [
         imageUrl: "/images/projects/personal-portfolio.png",
         tags: ["SvelteKit", "TailwindCSS", "DaisyUI", "Full-Stack", "SEO", "Web Development"],
         githubUrl: "https://github.com/c-j-p-nordquist/portfolio",
-        liveUrl: "https://philip.nordquist.me"
+        liveUrl: "https://philip.nordquist.me",
+        featured: false
     }
 ];

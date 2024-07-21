@@ -1,103 +1,241 @@
 <script>
-	import { goto } from '$app/navigation';
-	import { cubicOut } from 'svelte/easing';
+	import { Motion, useAnimation } from 'svelte-motion';
+	import IconChevronDown from '~icons/lucide/chevron-down';
+	import IconChevronRight from '~icons/lucide/chevron-right';
+	import { cn } from '$lib/utils';
 
-	let { currentPath, isMobile = false, closeDrawer = () => {} } = $props();
+	let { currentPath, isMobile = false, featuredProjects = [], featuredPosts = [] } = $props();
 
-	let navItems = [
-		{ name: 'Home', link: '/' },
-		{ name: 'About', link: '/about' },
-		{ name: 'Projects', link: '/projects' },
-		{ name: 'Blog', link: '/blog' }
-	];
+	let navItems = $state([
+		{ id: 'home', name: 'Home', link: '/' },
+		{ id: 'about', name: 'About', link: '/about' },
+		{ id: 'projects', name: 'Projects', link: '/projects', hasDropdown: true },
+		{ id: 'blog', name: 'Blog', link: '/blog', hasDropdown: true }
+	]);
 
-	let navContainer = $state(null);
-	let trail = $state({ start: 0, end: 0, opacity: 0 });
+	let activeIdx = $state(navItems.findIndex((item) => item.link === currentPath));
+	let openDropdown = $state(null);
 
-	function handleClick(event, link, index) {
-		event.preventDefault();
-		if (!isMobile && window.innerWidth >= 1024 && navContainer) {
-			const items = navContainer.querySelectorAll('a');
-			const clickedItem = items[index];
-			const activeItem = navContainer.querySelector('.text-primary');
-
-			const containerRect = navContainer.getBoundingClientRect();
-			const clickedRect = clickedItem.getBoundingClientRect();
-			const activeRect = activeItem ? activeItem.getBoundingClientRect() : clickedRect;
-
-			const start = activeRect.left - containerRect.left;
-			const end = clickedRect.right - containerRect.left;
-
-			let progress = 0;
-			const animate = () => {
-				progress += 0.05;
-				const currentStart = start + (clickedRect.left - activeRect.left) * cubicOut(progress);
-				const currentEnd =
-					activeRect.right -
-					containerRect.left +
-					(clickedRect.right - activeRect.right) * cubicOut(progress);
-
-				trail = {
-					start: Math.min(currentStart, currentEnd),
-					end: Math.max(currentStart, currentEnd),
-					opacity: 1
-				};
-
-				if (progress < 1) {
-					requestAnimationFrame(animate);
-				} else {
-					setTimeout(() => {
-						trail = { ...trail, opacity: 0 };
-					}, 500);
-				}
-			};
-			requestAnimationFrame(animate);
+	function handleClick(index, link, id) {
+		if (navItems[index].hasDropdown) {
+			openDropdown = openDropdown === id ? null : id;
+		} else {
+			window.location.href = link;
 		}
-		goto(link);
-		closeDrawer();
+		activeIdx = index;
 	}
+
+	function getProjectLink(project) {
+		return project.slug ? `/projects/${project.slug}` : '/projects';
+	}
+
+	let list = {
+		visible: {
+			clipPath: 'inset(0% 0% 0% 0% round 12px)',
+			transition: {
+				type: 'spring',
+				bounce: 0,
+				duration: 0.3
+			}
+		},
+		hidden: {
+			clipPath: 'inset(10% 50% 90% 50% round 12px)',
+			transition: {
+				type: 'spring',
+				bounce: 0,
+				duration: 0.3
+			}
+		}
+	};
+
+	let itemVariants = {
+		visible: (i) => ({
+			opacity: 1,
+			y: 0,
+			transition: {
+				delay: i * 0.1
+			}
+		}),
+		hidden: { opacity: 0, y: 20 }
+	};
 </script>
 
 {#if isMobile}
-	{#each navItems as item, index}
-		<li>
-			<a
-				href={item.link}
-				class="block py-2 px-4 text-lg transition-colors duration-200
-                       text-base-content hover:text-primary
-                       dark:text-base-content dark:hover:text-primary
-                       {currentPath === item.link ||
-				(item.link !== '/' && currentPath.startsWith(item.link))
-					? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary'
-					: ''}"
-				onclick={(event) => handleClick(event, item.link, index)}
-			>
-				{item.name}
-			</a>
-		</li>
-	{/each}
-{:else}
-	<ul class="menu menu-horizontal px-1 relative flex items-center" bind:this={navContainer}>
-		{#each navItems as item, index}
+	<ul class="menu w-full">
+		{#each navItems as item, i (item.id)}
 			<li>
 				<a
 					href={item.link}
-					class="py-2 px-3 text-base transition-colors duration-200
-                           text-base-content hover:text-primary
-                           dark:text-base-content dark:hover:text-primary
-                           {currentPath === item.link ||
-					(item.link !== '/' && currentPath.startsWith(item.link))
-						? 'text-primary dark:text-primary'
-						: ''}"
-					onclick={(event) => handleClick(event, item.link, index)}
+					class={cn('text-base-content', currentPath === item.link ? 'active' : '')}
+					onclick={(event) => {
+						event.preventDefault();
+						handleClick(i, item.link, item.id);
+					}}
 				>
 					{item.name}
+					{#if item.hasDropdown}
+						<IconChevronDown
+							class={cn(
+								'ml-1 h-4 w-4 transition-transform',
+								openDropdown === item.id ? 'rotate-180' : ''
+							)}
+						/>
+					{/if}
 				</a>
+				{#if item.hasDropdown}
+					<Motion
+						animate={openDropdown === item.id ? 'visible' : 'hidden'}
+						variants={list}
+						initial="hidden"
+						let:motion
+					>
+						<ul
+							use:motion
+							class={cn(
+								'ml-4 mt-2 space-y-2',
+								openDropdown === item.id ? 'pointer-events-auto' : 'pointer-events-none'
+							)}
+						>
+							{#if item.id === 'projects'}
+								{#each featuredProjects as project, index}
+									<Motion custom={index} variants={itemVariants} let:motion>
+										<li use:motion>
+											<a href={getProjectLink(project)} class="block py-2">
+												{project.title}
+											</a>
+										</li>
+									</Motion>
+								{/each}
+							{:else if item.id === 'blog'}
+								{#each featuredPosts as post, index}
+									<Motion custom={index} variants={itemVariants} let:motion>
+										<li use:motion>
+											<a href={`/blog/${post.slug}`} class="block py-2">
+												{post.title}
+											</a>
+										</li>
+									</Motion>
+								{/each}
+							{/if}
+							<Motion
+								custom={featuredProjects.length || featuredPosts.length}
+								variants={itemVariants}
+								let:motion
+							>
+								<li use:motion>
+									<a href={item.link} class="block py-2 text-primary">
+										View all {item.name.toLowerCase()} →
+									</a>
+								</li>
+							</Motion>
+						</ul>
+					</Motion>
+				{/if}
 			</li>
 		{/each}
-		<div
-			class="absolute bottom-0 h-0.5 bg-primary transition-all duration-300"
-			style="left: {trail.start}px; width: {trail.end - trail.start}px; opacity: {trail.opacity};"
-		></div>
 	</ul>
+{:else}
+	<div class="relative flex items-center space-x-2" role="navigation">
+		{#each navItems as item, i (item.id)}
+			<div class="relative" role="menuitem">
+				<button
+					class={cn(
+						'group relative z-[1] rounded-full px-4 py-2',
+						i === activeIdx
+							? 'bg-primary text-primary-content'
+							: 'text-base-content hover:bg-base-200'
+					)}
+					onclick={() => handleClick(i, item.link, item.id)}
+					aria-haspopup={item.hasDropdown ? 'true' : 'false'}
+					aria-expanded={openDropdown === item.id ? 'true' : 'false'}
+				>
+					<span class="relative text-sm block font-medium">
+						{item.name}
+						{#if item.hasDropdown}
+							<IconChevronDown
+								class={cn(
+									'inline-block w-4 h-4 transition-transform duration-200 ease-in-out',
+									openDropdown === item.id ? 'rotate-180' : ''
+								)}
+							/>
+						{/if}
+					</span>
+				</button>
+
+				{#if item.hasDropdown}
+					<Motion
+						animate={openDropdown === item.id ? 'visible' : 'hidden'}
+						variants={list}
+						initial="hidden"
+						let:motion
+					>
+						<ul
+							use:motion
+							class={cn(
+								'absolute z-[1] left-0 mt-2 w-64 space-y-3 p-2.5 bg-base-100 border border-base-300 rounded-xl shadow-lg',
+								openDropdown === item.id ? 'pointer-events-auto' : 'pointer-events-none'
+							)}
+						>
+							{#if item.id === 'projects'}
+								{#each featuredProjects as project, index}
+									<Motion custom={index} variants={itemVariants} let:motion>
+										<li use:motion>
+											<a
+												href={getProjectLink(project)}
+												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2"
+											>
+												<span class="flex items-center gap-1 text-sm font-medium">
+													{project.title}
+													<IconChevronRight
+														class="w-3 h-3 -translate-x-1 scale-0 opacity-0 transition-all group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0"
+													/>
+												</span>
+											</a>
+										</li>
+									</Motion>
+								{/each}
+							{:else if item.id === 'blog'}
+								{#each featuredPosts as post, index}
+									<Motion custom={index} variants={itemVariants} let:motion>
+										<li use:motion>
+											<a
+												href={`/blog/${post.slug}`}
+												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2"
+											>
+												<span class="flex items-center gap-1 text-sm font-medium">
+													{post.title}
+													<IconChevronRight
+														class="w-3 h-3 -translate-x-1 scale-0 opacity-0 transition-all group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0"
+													/>
+												</span>
+											</a>
+										</li>
+									</Motion>
+								{/each}
+							{/if}
+							<Motion
+								custom={featuredProjects.length || featuredPosts.length}
+								variants={itemVariants}
+								let:motion
+							>
+								<li use:motion>
+									<a
+										href={item.link}
+										class="group flex items-center gap-2 rounded-md border border-transparent text-primary font-semibold hover:text-primary-focus focus-visible:text-primary-focus focus-visible:border-primary focus-visible:outline-none p-2"
+									>
+										<span class="flex items-center gap-1 text-sm">
+											View all {item.name.toLowerCase()}
+											<IconChevronRight
+												class="w-3 h-3 -translate-x-1 scale-0 opacity-0 transition-all group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0"
+											/>
+										</span>
+									</a>
+								</li>
+							</Motion>
+						</ul>
+					</Motion>
+				{/if}
+			</div>
+		{/each}
+	</div>
 {/if}
