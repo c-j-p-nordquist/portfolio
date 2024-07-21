@@ -1,12 +1,13 @@
 <script>
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
+	import { fade } from 'svelte/transition';
 	import Nav from '$lib/components/Nav.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
 	import '../app.css';
 
-	let { children } = $props();
+	let { data, children } = $props();
 
 	let isHomePage = $derived($page.url.pathname === '/');
 	let name = $state('PHILIP NORDQUIST');
@@ -45,14 +46,18 @@
 </script>
 
 <div class="min-h-screen bg-base-100 flex flex-col">
-	<Nav {isNavVisible} />
+	<Nav {isNavVisible} {data} />
 
 	{#if isHomePage}
 		<Hero {name} {subtitle} dispatch={{ scrollToContent: handleScrollToContent }} />
 	{/if}
 
 	<main id="main-content" class="flex-grow pt-16 z-20">
-		{@render children()}
+		{#key $page.url.pathname}
+			<div in:fade={{ duration: 300, delay: 300 }} out:fade={{ duration: 300 }}>
+				{@render children()}
+			</div>
+		{/key}
 	</main>
 
 	<ScrollToTop />

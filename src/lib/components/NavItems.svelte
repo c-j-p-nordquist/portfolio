@@ -1,5 +1,5 @@
 <script>
-	import { Motion, useAnimation } from 'svelte-motion';
+	import { Motion } from 'svelte-motion';
 	import IconChevronDown from '~icons/lucide/chevron-down';
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import { cn } from '$lib/utils';
@@ -17,7 +17,7 @@
 	let openDropdown = $state(null);
 
 	function handleClick(index, link, id) {
-		if (navItems[index].hasDropdown) {
+		if (!isMobile && navItems[index].hasDropdown) {
 			openDropdown = openDropdown === id ? null : id;
 		} else {
 			window.location.href = link;
@@ -61,75 +61,33 @@
 </script>
 
 {#if isMobile}
-	<ul class="menu w-full">
-		{#each navItems as item, i (item.id)}
+	<ul class="menu bg-base-200 w-full">
+		{#each navItems as item (item.id)}
 			<li>
-				<a
-					href={item.link}
-					class={cn('text-base-content', currentPath === item.link ? 'active' : '')}
-					onclick={(event) => {
-						event.preventDefault();
-						handleClick(i, item.link, item.id);
-					}}
-				>
-					{item.name}
-					{#if item.hasDropdown}
-						<IconChevronDown
-							class={cn(
-								'ml-1 h-4 w-4 transition-transform',
-								openDropdown === item.id ? 'rotate-180' : ''
-							)}
-						/>
-					{/if}
-				</a>
 				{#if item.hasDropdown}
-					<Motion
-						animate={openDropdown === item.id ? 'visible' : 'hidden'}
-						variants={list}
-						initial="hidden"
-						let:motion
-					>
-						<ul
-							use:motion
-							class={cn(
-								'ml-4 mt-2 space-y-2',
-								openDropdown === item.id ? 'pointer-events-auto' : 'pointer-events-none'
-							)}
-						>
+					<details>
+						<summary>{item.name}</summary>
+						<ul>
 							{#if item.id === 'projects'}
-								{#each featuredProjects as project, index}
-									<Motion custom={index} variants={itemVariants} let:motion>
-										<li use:motion>
-											<a href={getProjectLink(project)} class="block py-2">
-												{project.title}
-											</a>
-										</li>
-									</Motion>
+								{#each featuredProjects as project}
+									<li><a href={getProjectLink(project)}>{project.title}</a></li>
 								{/each}
 							{:else if item.id === 'blog'}
-								{#each featuredPosts as post, index}
-									<Motion custom={index} variants={itemVariants} let:motion>
-										<li use:motion>
-											<a href={`/blog/${post.slug}`} class="block py-2">
-												{post.title}
-											</a>
-										</li>
-									</Motion>
+								{#each featuredPosts as post}
+									<li><a href={`/blog/${post.slug}`}>{post.title}</a></li>
 								{/each}
 							{/if}
-							<Motion
-								custom={featuredProjects.length || featuredPosts.length}
-								variants={itemVariants}
-								let:motion
-							>
-								<li use:motion>
-									<a href={item.link} class="block py-2 text-primary">
-										View all {item.name.toLowerCase()} →
-									</a>
-								</li>
-							</Motion>
+							<li>
+								<a href={item.link} class="text-primary">
+									View all {item.name.toLowerCase()} →
+								</a>
+							</li>
 						</ul>
-					</Motion>
+					</details>
+				{:else}
+					<a href={item.link} class={cn(currentPath === item.link ? 'active' : '')}>
+						{item.name}
+					</a>
 				{/if}
 			</li>
 		{/each}

@@ -75,7 +75,7 @@
 				{/await}
 			</div>
 			<div class="navbar-end flex items-center justify-end space-x-4 pr-4">
-				<button class="btn btn-ghost btn-circle text-primary-content" onclick={toggleSearchModal}>
+				<button class="btn btn-ghost btn-circle" onclick={toggleSearchModal}>
 					<IconSearch class="h-5 w-5" />
 				</button>
 				<SocialLinks />

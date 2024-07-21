@@ -4,6 +4,7 @@
 	import FilterModal from '$lib/components/FilterModal.svelte';
 	import { projects } from '$lib/data/projectData.js';
 	import IconFilter from '~icons/lucide/filter';
+	import LazyImage from '$lib/components/LazyImage.svelte';
 
 	let isFilterOpen = $state(false);
 	let selectedTopics = $state([]);
@@ -53,7 +54,15 @@
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		{#each filteredProjects as project (project.id)}
 			<div transition:fade={{ duration: 300 }}>
-				<ProjectCard {...project} />
+				<ProjectCard {...project}>
+					{#snippet image()}
+						<LazyImage
+							src={project.imageUrl}
+							alt={project.title}
+							class="w-full h-48 object-cover"
+						/>
+					{/snippet}
+				</ProjectCard>
 			</div>
 		{/each}
 	</div>
