@@ -4,6 +4,7 @@
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import { cn } from '$lib/utils';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	let {
 		currentPath,
@@ -22,6 +23,7 @@
 
 	let activeIdx = $state(navItems.findIndex((item) => item.link === currentPath));
 	let openDropdown = $state(null);
+	let dropdownRef = $state(null);
 
 	function handleClick(index, link, id) {
 		if (!isMobile && navItems[index].hasDropdown) {
@@ -42,6 +44,21 @@
 	function getProjectLink(project) {
 		return `/projects/${project.id}`;
 	}
+
+	function handleClickOutside(event) {
+		if (dropdownRef && !dropdownRef.contains(event.target)) {
+			openDropdown = null;
+		}
+	}
+
+	$effect(() => {
+		if (browser) {
+			document.addEventListener('click', handleClickOutside);
+			return () => {
+				document.removeEventListener('click', handleClickOutside);
+			};
+		}
+	});
 
 	let list = {
 		visible: {
@@ -80,14 +97,19 @@
 			<li>
 				{#if item.hasDropdown}
 					<details>
-						<summary>{item.name}</summary>
+						<summary
+							class="hover:bg-accent hover:text-accent-content transition-colors duration-200"
+							>{item.name}</summary
+						>
 						<ul>
 							{#if item.id === 'projects'}
 								{#each featuredProjects as project}
 									<li>
 										<a
 											href={getProjectLink(project)}
-											onclick={() => handleItemClick(getProjectLink(project))}>{project.title}</a
+											onclick={() => handleItemClick(getProjectLink(project))}
+											class="hover:bg-accent hover:text-accent-content transition-colors duration-200"
+											>{project.title}</a
 										>
 									</li>
 								{/each}
@@ -96,13 +118,19 @@
 									<li>
 										<a
 											href={`/blog/${post.slug}`}
-											onclick={() => handleItemClick(`/blog/${post.slug}`)}>{post.title}</a
+											onclick={() => handleItemClick(`/blog/${post.slug}`)}
+											class="hover:bg-accent hover:text-accent-content transition-colors duration-200"
+											>{post.title}</a
 										>
 									</li>
 								{/each}
 							{/if}
 							<li>
-								<a href={item.link} class="text-primary" onclick={() => handleItemClick(item.link)}>
+								<a
+									href={item.link}
+									class="text-primary hover:bg-accent hover:text-accent-content transition-colors duration-200"
+									onclick={() => handleItemClick(item.link)}
+								>
 									View all {item.name.toLowerCase()} →
 								</a>
 							</li>
@@ -111,7 +139,10 @@
 				{:else}
 					<a
 						href={item.link}
-						class={cn(currentPath === item.link ? 'active' : '')}
+						class={cn(
+							currentPath === item.link ? 'active bg-accent text-accent-content' : '',
+							'hover:bg-accent hover:text-accent-content transition-colors duration-200'
+						)}
 						onclick={() => handleItemClick(item.link)}
 					>
 						{item.name}
@@ -121,15 +152,15 @@
 		{/each}
 	</ul>
 {:else}
-	<div class="relative flex items-center space-x-2" role="navigation">
+	<div class="relative flex items-center space-x-2" role="navigation" bind:this={dropdownRef}>
 		{#each navItems as item, i (item.id)}
 			<div class="relative" role="menuitem">
 				<button
 					class={cn(
-						'group relative z-[1] rounded-full px-4 py-2',
+						'group relative z-[1] rounded-full px-4 py-2 transition-colors duration-200',
 						i === activeIdx
-							? 'bg-primary text-primary-content'
-							: 'text-base-content hover:bg-base-200'
+							? 'bg-accent text-accent-content'
+							: 'text-base-content hover:bg-accent hover:text-accent-content'
 					)}
 					onclick={() => handleClick(i, item.link, item.id)}
 					aria-haspopup={item.hasDropdown ? 'true' : 'false'}
@@ -169,7 +200,7 @@
 											<a
 												href={getProjectLink(project)}
 												onclick={() => handleItemClick(getProjectLink(project))}
-												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2"
+												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:bg-accent hover:text-accent-content focus-visible:text-accent focus-visible:border-accent focus-visible:outline-none p-2 transition-colors duration-200"
 											>
 												<span class="flex items-center gap-1 text-sm font-medium">
 													{project.title}
@@ -188,7 +219,7 @@
 											<a
 												href={`/blog/${post.slug}`}
 												onclick={() => handleItemClick(`/blog/${post.slug}`)}
-												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2"
+												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:bg-accent hover:text-accent-content focus-visible:text-accent focus-visible:border-accent focus-visible:outline-none p-2 transition-colors duration-200"
 											>
 												<span class="flex items-center gap-1 text-sm font-medium">
 													{post.title}
@@ -210,9 +241,9 @@
 									<a
 										href={item.link}
 										onclick={() => handleItemClick(item.link)}
-										class="group flex items-center gap-2 rounded-md border border-transparent text-primary font-semibold hover:text-primary-focus focus-visible:text-primary-focus focus-visible:border-primary focus-visible:outline-none p-2"
+										class="group flex items-center gap-2 rounded-md border border-transparent text-primary hover:bg-accent hover:text-accent-content focus-visible:text-accent-focus focus-visible:border-accent focus-visible:outline-none p-2 transition-colors duration-200"
 									>
-										<span class="flex items-center gap-1 text-sm">
+										<span class="flex items-center gap-1 text-sm font-semibold">
 											View all {item.name.toLowerCase()}
 											<IconChevronRight
 												class="w-3 h-3 -translate-x-1 scale-0 opacity-0 transition-all group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0"
