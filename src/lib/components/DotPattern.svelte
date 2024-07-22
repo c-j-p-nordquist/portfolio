@@ -22,13 +22,25 @@
 	}
 
 	let id = $state(generateUniqueId());
+	let animationId = $state(generateUniqueId());
+	let scrollY = $state(0);
+
+	$effect(() => {
+		if (typeof window !== 'undefined') {
+			const handleScroll = () => {
+				scrollY = window.scrollY;
+			};
+			window.addEventListener('scroll', handleScroll);
+			return () => window.removeEventListener('scroll', handleScroll);
+		}
+	});
 </script>
 
 <svg
 	aria-hidden="true"
 	class={cn('pointer-events-none absolute inset-0 h-full w-full', className)}
-	fill={fillColor}
 	{...props}
+	style="transform: translateY({scrollY * 0.2}px);"
 >
 	<defs>
 		<pattern
@@ -40,7 +52,15 @@
 			{x}
 			{y}
 		>
-			<circle id="pattern-circle" {cx} {cy} r={cr} />
+			<circle id="pattern-circle" {cx} {cy} r={cr} fill={fillColor}>
+				<animate
+					attributeName="opacity"
+					values="0.5;1;0.5"
+					dur="4s"
+					repeatCount="indefinite"
+					id={animationId}
+				/>
+			</circle>
 		</pattern>
 	</defs>
 	<rect width="100%" height="100%" stroke-width={0} fill={`url(#${id})`} />

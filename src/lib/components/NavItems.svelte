@@ -21,7 +21,15 @@
 		{ id: 'blog', name: 'Blog', link: '/blog', hasDropdown: true }
 	]);
 
-	let activeIdx = $state(navItems.findIndex((item) => item.link === currentPath));
+	let activeIdx = $derived(
+		navItems.findIndex((item) => {
+			if (item.link === '/') {
+				return currentPath === '/';
+			}
+			return currentPath.startsWith(item.link);
+		})
+	);
+
 	let openDropdown = $state(null);
 	let dropdownRef = $state(null);
 
@@ -32,7 +40,6 @@
 			goto(link);
 			if (isMobile && closeDrawer) closeDrawer();
 		}
-		activeIdx = index;
 	}
 
 	function handleItemClick(link) {
@@ -93,7 +100,7 @@
 
 {#if isMobile}
 	<ul class="menu bg-base-200 w-full">
-		{#each navItems as item (item.id)}
+		{#each navItems as item, i (item.id)}
 			<li>
 				{#if item.hasDropdown}
 					<details>
@@ -140,7 +147,7 @@
 					<a
 						href={item.link}
 						class={cn(
-							currentPath === item.link ? 'active bg-accent text-accent-content' : '',
+							i === activeIdx ? 'active bg-accent text-accent-content' : '',
 							'hover:bg-accent hover:text-accent-content transition-colors duration-200'
 						)}
 						onclick={() => handleItemClick(item.link)}

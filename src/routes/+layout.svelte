@@ -3,26 +3,13 @@
 	import { browser } from '$app/environment';
 	import { fade } from 'svelte/transition';
 	import Nav from '$lib/components/Nav.svelte';
-	import Hero from '$lib/components/Hero.svelte';
 	import ScrollToTop from '$lib/components/ScrollToTop.svelte';
 	import '../app.css';
 
 	let { data, children } = $props();
 
-	let isHomePage = $derived($page.url.pathname === '/');
-	let name = $state('PHILIP NORDQUIST');
-	let subtitle = $state('PERSONAL PORTFOLIO');
 	let isNavVisible = $state(true);
 	let lastScrollTop = $state(0);
-
-	function handleScrollToContent() {
-		if (browser) {
-			const contentSection = document.getElementById('main-content');
-			if (contentSection) {
-				contentSection.scrollIntoView({ behavior: 'smooth' });
-			}
-		}
-	}
 
 	function handleInternalNavigation(event) {
 		const target = event.target.closest('a');
@@ -64,13 +51,9 @@
 <div class="min-h-screen bg-base-100 flex flex-col">
 	<Nav {isNavVisible} {data} />
 
-	{#if isHomePage}
-		<Hero {name} {subtitle} dispatch={{ scrollToContent: handleScrollToContent }} />
-	{/if}
-
 	<main id="main-content" class="flex-grow pt-16 z-20">
 		{#key $page.url.pathname}
-			<div in:fade={{ duration: 300, delay: 300 }} out:fade={{ duration: 300 }}>
+			<div in:fade={{ duration: 150, delay: 150 }}>
 				{@render children()}
 			</div>
 		{/key}

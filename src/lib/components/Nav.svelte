@@ -18,7 +18,7 @@
 	let showSearchModal = $state(false);
 
 	let featuredProjects = $derived(projects.filter((project) => project.featured).slice(0, 3));
-	let postsPromise = getPosts().then((posts) => posts.slice(0, 3));
+	let postsPromise = $state(getPosts().then((posts) => posts.slice(0, 3)));
 
 	function toggleSearchModal() {
 		showSearchModal = !showSearchModal;
@@ -79,7 +79,10 @@
 				{/await}
 			</div>
 			<div class="navbar-end flex items-center justify-end space-x-4 pr-4">
-				<button class="btn btn-ghost btn-circle" onclick={toggleSearchModal}>
+				<button
+					class="btn btn-ghost btn-circle text-accent hover:bg-accent/10"
+					onclick={toggleSearchModal}
+				>
 					<IconSearch class="h-5 w-5" />
 				</button>
 				<SocialLinks />
