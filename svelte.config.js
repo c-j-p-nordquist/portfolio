@@ -5,6 +5,8 @@ import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
 import { createHighlighter } from 'shiki';
+import { enhancedImages } from '@sveltejs/enhanced-img';
+
 
 let highlighter;
 
@@ -47,7 +49,8 @@ const config = {
 	],
 	kit: {
 		adapter: adapter()
-	}
+	},
+	plugins: [enhancedImages()]
 };
 
 export default config;
