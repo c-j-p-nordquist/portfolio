@@ -15,20 +15,12 @@
 	} = $props();
 
 	let navItems = $state([
-		{ id: 'home', name: 'Home', link: '/' },
 		{ id: 'about', name: 'About', link: '/about' },
 		{ id: 'projects', name: 'Projects', link: '/projects', hasDropdown: true },
 		{ id: 'blog', name: 'Blog', link: '/blog', hasDropdown: true }
 	]);
 
-	let activeIdx = $derived(
-		navItems.findIndex((item) => {
-			if (item.link === '/') {
-				return currentPath === '/';
-			}
-			return currentPath.startsWith(item.link);
-		})
-	);
+	let activeIdx = $derived(navItems.findIndex((item) => currentPath.startsWith(item.link)));
 
 	let openDropdown = $state(null);
 	let dropdownRef = $state(null);

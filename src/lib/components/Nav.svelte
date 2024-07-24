@@ -46,6 +46,13 @@
 	});
 </script>
 
+<a
+	href="#main-content"
+	class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-primary text-primary-content px-4 py-2 z-50"
+>
+	Skip to main content
+</a>
+
 <div class="drawer">
 	<input id="my-drawer-3" type="checkbox" class="drawer-toggle" bind:checked={drawerChecked} />
 	<div class="drawer-content flex flex-col">
@@ -66,7 +73,7 @@
 				</div>
 				<a
 					href="/"
-					class="btn btn-ghost normal-case flex items-center hover:bg-primary hover:bg-opacity-10 transition-colors duration-300"
+					class="btn btn-ghost normal-case flex items-center hover:bg-primary/10 transition-colors duration-300"
 				>
 					<img src="/images/logos/favicon.svg" alt="Logo" class="h-8 w-auto" />
 					<span
@@ -93,16 +100,17 @@
 				<button
 					class="btn btn-ghost btn-circle text-accent hover:bg-accent/10"
 					onclick={toggleSearchModal}
+					aria-label="Open search"
 				>
 					<IconSearch class="h-5 w-5" />
 				</button>
-				<DarkModeToggle />
+				<DarkModeToggle aria-label="Toggle dark mode" />
 			</div>
 		</nav>
 	</div>
 
 	{#if drawerChecked}
-		<div class="drawer-side z-50">
+		<div class="drawer-side z-50 transition-transform duration-300 ease-in-out">
 			<label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
 			<ul class="menu p-4 w-80 min-h-full bg-base-200">
 				{#await postsPromise}
