@@ -1,7 +1,4 @@
 <script>
-	import { fly } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
-
 	let techIcons = $state([
 		{ name: 'AWS', icon: 'devicon-amazonwebservices-plain-wordmark' },
 		{ name: 'Kubernetes', icon: 'devicon-kubernetes-plain' },
@@ -13,24 +10,16 @@
 		{ name: 'Docker', icon: 'devicon-docker-plain' },
 		{ name: 'Git', icon: 'devicon-git-plain' }
 	]);
-
-	function handleInteraction(tech) {
-		alert(`You clicked on ${tech.name}`);
-		// You can replace this with a more sophisticated action later
-	}
 </script>
 
-<div class="grid grid-cols-3 gap-6">
-	{#each techIcons as tech, index}
-		<button
-			onclick={() => handleInteraction(tech)}
-			onkeydown={(e) => e.key === 'Enter' && handleInteraction(tech)}
-			class="flex flex-col items-center justify-center p-4 bg-base-100/50 backdrop-blur-sm rounded-lg cursor-pointer transition-all duration-300 hover:bg-base-200/70 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary"
-			transition:fly={{ y: 20, duration: 300, delay: index * 50, easing: cubicOut }}
+<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+	{#each techIcons as tech}
+		<div
+			class="flex flex-col items-center justify-center p-2 bg-base-200 rounded-lg transition-all duration-300 hover:bg-base-300"
 		>
-			<i class={`${tech.icon} text-5xl mb-2 text-primary`} aria-hidden="true"></i>
-			<span class="text-sm font-medium text-base-content/80">{tech.name}</span>
-		</button>
+			<i class={`${tech.icon} text-4xl mb-2 text-primary`} aria-hidden="true"></i>
+			<span class="text-xs font-medium text-base-content/80 text-center">{tech.name}</span>
+		</div>
 	{/each}
 </div>
 

@@ -5,7 +5,6 @@
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import IconMenu from '~icons/lucide/menu';
 	import IconSearch from '~icons/lucide/search';
-	import SocialLinks from './SocialLinks.svelte';
 	import SearchModal from './SearchModal.svelte';
 	import { getPosts } from '$lib/utils/posts';
 	import { projects } from '$lib/data/projectData';
@@ -65,8 +64,20 @@
 						<IconMenu class="h-6 w-6" />
 					</label>
 				</div>
-				<a href="/" class="btn btn-ghost normal-case text-xl text-primary-content">
-					<img src="/images/logo.svg" alt="Your Logo" class="h-8 w-auto" />
+				<a
+					href="/"
+					class="btn btn-ghost normal-case flex items-center hover:bg-primary hover:bg-opacity-10 transition-colors duration-300"
+				>
+					<img src="/images/logos/favicon.svg" alt="Logo" class="h-8 w-auto" />
+					<span
+						class="hidden md:inline-flex items-baseline ml-2 font-mono md:text-sm lg:text-xl transition-all duration-300 ease-in-out"
+					>
+						<span class="text-primary">philip</span>
+						<span class="text-secondary">.</span>
+						<span class="text-primary">nordquist</span>
+						<span class="text-secondary">.</span>
+						<span class="text-accent">me</span>
+					</span>
 				</a>
 			</div>
 			<div class="navbar-center hidden lg:flex">
@@ -85,7 +96,6 @@
 				>
 					<IconSearch class="h-5 w-5" />
 				</button>
-				<SocialLinks />
 				<DarkModeToggle />
 			</div>
 		</nav>

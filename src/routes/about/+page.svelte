@@ -1,105 +1,114 @@
 <script>
-	import IconExternalLink from '~icons/lucide/external-link';
-	import { skills, experiences } from '$lib/data/profileData.js';
+	import IconDownload from '~icons/lucide/download';
+	import IconMail from '~icons/lucide/mail';
+	import IconGithub from '~icons/lucide/github';
+	import IconLinkedin from '~icons/lucide/linkedin';
+	import TechIcons from '$lib/components/TechIcons.svelte';
+
+	let resumeUrl = $state('/path/to/your/resume.pdf');
+
+	function downloadResume() {
+		window.open(resumeUrl, '_blank');
+	}
+
+	const keyAchievements = [
+		'Led cloud migration projects for Fortune 500 companies',
+		'Developed custom observability tools improving system reliability by 40%',
+		'Implemented GitOps practices reducing deployment times by 60%',
+		'Contributed to open-source Kubernetes projects'
+	];
 </script>
 
 <main class="container mx-auto px-4 py-8">
-	<section class="container mx-auto max-w-3xl">
-		<h1 class="text-4xl font-bold mb-8 text-center">About Me</h1>
-		<div class="prose lg:prose-xl font-sans">
-			<h2>Hi, I'm Philip</h2>
-			<p>
-				I'm a technology enthusiast with a keen interest in various tech fields. My curiosity drives
-				me to explore different areas of technology, from infrastructure and networking to software
-				development and beyond.
-			</p>
-
-			<h3>My Approach to Tech</h3>
-			<p>
-				I appreciate the power of data-driven decision making in technology. When tackling a problem
-				or exploring a new tool, I always consider what questions we're trying to answer and how we
-				can measure outcomes effectively.
-			</p>
-
-			<h3>About This Blog</h3>
-			<p>
-				This blog is a personal project, separate from my professional work. It serves as a platform
-				for me to:
-			</p>
-			<ul>
-				<li>Share solutions to technical challenges I've encountered in my personal projects</li>
-				<li>Discuss interesting technology advancements and tools that catch my attention</li>
-				<li>Explore various tech-related topics that pique my curiosity</li>
-			</ul>
-			<p>
-				My aim is to contribute to the tech community by sharing my personal experiences and
-				insights. While the solutions or discussions here might be available elsewhere, I hope that
-				my perspective and the way I've applied these concepts might be helpful or interesting to
-				others with similar interests.
-			</p>
-		</div>
-	</section>
-
-	<section class="mb-12">
-		<h2 class="text-3xl font-bold mb-6 text-center">Key Skills</h2>
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-			{#each Object.entries(skills) as [category, categorySkills]}
-				<div class="card bg-base-200 shadow-xl">
-					<div class="card-body">
-						<h3 class="card-title">{category}</h3>
-						<div class="flex flex-wrap gap-2">
-							{#each categorySkills as skill}
-								<span class="badge badge-primary">{skill}</span>
-							{/each}
-						</div>
+	<div class="flex flex-col lg:flex-row gap-8">
+		<!-- Left Column: About Me -->
+		<div class="lg:w-2/3">
+			<div class="flex items-center mb-8">
+				<div class="avatar placeholder mr-4">
+					<div class="bg-neutral text-neutral-content w-24 rounded-full">
+						<span class="text-3xl">PN</span>
 					</div>
 				</div>
-			{/each}
-		</div>
-	</section>
-
-	<section id="experience" class="mb-12">
-		<h2 class="text-3xl font-bold mb-6 text-center">Professional Experience</h2>
-		<div class="space-y-6">
-			{#each experiences as exp, index}
-				<div class="flex flex-col md:flex-row md:space-x-4">
-					<div class="font-bold text-primary md:mb-0 mb-2">{exp.year}</div>
-					<div class="md:w-3/4">
-						<h3 class="text-xl font-semibold">{exp.title}</h3>
-						<p class="text-base text-base-content text-opacity-60">
-							{exp.company} • {exp.location}
-						</p>
-						{#if exp.url}
-							<a
-								href={exp.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="inline-flex items-center mt-2 text-sm font-medium text-accent hover:underline"
-							>
-								Visit Website
-								<IconExternalLink class="w-4 h-4 ml-1" />
-							</a>
-						{/if}
-					</div>
+				<div>
+					<h1 class="text-4xl font-bold text-base-content">Philip Nordquist</h1>
+					<p class="text-xl text-base-content/70">Solutions Architect & Problem Solver</p>
 				</div>
-			{/each}
+			</div>
+
+			<div class="prose lg:prose-xl">
+				<p>
+					With over a decade of experience in IT infrastructure, networking, and security, I've
+					developed a passion for solving complex technical challenges. My expertise spans a wide
+					range of environments, from on-premise solutions to cloud platforms, always focusing on
+					finding the most efficient and scalable approach to each unique problem.
+				</p>
+				<p>
+					Recently, I've been exploring areas such as observability tooling, continuous deployment
+					methodologies, and container orchestration. These tools and approaches offer exciting
+					possibilities for improving system reliability and efficiency, regardless of the
+					underlying infrastructure.
+				</p>
+				<p>
+					What drives me is not the technology itself, but the problems it can solve. I believe in
+					choosing the right tool for each job, whether that's leveraging cloud services for their
+					scalability and shared responsibility model, or implementing on-premise solutions when
+					they better suit the needs of a project. This flexible approach allows me to design and
+					implement solutions that truly address the core challenges at hand.
+				</p>
+				<h2 class="text-2xl font-semibold mt-6 mb-2">The Purpose of This Blog</h2>
+				<p>
+					This blog is a platform where I share insights gained from tackling real-world IT
+					challenges. Here, I document solution approaches, analyze emerging technologies from a
+					problem-solving perspective, and explore intriguing concepts in the world of IT
+					infrastructure and systems design.
+				</p>
+				<p>
+					My goal is to contribute practical knowledge to the tech community, focusing on the 'why'
+					and 'how' of solving problems rather than just the tools used. Whether you're here to find
+					inspiration for your own technical challenges, gain insights into effective system design,
+					or explore different approaches to common problems in our field, I hope you'll find the
+					content both informative and applicable to your work.
+				</p>
+			</div>
 		</div>
-	</section>
 
-	<section id="education" class="mb-8">
-		<h2 class="text-3xl font-bold mb-4 text-center">Education</h2>
-		<ul class="list-disc list-inside text-lg">
-			<li>Linköpings Universitet, Kommunikation, samhälle- och mediaproduktion (2008 - 2011)</li>
-			<li>Högskolan i Skövde, Dataspelsutveckling - Musik (2011 - 2014)</li>
-		</ul>
-	</section>
+		<!-- Right Column: Skills and Connect -->
+		<div class="lg:w-1/3">
+			<h2 class="text-3xl font-bold mb-6">Technical Expertise</h2>
+			<TechIcons />
 
-	<section id="certifications">
-		<h2 class="text-3xl font-bold mb-4 text-center">Certifications</h2>
-		<ul class="list-disc list-inside text-lg">
-			<li>AWS Certified Solutions Architect – Associate (Oct 2021 - Oct 2024)</li>
-			<li>AWS Certified Cloud Practitioner (Aug 2020 - Aug 2023)</li>
-			<li>Palo Alto Certified Cybersecurity Associate (PCCSA) (Oct 2020 - Oct 2022)</li>
-		</ul>
-	</section>
+			<h2 class="text-3xl font-bold mt-12 mb-6">Connect with Me</h2>
+			<div class="flex flex-col space-y-4">
+				<a href="mailto:philip@nordquist.me" class="btn btn-outline btn-primary">
+					<IconMail class="w-5 h-5 mr-2" />
+					Email Me
+				</a>
+				<a
+					href="https://github.com/c-j-p-nordquist"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn btn-outline"
+				>
+					<IconGithub class="w-5 h-5 mr-2" />
+					GitHub Profile
+				</a>
+				<a
+					href="https://linkedin.com/in/philip-nordquist-269949a0"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn btn-outline"
+				>
+					<IconLinkedin class="w-5 h-5 mr-2" />
+					LinkedIn Profile
+				</a>
+			</div>
+
+			<div class="mt-8">
+				<button class="btn btn-accent w-full" onclick={downloadResume}>
+					<IconDownload class="w-5 h-5 mr-2" />
+					Download My Resume
+				</button>
+			</div>
+		</div>
+	</div>
 </main>
