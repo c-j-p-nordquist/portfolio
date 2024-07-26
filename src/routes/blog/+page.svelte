@@ -45,52 +45,54 @@
 	});
 </script>
 
-<main class="container mx-auto px-4 py-8 max-w-3xl">
-	<div class="text-sm breadcrumbs mb-4">
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li>Blog</li>
-		</ul>
-	</div>
+<div class="flex min-h-screen">
+	<main class="flex-grow p-8 pt-20 max-w-3xl mx-auto">
+		<div class="text-sm breadcrumbs mb-4">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li>Blog</li>
+			</ul>
+		</div>
 
-	<div class="flex justify-between items-center mb-8">
-		<h1 class="text-4xl font-bold">Blog Posts</h1>
-		<button class="btn btn-primary" onclick={toggleFilter}>
-			<IconFilter class="mr-2" /> Filter
-		</button>
-	</div>
+		<div class="flex justify-between items-center mb-8">
+			<h1 class="text-4xl font-bold text-primary">Blog Posts</h1>
+			<button class="btn btn-primary" onclick={toggleFilter}>
+				<IconFilter class="mr-2" /> Filter
+			</button>
+		</div>
 
-	<div class="space-y-6">
-		{#each filteredPosts as post}
-			<div class="card bg-base-100 shadow-xl" transition:fade={{ duration: 300 }}>
-				<div class="card-body">
-					<h2 class="card-title font-serif">
-						<a href={post.path} class="hover:text-primary transition-colors duration-200">
-							{post.title}
-						</a>
-					</h2>
-					<p class="text-base-content font-sans text-opacity-60">
-						Published on {formatDate(post.date)}
-					</p>
-					{#if post.description}
-						<p class="font-sans">{post.description}</p>
-					{/if}
-					{#if post.topics}
-						<div class="card-actions justify-end mt-4">
-							{#each post.topics as topic}
-								<div class="badge badge-outline">{topic}</div>
-							{/each}
-						</div>
-					{/if}
+		<div class="space-y-6">
+			{#each filteredPosts as post}
+				<div class="card bg-base-100 shadow-xl" transition:fade={{ duration: 300 }}>
+					<div class="card-body">
+						<h2 class="card-title font-serif">
+							<a href={post.path} class="hover:text-primary transition-colors duration-200">
+								{post.title}
+							</a>
+						</h2>
+						<p class="text-base-content font-sans text-opacity-60">
+							Published on {formatDate(post.date)}
+						</p>
+						{#if post.description}
+							<p class="font-sans">{post.description}</p>
+						{/if}
+						{#if post.topics}
+							<div class="card-actions justify-end mt-4">
+								{#each post.topics as topic}
+									<div class="badge badge-outline">{topic}</div>
+								{/each}
+							</div>
+						{/if}
+					</div>
 				</div>
-			</div>
-		{/each}
-	</div>
+			{/each}
+		</div>
 
-	{#if filteredPosts.length === 0}
-		<p class="text-center text-xl mt-8">No posts found for the selected topics.</p>
-	{/if}
-</main>
+		{#if filteredPosts.length === 0}
+			<p class="text-center text-xl mt-8">No posts found for the selected topics.</p>
+		{/if}
+	</main>
+</div>
 
 <FilterModal
 	isOpen={isFilterOpen}

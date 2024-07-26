@@ -1,29 +1,28 @@
 <script>
 	import Hero from '$lib/components/Hero.svelte';
-	import FeaturedInsights from '$lib/components/FeaturedInsights.svelte';
-	import { browser } from '$app/environment';
+	import FeaturedContent from '$lib/components/FeaturedContent.svelte';
 
 	let { data } = $props();
 
-	let name = $state('PHILIP NORDQUIST');
-	let subtitle = $state('PERSONAL PORTFOLIO');
+	let title = $state('Philip Nordquist');
+	let subtitle = $state('Tech Insights and Projects');
+	let description = $state(
+		'Transforming complex infrastructure challenges into efficient, scalable solutions.'
+	);
+	let jobTitle = $state('DevSecOps Engineer');
 
-	let pageTitle = $derived(`${name} - Tech Insights and Projects`);
-
-	$effect(() => {
-		document.title = pageTitle;
-	});
-
-	function handleScrollToContent() {
-		if (browser) {
-			const featuredInsights = document.getElementById('featured-insights');
-			if (featuredInsights) {
-				featuredInsights.scrollIntoView({ behavior: 'smooth' });
-			}
-		}
-	}
+	let allItems = $derived(data.allItems || []);
 </script>
 
-<Hero {name} {subtitle} dispatch={{ scrollToContent: handleScrollToContent }} />
+<svelte:head>
+	<title>{title} - {subtitle}</title>
+</svelte:head>
 
-<FeaturedInsights featuredPosts={data.featuredPosts} />
+<div class="flex flex-col lg:flex-row min-h-screen">
+	<div class="lg:w-2/3 p-12 bg-white">
+		<Hero {title} {subtitle} {description} {jobTitle} />
+	</div>
+	<aside class="lg:w-1/3 bg-primary overflow-y-auto h-screen">
+		<FeaturedContent featuredItems={allItems} />
+	</aside>
+</div>

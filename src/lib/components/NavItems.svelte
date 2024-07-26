@@ -1,5 +1,5 @@
 <script>
-	import { Motion } from 'svelte-motion';
+	import { Motion, AnimatePresence } from 'svelte-motion';
 	import IconChevronDown from '~icons/lucide/chevron-down';
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import { cn } from '$lib/utils';
@@ -88,6 +88,19 @@
 		}),
 		hidden: { opacity: 0, y: 20 }
 	};
+
+	const dropdownVariants = {
+		hidden: {
+			opacity: 0,
+			y: -5,
+			transition: { duration: 0.2, ease: 'easeInOut' }
+		},
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.2, ease: 'easeOut' }
+		}
+	};
 </script>
 
 {#if isMobile}
@@ -96,8 +109,7 @@
 			<li>
 				{#if item.hasDropdown}
 					<details>
-						<summary
-							class="hover:bg-accent hover:text-accent-content transition-colors duration-200"
+						<summary class="hover:bg-primary/10 hover:text-primary transition-colors duration-200"
 							>{item.name}</summary
 						>
 						<ul>
@@ -107,7 +119,7 @@
 										<a
 											href={getProjectLink(project)}
 											onclick={() => handleItemClick(getProjectLink(project))}
-											class="hover:bg-accent hover:text-accent-content transition-colors duration-200"
+											class="hover:bg-primary/10 hover:text-primary transition-colors duration-200"
 											>{project.title}</a
 										>
 									</li>
@@ -118,7 +130,7 @@
 										<a
 											href={`/blog/${post.slug}`}
 											onclick={() => handleItemClick(`/blog/${post.slug}`)}
-											class="hover:bg-accent hover:text-accent-content transition-colors duration-200"
+											class="hover:bg-primary/10 hover:text-primary transition-colors duration-200"
 											>{post.title}</a
 										>
 									</li>
@@ -127,7 +139,7 @@
 							<li>
 								<a
 									href={item.link}
-									class="text-primary hover:bg-accent hover:text-accent-content transition-colors duration-200"
+									class="text-accent hover:bg-accent/10 hover:text-accent-focus transition-colors duration-200"
 									onclick={() => handleItemClick(item.link)}
 								>
 									View all {item.name.toLowerCase()} →
@@ -139,8 +151,8 @@
 					<a
 						href={item.link}
 						class={cn(
-							i === activeIdx ? 'active bg-accent text-accent-content' : '',
-							'hover:bg-accent hover:text-accent-content transition-colors duration-200'
+							i === activeIdx ? 'active bg-primary text-primary-content' : '',
+							'hover:bg-primary/10 hover:text-primary transition-colors duration-200'
 						)}
 						onclick={() => handleItemClick(item.link)}
 					>
@@ -156,10 +168,10 @@
 			<div class="relative" role="menuitem">
 				<button
 					class={cn(
-						'group relative z-[1] rounded-full px-4 py-2 transition-colors duration-200',
+						'group relative z-[1] rounded-full px-4 py-2 transition-all duration-200',
 						i === activeIdx
-							? 'bg-accent text-accent-content'
-							: 'text-base-content hover:bg-accent hover:text-accent-content'
+							? 'bg-primary text-primary-content'
+							: 'text-base-content hover:bg-primary/10 hover:text-primary'
 					)}
 					onclick={() => handleClick(i, item.link, item.id)}
 					aria-haspopup={item.hasDropdown ? 'true' : 'false'}
@@ -188,7 +200,7 @@
 						<ul
 							use:motion
 							class={cn(
-								'absolute z-[1] left-0 mt-2 w-64 space-y-3 p-2.5 bg-base-100 border border-base-300 rounded-xl shadow-lg',
+								'absolute z-[1] left-0 mt-2 w-64 space-y-3 p-2.5 bg-base-100/90 backdrop-blur-md border border-base-300 rounded-xl shadow-lg',
 								openDropdown === item.id ? 'pointer-events-auto' : 'pointer-events-none'
 							)}
 						>
@@ -199,7 +211,7 @@
 											<a
 												href={getProjectLink(project)}
 												onclick={() => handleItemClick(getProjectLink(project))}
-												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:bg-accent hover:text-accent-content focus-visible:text-accent focus-visible:border-accent focus-visible:outline-none p-2 transition-colors duration-200"
+												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:bg-primary/10 hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2 transition-all duration-200"
 											>
 												<span class="flex items-center gap-1 text-sm font-medium">
 													{project.title}
@@ -218,7 +230,7 @@
 											<a
 												href={`/blog/${post.slug}`}
 												onclick={() => handleItemClick(`/blog/${post.slug}`)}
-												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:bg-accent hover:text-accent-content focus-visible:text-accent focus-visible:border-accent focus-visible:outline-none p-2 transition-colors duration-200"
+												class="group flex items-center gap-2 rounded-md border border-transparent text-base-content hover:bg-primary/10 hover:text-primary focus-visible:text-primary focus-visible:border-primary focus-visible:outline-none p-2 transition-all duration-200"
 											>
 												<span class="flex items-center gap-1 text-sm font-medium">
 													{post.title}
@@ -240,7 +252,7 @@
 									<a
 										href={item.link}
 										onclick={() => handleItemClick(item.link)}
-										class="group flex items-center gap-2 rounded-md border border-transparent text-primary hover:bg-accent hover:text-accent-content focus-visible:text-accent-focus focus-visible:border-accent focus-visible:outline-none p-2 transition-colors duration-200"
+										class="group flex items-center gap-2 rounded-md border border-transparent text-accent hover:bg-accent/10 hover:text-accent-focus focus-visible:text-accent-focus focus-visible:border-accent focus-visible:outline-none p-2 transition-all duration-200"
 									>
 										<span class="flex items-center gap-1 text-sm font-semibold">
 											View all {item.name.toLowerCase()}

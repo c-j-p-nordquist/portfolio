@@ -43,34 +43,36 @@
 	});
 </script>
 
-<main class="container mx-auto px-4 py-8">
-	<div class="flex justify-between items-center mb-8">
-		<h1 class="text-4xl font-bold">My Projects</h1>
-		<button class="btn btn-primary" onclick={toggleFilter}>
-			<IconFilter class="mr-2" /> Filter
-		</button>
-	</div>
+<div class="flex min-h-screen">
+	<main class="flex-grow p-8 pt-20">
+		<div class="flex justify-between items-center mb-8">
+			<h1 class="text-4xl font-bold text-primary">My Projects</h1>
+			<button class="btn btn-primary" onclick={toggleFilter}>
+				<IconFilter class="mr-2" /> Filter
+			</button>
+		</div>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-		{#each filteredProjects as project (project.id)}
-			<div transition:fade={{ duration: 300 }}>
-				<ProjectCard {...project}>
-					{#snippet image()}
-						<LazyImage
-							src={project.imageUrl}
-							alt={project.title}
-							class="w-full h-48 object-cover"
-						/>
-					{/snippet}
-				</ProjectCard>
-			</div>
-		{/each}
-	</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{#each filteredProjects as project (project.id)}
+				<div transition:fade={{ duration: 300 }}>
+					<ProjectCard {...project}>
+						{#snippet image()}
+							<LazyImage
+								src={project.imageUrl}
+								alt={project.title}
+								class="w-full h-48 object-cover"
+							/>
+						{/snippet}
+					</ProjectCard>
+				</div>
+			{/each}
+		</div>
 
-	{#if filteredProjects.length === 0}
-		<p class="text-center text-xl mt-8">No projects found matching your criteria.</p>
-	{/if}
-</main>
+		{#if filteredProjects.length === 0}
+			<p class="text-center text-xl mt-8">No projects found matching your criteria.</p>
+		{/if}
+	</main>
+</div>
 
 <FilterModal
 	isOpen={isFilterOpen}
