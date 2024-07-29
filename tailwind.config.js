@@ -8,12 +8,6 @@ export default {
         serif: ['Playfair Display', 'Georgia', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
-      colors: {
-        primary: '#1A3636',
-        secondary: '#40534C',
-        tertiary: '#677D6A',
-        accent: '#D6BD98',
-      },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],
         'sm': ['0.875rem', { lineHeight: '1.25rem' }],
@@ -47,7 +41,16 @@ export default {
           "base-200": "#F0F7F4",
           "base-300": "#E2E8F0",
         },
-      },
+        dark: {
+          "primary": "#E0ECEC",
+          "secondary": "#B0C4C4",
+          "accent": "#D6BD98",
+          "neutral": "#A0B4B4",
+          "base-100": "#1A2626",
+          "base-200": "#243434",
+          "base-300": "#2E4242",
+        }
+      }
     ],
   },
 }

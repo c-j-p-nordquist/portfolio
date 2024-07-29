@@ -2,6 +2,7 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import FeaturedContent from '$lib/components/FeaturedContent.svelte';
 	import SearchModal from '$lib/components/SearchModal.svelte';
+	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 	import IconSearch from '~icons/lucide/search';
 	import IconChevronDown from '~icons/lucide/chevron-down';
 
@@ -27,7 +28,7 @@
 
 {#snippet desktopLayout()}
 	<div class="h-screen flex">
-		<div class="w-2/3 p-12 relative overflow-hidden">
+		<div class="w-2/3 p-12 relative overflow-hidden bg-base-100">
 			<nav class="absolute top-0 left-0 right-0 flex justify-between items-center p-4">
 				<a href="/" class="text-2xl font-serif font-bold text-primary">Philip Nordquist</a>
 				<button
@@ -37,6 +38,7 @@
 				>
 					Search
 				</button>
+				<DarkModeToggle />
 			</nav>
 			<Hero {title} {subtitle} />
 		</div>
@@ -58,6 +60,7 @@
 				>
 					<IconSearch />
 				</button>
+				<DarkModeToggle />
 			</nav>
 			<Hero {title} {subtitle} />
 			<div class="text-center mt-12 mb-20">
@@ -70,7 +73,7 @@
 				</button>
 			</div>
 		</div>
-		<div bind:this={featuredContentRef} class="bg-primary text-white p-6">
+		<div bind:this={featuredContentRef} class="bg-primary text-white">
 			<FeaturedContent {featuredPosts} />
 		</div>
 	</div>

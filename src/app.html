@@ -8,6 +8,17 @@
 	<link
 		href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap"
 		rel="stylesheet">
+	<script>
+		(function () {
+			const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const storedTheme = localStorage.getItem('theme');
+			if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+				document.documentElement.setAttribute('data-theme', 'dark');
+			} else {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+		})();
+	</script>
 	%sveltekit.head%
 </head>
 
@@ -19,5 +30,3 @@
 		data-cf-beacon='{"token": "d26df3caa1eb430d9acfd51ba5345281"}'></script>
 	<!-- End Cloudflare Web Analytics -->
 </body>
-
-</html>

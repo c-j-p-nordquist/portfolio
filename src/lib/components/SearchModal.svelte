@@ -1,7 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { createPostsIndex, searchPostsIndex, isIndexCreated } from '$lib/utils/search';
-	import { onMount } from 'svelte';
 
 	let { posts, onClose } = $props();
 	let searchTerm = $state('');
@@ -14,8 +13,19 @@
 		}
 	});
 
-	onMount(() => {
+	$effect(() => {
 		inputRef?.focus();
+
+		const handleKeydown = (event) => {
+			if (event.key === 'Escape') {
+				onClose();
+			}
+		};
+
+		document.addEventListener('keydown', handleKeydown);
+		return () => {
+			document.removeEventListener('keydown', handleKeydown);
+		};
 	});
 
 	function handleResultClick(slug) {
@@ -25,12 +35,12 @@
 </script>
 
 <div class="fixed inset-0 bg-primary bg-opacity-90 z-50 flex items-center justify-center p-4">
-	<div class="bg-white w-full max-w-2xl rounded-lg shadow-lg overflow-hidden">
+	<div class="bg-white dark:bg-gray-800 w-full max-w-2xl rounded-lg shadow-lg overflow-hidden">
 		<input
 			bind:this={inputRef}
 			type="text"
 			placeholder="Search..."
-			class="w-full p-4 text-lg text-primary placeholder-secondary border-b border-secondary focus:outline-none"
+			class="w-full p-4 text-lg text-primary dark:text-white placeholder-secondary dark:placeholder-gray-400 border-b border-secondary dark:border-gray-600 focus:outline-none bg-transparent"
 			bind:value={searchTerm}
 		/>
 		<div class="max-h-[60vh] overflow-y-auto p-4">
@@ -39,14 +49,16 @@
 					{#each results as result}
 						<li>
 							<button onclick={() => handleResultClick(result.slug)} class="text-left w-full">
-								<h3 class="text-lg font-semibold text-primary">{@html result.title}</h3>
-								<p class="text-sm text-secondary">{@html result.description}</p>
+								<h3 class="text-lg font-semibold text-primary dark:text-white">
+									{@html result.title}
+								</h3>
+								<p class="text-sm text-secondary dark:text-gray-300">{@html result.description}</p>
 							</button>
 						</li>
 					{/each}
 				</ul>
 			{:else if searchTerm}
-				<p class="text-center text-secondary py-4">No results found</p>
+				<p class="text-center text-secondary dark:text-gray-300 py-4">No results found</p>
 			{/if}
 		</div>
 	</div>

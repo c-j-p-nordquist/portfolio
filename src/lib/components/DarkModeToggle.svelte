@@ -1,30 +1,34 @@
 <script>
-	import { onMount } from 'svelte';
-	import IconMoon from '~icons/lucide/moon';
-	import IconSun from '~icons/lucide/sun';
+	import { browser } from '$app/environment';
+	import IconLightbulb from '~icons/lucide/lightbulb';
+	import IconLightbulbOff from '~icons/lucide/lightbulb-off';
 
 	let darkMode = $state(false);
 
-	onMount(() => {
-		const isDarkMode = localStorage.getItem('darkMode') === 'true';
-		darkMode = isDarkMode;
-		document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-	});
-
 	$effect(() => {
-		document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-		localStorage.setItem('darkMode', darkMode);
+		if (browser) {
+			darkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+		}
 	});
 
 	function toggleDarkMode() {
 		darkMode = !darkMode;
+		if (browser) {
+			const newTheme = darkMode ? 'dark' : 'light';
+			document.documentElement.setAttribute('data-theme', newTheme);
+			localStorage.setItem('theme', newTheme);
+		}
 	}
 </script>
 
-<button onclick={toggleDarkMode}>
-	{#if darkMode}
-		<IconSun />
+<button
+	onclick={toggleDarkMode}
+	class="p-2 rounded-full hover:bg-base-200 transition-colors duration-200"
+	aria-label="Toggle dark mode"
+>
+	{#if !darkMode}
+		<IconLightbulbOff class="w-6 h-6 text-gray-400" />
 	{:else}
-		<IconMoon />
+		<IconLightbulb class="w-6 h-6 text-yellow-400" />
 	{/if}
 </button>
