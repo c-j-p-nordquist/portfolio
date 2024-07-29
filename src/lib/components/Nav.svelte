@@ -1,12 +1,8 @@
 <script>
 	import { page } from '$app/stores';
-	import IconSearch from '~icons/lucide/search';
-	import NavItems from './NavItems.svelte';
 	import SearchModal from './SearchModal.svelte';
 
-	let { data } = $props();
-
-	let currentPath = $derived($page.url.pathname);
+	let { posts } = $props();
 	let showSearchModal = $state(false);
 
 	function toggleSearchModal() {
@@ -14,22 +10,19 @@
 	}
 </script>
 
-<nav class="bg-base-100 shadow-sm">
-	<div class="container mx-auto px-4 py-3 flex justify-between items-center">
-		<a href="/" class="text-2xl font-serif font-bold text-primary">PN</a>
-
-		<NavItems {currentPath} {data} />
-
+<nav class="fixed top-0 left-0 right-0 bg-white z-10">
+	<div class="container px-4 py-4 flex justify-between items-center">
+		<a href="/" class="text-2xl font-serif font-bold text-primary">Philip Nordquist</a>
 		<button
-			class="text-primary hover:text-secondary transition-colors duration-200"
+			class="text-secondary hover:text-primary transition-colors duration-200"
 			onclick={toggleSearchModal}
-			aria-label="Open search"
+			aria-label="Toggle search"
 		>
-			<IconSearch class="h-5 w-5" />
+			Search
 		</button>
 	</div>
 </nav>
 
 {#if showSearchModal}
-	<SearchModal onClose={toggleSearchModal} />
+	<SearchModal {posts} onClose={toggleSearchModal} />
 {/if}

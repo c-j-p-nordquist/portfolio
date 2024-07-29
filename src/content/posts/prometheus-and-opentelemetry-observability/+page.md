@@ -2,7 +2,9 @@
 title: "Prometheus and OpenTelemetry: Complementary Tools for Comprehensive Observability"
 description: "Explore how Prometheus and OpenTelemetry work together to provide a robust observability solution for modern distributed systems."
 date: "2024-07-15"
+type: post
 topics: ["Prometheus", "OpenTelemetry", "Observability", "Monitoring"]
+featured: true
 published: true
 ---
 

@@ -7,7 +7,8 @@ let indexCreated = false;
 export function createPostsIndex(data) {
     postsIndex = new FlexSearch.Index({ tokenize: 'forward' });
     data.forEach((post, i) => {
-        postsIndex.add(i, `${post.title} ${post.description || ''}`);
+        const searchableContent = `${post.title} ${post.description || ''} ${post.topics?.join(' ') || ''} ${post.type || ''}`;
+        postsIndex.add(i, searchableContent);
     });
     posts = data;
     indexCreated = true;
@@ -22,10 +23,13 @@ export function searchPostsIndex(searchTerm) {
     const results = postsIndex.search(match);
     return results
         .map((index) => posts[index])
-        .map(({ slug, title, description }) => ({
+        .map(({ slug, title, description, topics, type, date }) => ({
             slug,
             title: replaceTextWithMarker(title, match),
             description: description ? getMatches(description, match) : '',
+            topics: topics || [],
+            type,
+            date
         }));
 }
 

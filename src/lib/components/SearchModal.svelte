@@ -1,87 +1,59 @@
 <script>
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { createPostsIndex, searchPostsIndex, isIndexCreated } from '$lib/utils/search';
+	import { onMount } from 'svelte';
 
-	let { onClose } = $props();
+	let { posts, onClose } = $props();
 	let searchTerm = $state('');
-	let results = $state([]);
-	let isIndexReady = $state(false);
-	let dialogRef = $state(null);
-	let inputRef = $state(null);
+	let results = $derived(searchTerm ? searchPostsIndex(searchTerm) : []);
+	let inputRef;
 
-	onMount(async () => {
+	$effect(() => {
 		if (!isIndexCreated()) {
-			const response = await fetch('/api/search');
-			const posts = await response.json();
 			createPostsIndex(posts);
 		}
-		isIndexReady = true;
-		if (dialogRef) {
-			dialogRef.showModal();
-		}
 	});
 
-	$effect(() => {
-		if (dialogRef && dialogRef.open) {
-			inputRef?.focus();
-		}
-	});
-
-	$effect(() => {
-		if (isIndexReady && searchTerm) {
-			results = searchPostsIndex(searchTerm);
-		} else {
-			results = [];
-		}
+	onMount(() => {
+		inputRef?.focus();
 	});
 
 	function handleResultClick(slug) {
-		goto(`/blog/${slug}`);
-		closeModal();
-	}
-
-	function closeModal() {
-		if (dialogRef) {
-			dialogRef.close();
-		}
+		goto(`/posts/${slug}`);
 		onClose();
 	}
 </script>
 
-<dialog bind:this={dialogRef} class="modal" onclose={closeModal}>
-	<div class="modal-box">
-		<h3 class="text-lg font-bold mb-4">Search</h3>
+<div class="fixed inset-0 bg-primary bg-opacity-90 z-50 flex items-center justify-center p-4">
+	<div class="bg-white w-full max-w-2xl rounded-lg shadow-lg overflow-hidden">
 		<input
+			bind:this={inputRef}
 			type="text"
 			placeholder="Search..."
-			class="input input-bordered w-full mb-4"
+			class="w-full p-4 text-lg text-primary placeholder-secondary border-b border-secondary focus:outline-none"
 			bind:value={searchTerm}
-			bind:this={inputRef}
-			aria-label="Search input"
 		/>
-
-		{#if !isIndexReady}
-			<div class="text-center py-4" role="status">Loading search index...</div>
-		{:else if results.length > 0}
-			<ul class="space-y-2 max-h-96 overflow-y-auto" role="listbox">
-				{#each results as result}
-					<li role="option" aria-selected="false">
-						<button
-							onclick={() => handleResultClick(result.slug)}
-							class="block w-full text-left p-2 hover:bg-base-200 rounded"
-						>
-							<div class="font-semibold">{@html result.title}</div>
-							<div class="text-sm mt-1">{@html result.description}</div>
-						</button>
-					</li>
-				{/each}
-			</ul>
-		{:else if searchTerm}
-			<div class="text-center py-4" role="status">No results found</div>
-		{/if}
+		<div class="max-h-[60vh] overflow-y-auto p-4">
+			{#if results.length > 0}
+				<ul class="space-y-4">
+					{#each results as result}
+						<li>
+							<button onclick={() => handleResultClick(result.slug)} class="text-left w-full">
+								<h3 class="text-lg font-semibold text-primary">{@html result.title}</h3>
+								<p class="text-sm text-secondary">{@html result.description}</p>
+							</button>
+						</li>
+					{/each}
+				</ul>
+			{:else if searchTerm}
+				<p class="text-center text-secondary py-4">No results found</p>
+			{/if}
+		</div>
 	</div>
-	<form method="dialog" class="modal-backdrop">
-		<button>close</button>
-	</form>
-</dialog>
+	<button
+		onclick={onClose}
+		class="absolute top-4 right-4 text-white hover:text-accent transition-colors duration-200"
+	>
+		Close
+	</button>
+</div>

@@ -18,7 +18,7 @@ const config = {
 		mdsvex({
 			extensions: ['.md'],
 			layout: {
-				_: './src/routes/blog/post.svelte'
+				_: './src/routes/posts/post.svelte'
 			},
 			highlight: {
 				highlighter: async (code, lang = 'text') => {

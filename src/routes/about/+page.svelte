@@ -5,18 +5,11 @@
 	import IconLinkedin from '~icons/lucide/linkedin';
 	import TechIcons from '$lib/components/TechIcons.svelte';
 
-	let resumeUrl = $state('/path/to/your/resume.pdf');
+	let resumeUrl = $state('/files/resume.pdf');
 
 	function downloadResume() {
 		window.open(resumeUrl, '_blank');
 	}
-
-	const keyAchievements = [
-		'Led cloud migration projects for Fortune 500 companies',
-		'Developed custom observability tools improving system reliability by 40%',
-		'Implemented GitOps practices reducing deployment times by 60%',
-		'Contributed to open-source Kubernetes projects'
-	];
 </script>
 
 <div class="flex min-h-screen">

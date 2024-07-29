@@ -2,7 +2,9 @@
 title: "Beyond Contact Forms: Secure Communication Channels for My Blog"
 description: "An exploration of the security implications of contact forms and the rationale behind offering multiple, established communication channels for a small personal blog."
 date: "2024-07-16"
+type: post
 topics: ["Web Security", "Contact Methods", "Professional Networking", "Risk Assessment"]
+featured: true
 published: true
 ---
 

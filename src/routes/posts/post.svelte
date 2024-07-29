@@ -1,4 +1,5 @@
 <script>
+	import Badge from '$lib/components/Badge.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
 	import { page } from '$app/stores';
 
@@ -14,7 +15,7 @@
 	<meta property="og:title" content={title} />
 </svelte:head>
 
-<article class="container mx-auto px-4 py-8 max-w-3xl">
+<article class="container mx-auto px-4 py-8 max-w-3xl pt-20">
 	<div class="text-sm breadcrumbs mb-4">
 		<ul>
 			<li><a href="/">Home</a></li>
@@ -37,7 +38,7 @@
 	{#if topics && topics.length > 0}
 		<div class="mb-8">
 			{#each topics as topic}
-				<span class="badge badge-outline mr-2">{topic}</span>
+				<Badge {topic} />
 			{/each}
 		</div>
 	{/if}

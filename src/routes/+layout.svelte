@@ -1,15 +1,23 @@
 <script>
 	import '../app.css';
+	import Nav from '$lib/components/Nav.svelte';
+	import { page } from '$app/stores';
 
-	let { children } = $props();
+	let { data, children } = $props();
+	let isLandingPage = $derived($page.url.pathname === '/');
 </script>
 
-<div class="min-h-screen bg-white flex flex-col">
-	<nav class="absolute top-0 left-0 p-4 z-10">
-		<a href="/" class="text-2xl font-serif font-bold text-primary">Philip Nordquist</a>
-	</nav>
+{#snippet mainLayout()}
+	<div class="min-h-screen bg-white flex flex-col">
+		{#if !isLandingPage}
+			<Nav />
+			<main class="flex-grow">
+				{@render children()}
+			</main>
+		{:else}
+			{@render children()}
+		{/if}
+	</div>
+{/snippet}
 
-	<main class="flex-grow">
-		{@render children()}
-	</main>
-</div>
+{@render mainLayout()}

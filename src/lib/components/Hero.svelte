@@ -1,5 +1,5 @@
 <script>
-	let { subtitle, description } = $props();
+	let { subtitle, title } = $props();
 </script>
 
 <div class="h-screen flex flex-col justify-center p-8">
@@ -9,8 +9,11 @@
 	<h1
 		class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 text-primary leading-tight"
 	>
-		Insights & Solutions for Modern IT Landscapes
+		{title}
 	</h1>
+	<p class="text-lg sm:text-xl md:text-2xl text-secondary mb-8 max-w-2xl">
+		{subtitle}
+	</p>
 	<nav class="flex flex-wrap gap-4 sm:gap-6">
 		<a
 			href="/about"
@@ -18,12 +21,7 @@
 			>About</a
 		>
 		<a
-			href="/projects"
-			class="text-base sm:text-lg font-semibold text-secondary hover:text-accent transition-colors duration-200"
-			>Projects</a
-		>
-		<a
-			href="/blog"
+			href="/posts"
 			class="text-base sm:text-lg font-semibold text-secondary hover:text-accent transition-colors duration-200"
 			>Blog</a
 		>
