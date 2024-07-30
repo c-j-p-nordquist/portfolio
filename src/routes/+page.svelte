@@ -27,20 +27,24 @@
 </svelte:head>
 
 {#snippet desktopLayout()}
-	<div class="h-screen flex">
-		<div class="w-2/3 p-12 relative overflow-hidden bg-base-100">
-			<nav class="absolute top-0 left-0 right-0 flex justify-between items-center p-4">
+	<div class="h-screen flex overflow-hidden">
+		<div class="w-2/3 flex flex-col bg-base-100">
+			<nav class="flex justify-between items-center p-4">
 				<a href="/" class="text-2xl font-serif font-bold text-primary">Philip Nordquist</a>
-				<button
-					class="text-secondary hover:text-primary transition-colors duration-200"
-					onclick={toggleSearchModal}
-					aria-label="Toggle search"
-				>
-					Search
-				</button>
-				<DarkModeToggle />
+				<div class="flex items-center gap-4">
+					<button
+						class="text-secondary hover:text-primary transition-colors duration-200"
+						onclick={toggleSearchModal}
+						aria-label="Toggle search"
+					>
+						Search
+					</button>
+					<DarkModeToggle />
+				</div>
 			</nav>
-			<Hero {title} {subtitle} />
+			<div class="flex-grow flex items-center p-12 overflow-hidden">
+				<Hero {title} {subtitle} />
+			</div>
 		</div>
 		<aside class="w-1/3 bg-primary text-white overflow-y-auto">
 			<FeaturedContent {featuredPosts} />
@@ -49,10 +53,10 @@
 {/snippet}
 
 {#snippet mobileLayout()}
-	<div class="h-screen flex flex-col">
-		<div class="min-h-screen p-6 relative flex flex-col">
-			<nav class=" flex justify-between items-center">
-				<a href="/" class="text-2xl font-serif font-bold text-primary">Philip Nordquist</a>
+	<div class="min-h-screen flex flex-col">
+		<nav class="flex justify-between items-center p-4 bg-base-100">
+			<a href="/" class="text-2xl font-serif font-bold text-primary">Philip Nordquist</a>
+			<div class="flex items-center gap-4">
 				<button
 					class="text-secondary hover:text-primary transition-colors duration-200"
 					onclick={toggleSearchModal}
@@ -61,9 +65,11 @@
 					<IconSearch />
 				</button>
 				<DarkModeToggle />
-			</nav>
+			</div>
+		</nav>
+		<main class="flex-grow flex flex-col justify-between p-6">
 			<Hero {title} {subtitle} />
-			<div class="text-center mt-12 mb-20">
+			<div class="text-center mt-4">
 				<button
 					onclick={scrollToFeaturedContent}
 					class="text-secondary hover:text-primary transition-colors duration-200"
@@ -72,7 +78,7 @@
 					<IconChevronDown class="w-8 h-8 animate-bounce" />
 				</button>
 			</div>
-		</div>
+		</main>
 		<div bind:this={featuredContentRef} class="bg-primary text-white">
 			<FeaturedContent {featuredPosts} />
 		</div>
