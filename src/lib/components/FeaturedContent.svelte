@@ -13,6 +13,13 @@
 		}
 		return dateString;
 	}
+
+	function getFilterUrl(type, topic) {
+		const params = new URLSearchParams();
+		if (type) params.append('type', type);
+		if (topic) params.append('topic', topic);
+		return `/posts?${params.toString()}`;
+	}
 </script>
 
 <div class="h-full p-8 flex flex-col" data-theme="dark">
@@ -28,9 +35,9 @@
 				<p class="text-sm mb-2 text-secondary">{formatDates(post.date, post.lastUpdated)}</p>
 				<p class="mb-3 text-neutral">{post.description}</p>
 				<div class="flex flex-wrap gap-2 mb-3">
-					<Badge type={post.type} />
+					<Badge type={post.type} href={getFilterUrl(post.type)} variant="type" />
 					{#each post.topics || [] as topic}
-						<Badge {topic} />
+						<Badge {topic} href={getFilterUrl(null, topic)} variant="topic" />
 					{/each}
 				</div>
 				{#if post.type === 'project' && (post.githubUrl || post.liveUrl)}

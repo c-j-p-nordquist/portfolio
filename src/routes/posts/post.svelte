@@ -2,6 +2,7 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import IconGithub from '~icons/lucide/github';
 	import IconExternalLink from '~icons/lucide/external-link';
 
@@ -17,6 +18,14 @@
 			dateString += ` • Last updated on ${formatDate(lastUpdatedDate)}`;
 		}
 		return dateString;
+	}
+
+	function filterByType(type) {
+		goto(`/posts?type=${type}`);
+	}
+
+	function filterByTopic(topic) {
+		goto(`/posts?topic=${encodeURIComponent(topic)}`);
 	}
 </script>
 
@@ -54,10 +63,10 @@
 	{/if}
 
 	<div class="flex flex-wrap gap-2 mb-4">
-		<Badge {type} />
+		<Badge {type} variant="type" onclick={() => filterByType(type)} />
 		{#if topics && topics.length > 0}
 			{#each topics as topic}
-				<Badge {topic} />
+				<Badge {topic} variant="topic" onclick={() => filterByTopic(topic)} />
 			{/each}
 		{/if}
 	</div>

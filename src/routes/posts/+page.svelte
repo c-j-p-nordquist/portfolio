@@ -1,11 +1,15 @@
 <script>
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { formatDate } from '$lib/utils/formatDate';
 	import FilterModal from '$lib/components/FilterModal.svelte';
 	import IconFilter from '~icons/lucide/filter';
+	import IconX from '~icons/lucide/x';
 	import Badge from '$lib/components/Badge.svelte';
 	import IconGithub from '~icons/lucide/github';
 	import IconExternalLink from '~icons/lucide/external-link';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	let { data } = $props();
 
@@ -17,11 +21,15 @@
 
 	let items = data.posts || [];
 
-	$effect(() => {
+	function initializeFilters() {
+		const urlParams = new URLSearchParams($page.url.searchParams);
+		selectedType = urlParams.get('type') || 'all';
+		selectedTopics = urlParams.getAll('topic');
 		allTopics = [...new Set(items.flatMap((item) => item.topics || []))];
-	});
+		updateFilteredItems();
+	}
 
-	$effect(() => {
+	function updateFilteredItems() {
 		filteredItems = items.filter((item) => {
 			const topicMatch =
 				selectedTopics.length === 0 ||
@@ -29,6 +37,10 @@
 			const typeMatch = selectedType === 'all' || item.type === selectedType;
 			return topicMatch && typeMatch;
 		});
+	}
+
+	onMount(() => {
+		initializeFilters();
 	});
 
 	function toggleFilter() {
@@ -39,11 +51,28 @@
 		selectedTopics = selectedTopics.includes(topic)
 			? selectedTopics.filter((t) => t !== topic)
 			: [...selectedTopics, topic];
+		updateFilteredItems();
+		updateUrl();
+	}
+
+	function toggleType(type) {
+		selectedType = type === selectedType ? 'all' : type;
+		updateFilteredItems();
+		updateUrl();
 	}
 
 	function clearFilters() {
 		selectedTopics = [];
 		selectedType = 'all';
+		updateFilteredItems();
+		updateUrl();
+	}
+
+	function updateUrl() {
+		const params = new URLSearchParams();
+		if (selectedType !== 'all') params.append('type', selectedType);
+		selectedTopics.forEach((t) => params.append('topic', t));
+		goto(`?${params.toString()}`, { replaceState: true, noscroll: true, keepfocus: true });
 	}
 
 	function formatDates(publishedDate, lastUpdatedDate) {
@@ -83,6 +112,28 @@
 			</button>
 		</div>
 
+		{#if selectedTopics.length > 0 || selectedType !== 'all'}
+			<div class="bg-base-200 p-4 rounded-lg mb-8" transition:fade={{ duration: 300 }}>
+				<div class="flex justify-between items-center mb-2">
+					<h2 class="text-lg font-semibold">Active Filters</h2>
+					<button
+						onclick={clearFilters}
+						class="text-secondary hover:text-primary transition-colors duration-200"
+					>
+						Clear All
+					</button>
+				</div>
+				<div class="flex flex-wrap gap-2">
+					{#if selectedType !== 'all'}
+						<Badge type={selectedType} onclick={() => toggleType(selectedType)} variant="type" />
+					{/if}
+					{#each selectedTopics as topic}
+						<Badge {topic} onclick={() => toggleTopic(topic)} variant="topic" />
+					{/each}
+				</div>
+			</div>
+		{/if}
+
 		<div class="space-y-12">
 			{#each filteredItems as item (item.slug)}
 				<article
@@ -117,10 +168,10 @@
 								<p class="text-base text-secondary mb-4">{item.description}</p>
 							{/if}
 							<div class="flex flex-wrap gap-2 mb-4">
-								<Badge type={item.type} />
+								<Badge type={item.type} onclick={() => toggleType(item.type)} variant="type" />
 								{#if item.topics}
 									{#each item.topics as topic}
-										<Badge {topic} />
+										<Badge {topic} onclick={() => toggleTopic(topic)} variant="topic" />
 									{/each}
 								{/if}
 							</div>
@@ -169,6 +220,6 @@
 	{selectedType}
 	onClose={toggleFilter}
 	onToggleTopic={toggleTopic}
-	onChangeType={(type) => (selectedType = type)}
+	onChangeType={toggleType}
 	onClearFilters={clearFilters}
 />
