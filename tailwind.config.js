@@ -4,24 +4,87 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Source Sans Pro', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['Space Grotesk', 'sans-serif'],
+        display: ['Syne', 'sans-serif'],
+        body: ['Inter']
       },
-      fontSize: {
-        'xs': ['0.75rem', { lineHeight: '1rem' }],
-        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-        'base': ['1rem', { lineHeight: '1.5rem' }],
-        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-        '5xl': ['3rem', { lineHeight: '1' }],
-        '6xl': ['3.75rem', { lineHeight: '1' }],
-        '7xl': ['4.5rem', { lineHeight: '1' }],
-        '8xl': ['6rem', { lineHeight: '1' }],
-        '9xl': ['8rem', { lineHeight: '1' }],
+      colors: {
+        primary: {
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0d9488',
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+          950: '#042f2e',
+        },
+        secondary: {
+          50: '#fdf4ff',
+          100: '#fae8ff',
+          200: '#f5d0fe',
+          300: '#f0abfc',
+          400: '#e879f9',
+          500: '#d946ef',
+          600: '#c026d3',
+          700: '#a21caf',
+          800: '#86198f',
+          900: '#701a75',
+          950: '#4a044e',
+        },
+        accent: {
+          50: '#fff9ec',
+          100: '#ffefc2',
+          200: '#ffdf85',
+          300: '#ffc847',
+          400: '#ffb21d',
+          500: '#ff9203',
+          600: '#e27000',
+          700: '#bb4d02',
+          800: '#983b08',
+          900: '#7c310b',
+          950: '#481700',
+        },
+      },
+      animation: {
+        'gradient-x': 'gradient-x 15s ease infinite',
+        'gradient-y': 'gradient-y 15s ease infinite',
+        'gradient-xy': 'gradient-xy 15s ease infinite',
+      },
+      keyframes: {
+        'gradient-y': {
+          '0%, 100%': {
+            'background-size': '400% 400%',
+            'background-position': 'center top'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'center center'
+          }
+        },
+        'gradient-x': {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          }
+        },
+        'gradient-xy': {
+          '0%, 100%': {
+            'background-size': '400% 400%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          }
+        }
       },
     },
   },
@@ -33,22 +96,30 @@ export default {
     themes: [
       {
         light: {
-          "primary": "#1A3636",
-          "secondary": "#40534C",
-          "accent": "#D6BD98",
-          "neutral": "#677D6A",
-          "base-100": "#FFFFFF",
-          "base-200": "#F0F7F4",
-          "base-300": "#E2E8F0",
+          "primary": "#14b8a6",
+          "secondary": "#d946ef",
+          "accent": "#ff9203",
+          "neutral": "#115e59",
+          "base-100": "#f0fdfa",
+          "base-200": "#ccfbf1",
+          "base-300": "#99f6e4",
+          "info": "#06b6d4",
+          "success": "#22c55e",
+          "warning": "#fbbf24",
+          "error": "#ef4444",
         },
         dark: {
-          "primary": "#E0ECEC",
-          "secondary": "#B0C4C4",
-          "accent": "#D6BD98",
-          "neutral": "#A0B4B4",
-          "base-100": "#1A2626",
-          "base-200": "#243434",
-          "base-300": "#2E4242",
+          "primary": "#5eead4",
+          "secondary": "#f0abfc",
+          "accent": "#ffc847",
+          "neutral": "#99f6e4",
+          "base-100": "#042f2e",
+          "base-200": "#134e4a",
+          "base-300": "#115e59",
+          "info": "#67e8f9",
+          "success": "#4ade80",
+          "warning": "#fde047",
+          "error": "#fca5a5",
         }
       }
     ],

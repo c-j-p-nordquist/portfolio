@@ -1,10 +1,12 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import { formatDate } from '$lib/utils/formatDate';
 	import Badge from '$lib/components/Badge.svelte';
 	import IconGithub from '~icons/lucide/github';
 	import IconExternalLink from '~icons/lucide/external-link';
 
 	let { featuredPosts } = $props();
+	let visiblePosts = $state([]);
 
 	function formatDates(publishedDate, lastUpdatedDate) {
 		let dateString = `Published on ${formatDate(publishedDate)}`;
@@ -20,36 +22,60 @@
 		if (topic) params.append('topic', topic);
 		return `/posts?${params.toString()}`;
 	}
+
+	$effect(() => {
+		const interval = setInterval(() => {
+			if (visiblePosts.length < featuredPosts.length) {
+				visiblePosts = [...visiblePosts, featuredPosts[visiblePosts.length]];
+			} else {
+				clearInterval(interval);
+			}
+		}, 200);
+
+		return () => clearInterval(interval);
+	});
 </script>
 
-<div class="h-full p-8 flex flex-col" data-theme="dark">
-	<h2 class="text-3xl font-serif font-bold mb-8 text-primary">Featured Work</h2>
-	<div class="space-y-8 overflow-y-auto">
-		{#each featuredPosts as post}
-			<article class="pb-6 border-b border-neutral/20 last:border-b-0">
-				<h3 class="text-xl font-serif font-bold mb-2">
-					<a href={post.path} class="text-primary hover:text-accent transition-colors duration-200">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+	{#each visiblePosts as post, index (post.slug)}
+		<article
+			class="bg-base-200 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl transform hover:-rotate-1"
+			in:fade={{ duration: 500, delay: index * 150 }}
+		>
+			{#if post.imageUrl}
+				<div class="relative h-48 overflow-hidden">
+					<img
+						src={post.imageUrl}
+						alt={post.title}
+						class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+					/>
+					<div class="absolute inset-0 bg-gradient-to-t from-base-200 to-transparent"></div>
+				</div>
+			{/if}
+			<div class="p-6 relative">
+				<h3 class="text-xl font-display font-bold mb-2 text-base-content">
+					<a href={post.path} class="hover:text-primary-focus transition-colors duration-200">
 						{post.title}
 					</a>
 				</h3>
-				<p class="text-sm mb-2 text-secondary">{formatDates(post.date, post.lastUpdated)}</p>
-				<p class="mb-3 text-neutral">{post.description}</p>
-				<div class="flex flex-wrap gap-2 mb-3">
+				<p class="text-sm mb-2 text-base-content">{formatDates(post.date, post.lastUpdated)}</p>
+				<p class="mb-4 text-base-content">{post.description}</p>
+				<div class="flex flex-wrap gap-2 mb-4">
 					<Badge type={post.type} href={getFilterUrl(post.type)} variant="type" />
 					{#each post.topics || [] as topic}
 						<Badge {topic} href={getFilterUrl(null, topic)} variant="topic" />
 					{/each}
 				</div>
 				{#if post.type === 'project' && (post.githubUrl || post.liveUrl)}
-					<div class="flex gap-4">
+					<div class="flex gap-4 mt-4">
 						{#if post.githubUrl}
 							<a
 								href={post.githubUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="text-secondary hover:text-primary transition-colors duration-200"
+								class="text-base-content hover:text-primary-focus transition-colors duration-200 flex items-center"
 							>
-								<IconGithub class="inline mr-1" /> GitHub
+								<IconGithub class="w-5 h-5 mr-1" /> GitHub
 							</a>
 						{/if}
 						{#if post.liveUrl}
@@ -57,14 +83,14 @@
 								href={post.liveUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="text-secondary hover:text-primary transition-colors duration-200"
+								class="text-primary hover:text-primary-focus transition-colors duration-200 flex items-center"
 							>
-								<IconExternalLink class="inline mr-1" /> Live Demo
+								<IconExternalLink class="w-5 h-5 mr-1" /> Live Demo
 							</a>
 						{/if}
 					</div>
 				{/if}
-			</article>
-		{/each}
-	</div>
+			</div>
+		</article>
+	{/each}
 </div>

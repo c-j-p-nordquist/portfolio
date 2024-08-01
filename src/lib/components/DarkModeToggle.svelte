@@ -1,10 +1,12 @@
 <script>
 	import { browser } from '$app/environment';
-	import IconLightbulb from '~icons/lucide/lightbulb';
-	import IconLightbulbOff from '~icons/lucide/lightbulb-off';
-	import IconSparkles from '~icons/lucide/Sparkles';
+	import IconSun from '~icons/lucide/sun';
+	import IconMoon from '~icons/lucide/moon';
+	import IconLaptop from '~icons/lucide/laptop';
+	import IconSwatchBook from '~icons/lucide/swatch-book';
 
 	let theme = $state('system');
+	let isOpen = $state(false);
 
 	$effect(() => {
 		if (browser) {
@@ -20,11 +22,7 @@
 
 	function updateTheme() {
 		if (theme === 'system') {
-			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				document.documentElement.setAttribute('data-theme', 'dark');
-			} else {
-				document.documentElement.setAttribute('data-theme', 'light');
-			}
+			document.documentElement.removeAttribute('data-theme');
 			localStorage.removeItem('theme');
 		} else {
 			document.documentElement.setAttribute('data-theme', theme);
@@ -32,31 +30,42 @@
 		}
 	}
 
-	function toggleTheme() {
-		theme = theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light';
+	function setTheme(newTheme) {
+		theme = newTheme;
 		updateTheme();
+		isOpen = false;
 	}
 
-	$effect(() => {
-		if (browser && theme === 'system') {
-			const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-			const handleChange = () => updateTheme();
-			mediaQuery.addEventListener('change', handleChange);
-			return () => mediaQuery.removeEventListener('change', handleChange);
-		}
-	});
+	function toggleDropdown() {
+		isOpen = !isOpen;
+	}
 </script>
 
-<button
-	onclick={toggleTheme}
-	class="p-2 rounded-full hover:bg-base-200 transition-colors duration-200"
-	aria-label="Toggle theme"
->
-	{#if theme === 'light'}
-		<IconLightbulbOff class="w-6 h-6 text-gray-400" />
-	{:else if theme === 'dark'}
-		<IconLightbulb class="w-6 h-6 text-yellow-400" />
-	{:else}
-		<IconSparkles class="w-6 h-6 text-blue-400" />
+<div class="dropdown dropdown-end">
+	<button tabindex="0" class="btn btn-ghost" onclick={toggleDropdown}>
+		<span class="hidden sm:inline-block">Theme</span>
+		<span class="sm:hidden"><IconSwatchBook class="w-5 h-5" /></span>
+	</button>
+	{#if isOpen}
+		<ul
+			tabindex="-1"
+			class="dropdown-content font-sans z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+		>
+			<li>
+				<button onclick={() => setTheme('light')} class:active={theme === 'light'}>
+					<IconSun class="w-4 h-4 mr-2" /> Light
+				</button>
+			</li>
+			<li>
+				<button onclick={() => setTheme('dark')} class:active={theme === 'dark'}>
+					<IconMoon class="w-4 h-4 mr-2" /> Dark
+				</button>
+			</li>
+			<li>
+				<button onclick={() => setTheme('system')} class:active={theme === 'system'}>
+					<IconLaptop class="w-4 h-4 mr-2" /> System
+				</button>
+			</li>
+		</ul>
 	{/if}
-</button>
+</div>

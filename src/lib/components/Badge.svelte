@@ -12,11 +12,11 @@
 	let colorClass = $derived.by(() => {
 		switch (variant) {
 			case 'type':
-				return 'text-accent bg-accent/20 border-accent/30 hover:bg-accent/30';
+				return 'text-primary-900 bg-primary-100 border-primary-200 hover:bg-primary-200 dark:text-primary-100 dark:bg-primary-900 dark:border-primary-800 dark:hover:bg-primary-800';
 			case 'topic':
-				return 'text-secondary bg-secondary/10 border-secondary/20 hover:bg-secondary/20';
+				return 'text-secondary-900 bg-secondary-100 border-secondary-200 hover:bg-secondary-200 dark:text-secondary-100 dark:bg-secondary-900 dark:border-secondary-800 dark:hover:bg-secondary-800';
 			default:
-				return 'text-neutral bg-neutral/10 border-neutral/20 hover:bg-neutral/20';
+				return 'text-accent-900 bg-accent-100 border-accent-200 hover:bg-accent-200 dark:text-accent-100 dark:bg-accent-900 dark:border-accent-800 dark:hover:bg-accent-800';
 		}
 	});
 
@@ -28,7 +28,7 @@
 	});
 
 	let className = $derived(
-		`inline-block px-2 py-1 text-xs font-medium rounded-full ${colorClass} transition-colors duration-200 dark:bg-opacity-20 dark:hover:bg-opacity-30`
+		`inline-block px-2 py-1 text-xs font-medium rounded-full ${colorClass} transition-colors duration-200 border`
 	);
 </script>
 
