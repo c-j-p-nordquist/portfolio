@@ -7,6 +7,7 @@
 	import IconExternalLink from '~icons/lucide/external-link';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconClock from '~icons/lucide/clock';
+	import ReadingEnhancements from '$lib/components/ReadingEnhancements.svelte';
 
 	let {
 		children,
@@ -47,6 +48,8 @@
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={title} />
 </svelte:head>
+
+<ReadingEnhancements />
 
 <article class="container mx-auto px-4 py-8 max-w-3xl pt-20">
 	<div class="text-sm breadcrumbs mb-4">

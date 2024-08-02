@@ -23,10 +23,12 @@
 	let items = data.posts || [];
 
 	function initializeFilters() {
-		const urlParams = new URLSearchParams($page.url.searchParams);
-		selectedType = urlParams.get('type') || 'all';
-		selectedTopics = urlParams.getAll('topic');
-		allTopics = [...new Set(items.flatMap((item) => item.topics || []))];
+		untrack(() => {
+			const urlParams = new URLSearchParams($page.url.searchParams);
+			selectedType = urlParams.get('type') || 'all';
+			selectedTopics = urlParams.getAll('topic');
+			allTopics = [...new Set(items.flatMap((item) => item.topics || []))];
+		});
 	}
 
 	function applyFilters() {

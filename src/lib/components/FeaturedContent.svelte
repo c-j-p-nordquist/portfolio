@@ -4,6 +4,7 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import IconGithub from '~icons/lucide/github';
 	import IconExternalLink from '~icons/lucide/external-link';
+	import { goto } from '$app/navigation';
 
 	let { featuredPosts } = $props();
 	let visiblePosts = $state([]);
@@ -23,16 +24,22 @@
 		return `/posts?${params.toString()}`;
 	}
 
+	async function handlePostClick(path, event) {
+		event.preventDefault();
+		await goto(path);
+		window.scrollTo(0, 0);
+	}
+
 	$effect(() => {
-		const interval = setInterval(() => {
+		const timer = setInterval(() => {
 			if (visiblePosts.length < featuredPosts.length) {
 				visiblePosts = [...visiblePosts, featuredPosts[visiblePosts.length]];
 			} else {
-				clearInterval(interval);
+				clearInterval(timer);
 			}
 		}, 200);
 
-		return () => clearInterval(interval);
+		return () => clearInterval(timer);
 	});
 </script>
 
@@ -54,7 +61,11 @@
 			{/if}
 			<div class="p-6 relative">
 				<h3 class="text-xl font-display font-bold mb-2 text-base-content">
-					<a href={post.path} class="hover:text-primary-focus transition-colors duration-200">
+					<a
+						href={post.path}
+						class="hover:text-primary-focus transition-colors duration-200"
+						onclick={(event) => handlePostClick(post.path, event)}
+					>
 						{post.title}
 					</a>
 				</h3>

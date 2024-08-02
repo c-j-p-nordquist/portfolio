@@ -1,11 +1,22 @@
 <script>
 	import { fly, scale } from 'svelte/transition';
+	import { spring } from 'svelte/motion';
 	import IconUser from '~icons/lucide/user';
 	import IconBook from '~icons/lucide/book';
 
 	let { subtitle, title } = $props();
 	let typedText = $state('');
 	let currentIndex = $state(0);
+	let mouseX = $state(0);
+	let mouseY = $state(0);
+
+	const coords = spring(
+		{ x: 0, y: 0 },
+		{
+			stiffness: 0.1,
+			damping: 0.25
+		}
+	);
 
 	$effect(() => {
 		const interval = setInterval(() => {
@@ -19,10 +30,18 @@
 
 		return () => clearInterval(interval);
 	});
+
+	function handleMouseMove(event) {
+		mouseX = event.clientX / window.innerWidth;
+		mouseY = event.clientY / window.innerHeight;
+		coords.set({ x: mouseX * 20 - 10, y: mouseY * 20 - 10 });
+	}
 </script>
 
-<div class="text-center max-w-4xl mx-auto relative">
-	<div class="mb-8">
+<svelte:window on:mousemove={handleMouseMove} />
+
+<div class="text-center max-w-4xl mx-auto relative py-20" style="perspective: 1000px;">
+	<div class="mb-8 relative" style="transform: translate3d({$coords.x}px, {$coords.y}px, 0)">
 		<h2
 			class="text-xl sm:text-2xl md:text-3xl font-light mb-4 text-primary-200"
 			in:fly={{ y: 20, duration: 1000, delay: 300 }}
