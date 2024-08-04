@@ -17,10 +17,12 @@
 		if (canvas) {
 			initCanvas();
 			window.addEventListener('mousemove', handleMouseMove);
+			window.addEventListener('resize', initCanvas);
 			animationFrameId = requestAnimationFrame(animate);
 
 			return () => {
 				window.removeEventListener('mousemove', handleMouseMove);
+				window.removeEventListener('resize', initCanvas);
 				if (animationFrameId) {
 					cancelAnimationFrame(animationFrameId);
 				}
@@ -33,13 +35,18 @@
 		canvas.height = window.innerHeight;
 		ctx = canvas.getContext('2d');
 
-		particles = Array.from({ length: 50 }, () => ({
+		particles = Array.from({ length: 100 }, () => createParticle());
+	}
+
+	function createParticle() {
+		return {
 			x: Math.random() * canvas.width,
 			y: Math.random() * canvas.height,
-			radius: Math.random() * 2 + 1,
-			vx: Math.random() * 2 - 1,
-			vy: Math.random() * 2 - 1
-		}));
+			size: Math.random() * 5 + 1,
+			speedX: Math.random() * 3 - 1.5,
+			speedY: Math.random() * 3 - 1.5,
+			color: `hsla(${Math.random() * 60 + 180}, 100%, 50%, ${Math.random() * 0.3 + 0.1})`
+		};
 	}
 
 	function handleMouseMove(e) {
@@ -50,33 +57,35 @@
 		if (!canvas || !ctx) return;
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.globalCompositeOperation = 'lighter';
 
-		particles.forEach((p, index) => {
-			p.x += p.vx;
-			p.y += p.vy;
+		particles.forEach((particle, index) => {
+			particle.x += particle.speedX;
+			particle.y += particle.speedY;
 
-			if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-			if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+			if (particle.size > 0.2) particle.size -= 0.1;
 
+			if (
+				particle.x < 0 ||
+				particle.x > canvas.width ||
+				particle.y < 0 ||
+				particle.y > canvas.height ||
+				particle.size <= 0.2
+			) {
+				particles[index] = createParticle();
+			}
+
+			ctx.fillStyle = particle.color;
 			ctx.beginPath();
-			ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-			ctx.fillStyle = 'rgba(88, 166, 255, 0.5)';
+			ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
 			ctx.fill();
 
-			for (let j = index + 1; j < particles.length; j++) {
-				let p2 = particles[j];
-				let dx = p.x - p2.x;
-				let dy = p.y - p2.y;
-				let distance = Math.sqrt(dx * dx + dy * dy);
-
-				if (distance < 100) {
-					ctx.beginPath();
-					ctx.moveTo(p.x, p.y);
-					ctx.lineTo(p2.x, p2.y);
-					ctx.strokeStyle = `rgba(88, 166, 255, ${1 - distance / 100})`;
-					ctx.stroke();
-				}
+			const dx = mouse.x - particle.x;
+			const dy = mouse.y - particle.y;
+			const distance = Math.sqrt(dx * dx + dy * dy);
+			if (distance < 100) {
+				particle.size = 5;
+				particle.x += dx * 0.03;
+				particle.y += dy * 0.03;
 			}
 		});
 
@@ -84,16 +93,20 @@
 	}
 </script>
 
-<div class="relative min-h-screen flex items-center overflow-hidden bg-base-100">
+<div
+	class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-base-100 to-base-300"
+>
 	<canvas bind:this={canvas} class="absolute inset-0"></canvas>
-	<div class="absolute inset-0 bg-gradient-to-b from-base-100 via-base-100/70 to-base-100/20"></div>
+	<div
+		class="absolute inset-0 bg-gradient-to-b from-base-100/80 via-base-100/50 to-transparent"
+	></div>
 	<div
 		class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center lg:items-start justify-between"
 	>
-		<div class="lg:w-1/2 lg:pr-8 mb-12 lg:mb-0">
+		<div class="lg:w-1/2 lg:pr-8 mb-12 lg:mb-0 text-center lg:text-left">
 			<h2
-				class="text-xl sm:text-2xl font-light text-base-content opacity-60 mb-4"
-				in:fly={{ x: -50, duration: 800, delay: 300, easing: cubicOut }}
+				class="text-xl sm:text-2xl font-light text-primary mb-4"
+				in:fly={{ y: -20, duration: 800, delay: 300, easing: cubicOut }}
 			>
 				DevSecOps Engineer
 			</h2>
@@ -102,7 +115,7 @@
 			>
 				{#each title.split(' ') as word, index}
 					<span
-						in:fly={{ x: -50, duration: 800, delay: 500 + index * 100, easing: cubicOut }}
+						in:fly={{ y: 50, duration: 800, delay: 500 + index * 100, easing: cubicOut }}
 						class="inline-block"
 					>
 						{word}&nbsp;
@@ -110,37 +123,41 @@
 				{/each}
 			</h1>
 			<p
-				class="text-lg sm:text-xl md:text-2xl text-base-content opacity-80 max-w-xl mb-12"
-				in:fly={{ x: -50, duration: 800, delay: 1200, easing: cubicOut }}
+				class="text-lg sm:text-xl md:text-2xl text-base-content/80 max-w-xl mx-auto lg:mx-0 mb-12"
+				in:fly={{ y: 20, duration: 800, delay: 1200, easing: cubicOut }}
 			>
 				{subtitle}
 			</p>
 			<div
-				class="flex flex-col sm:flex-row gap-4 sm:gap-6"
+				class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start"
 				in:fade={{ duration: 800, delay: 1500 }}
 			>
-				<a href="/posts" class="btn btn-primary">
+				<a href="/posts" class="btn btn-primary btn-lg group">
 					<span class="flex items-center">
 						Explore My Work
-						<IconBook class="w-5 h-5 ml-2" />
+						<IconBook
+							class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+						/>
 					</span>
 				</a>
 				<a
 					href="/about"
-					class="btn btn-outline border-primary text-primary hover:bg-primary hover:text-base-100"
+					class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-base-100 group"
 				>
 					<span class="flex items-center">
 						About Me
-						<IconUser class="w-5 h-5 ml-2" />
+						<IconUser
+							class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+						/>
 					</span>
 				</a>
 			</div>
 		</div>
 		{#if featuredPosts && featuredPosts.length > 0}
-			<div class="lg:w-1/2 lg:pl-8">
-				<h2 class="text-2xl font-bold mb-4">Featured Works</h2>
+			<div class="lg:w-1/2 lg:pl-8 mt-12 lg:mt-0">
+				<h2 class="text-2xl font-bold mb-6 text-center lg:text-left">Featured Works</h2>
 				<div
-					class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+					class="grid grid-cols-1 sm:grid-cols-2 gap-6"
 					in:fly={{ x: 50, duration: 800, delay: 800, easing: cubicOut }}
 				>
 					{#each featuredPosts as post, index}

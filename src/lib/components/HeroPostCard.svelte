@@ -41,20 +41,7 @@
 		return text.slice(0, length) + '...';
 	}
 
-	function highlightText(text, highlight) {
-		if (!highlight || !text.includes(highlight)) return text;
-		const parts = text.split(highlight);
-		return parts
-			.map((part, index) =>
-				index === 0
-					? part
-					: `<span class="font-semibold text-base-content">${highlight}</span>${part}`
-			)
-			.join('');
-	}
-
-	let truncatedDescription = $derived(truncate(post.description, 150));
-	let highlightedDescription = $derived(highlightText(truncatedDescription, post.highlight));
+	let truncatedDescription = $derived(truncate(post.description, 100));
 
 	function handleTypeClick() {
 		goto('/posts?type=' + post.type.toLowerCase());
@@ -67,8 +54,9 @@
 
 <article
 	bind:this={cardElement}
-	class="bg-base-200/50 backdrop-blur-sm rounded-lg overflow-hidden transition-all duration-300 border border-base-300 relative group p-6 h-full flex flex-col justify-between"
+	class="bg-base-200/30 backdrop-blur-sm rounded-lg overflow-hidden transition-all duration-300 border border-primary/20 relative group h-full flex flex-col justify-between"
 	class:hover:shadow-lg={isHovered}
+	class:hover:border-primary={isHovered}
 	style="transform: perspective(1000px) rotateX({$tiltSpring.x}deg) rotateY({$tiltSpring.y}deg);"
 	onmouseenter={() => (isHovered = true)}
 	onmouseleave={handleMouseLeave}
@@ -82,20 +70,20 @@
 		></div>
 	{/if}
 
-	<div class="absolute top-2 right-2">
-		<Badge type={post.type} onclick={handleTypeClick} variant="type" />
-	</div>
+	<div class="p-6 flex flex-col h-full">
+		<div class="mb-4">
+			<Badge type={post.type} onclick={handleTypeClick} variant="type" />
+		</div>
 
-	<div class="space-y-4 mt-6">
-		<p class="text-base text-base-content/70 leading-relaxed">
-			{@html highlightedDescription}
+		<h3 class="text-lg font-semibold mb-2 text-base-content">{post.title}</h3>
+
+		<p class="text-sm text-base-content/70 mb-4 flex-grow">
+			{truncatedDescription}
 		</p>
-	</div>
 
-	<div class="mt-4">
 		<button
 			onclick={handleReadMore}
-			class="text-primary hover:text-primary-focus transition-all duration-300 inline-block relative"
+			class="text-primary hover:text-primary-focus transition-all duration-300 inline-block relative text-sm font-medium"
 		>
 			Read more
 			<span
@@ -108,7 +96,7 @@
 
 <style>
 	article {
-		--tw-gradient-from: theme('colors.accent');
+		--tw-gradient-from: theme('colors.primary');
 		transition: transform 0.1s ease-out;
 	}
 </style>
