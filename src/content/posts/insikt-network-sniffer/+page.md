@@ -1,6 +1,7 @@
 ---
 title: "Insikt - Network Sniffer"
 description: "Lightweight Go-based network sniffer for packet capture and analytics."
+highlight: "network sniffer"
 date: "2024-07-14"
 type: project
 topics:

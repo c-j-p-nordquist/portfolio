@@ -1,6 +1,7 @@
 ---
 title: "MacOS Development Environment Setup Scripts"
 description: "Automate your MacOS dev environment setup with customizable bash scripts."
+highlight: "Automate your MacOS dev environment"
 date: "2024-07-14"
 type: project
 topics:

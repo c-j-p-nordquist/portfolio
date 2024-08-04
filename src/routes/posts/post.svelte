@@ -51,24 +51,22 @@
 
 <ReadingEnhancements />
 
-<article class="container mx-auto px-4 py-8 max-w-3xl pt-20">
-	<div class="text-sm breadcrumbs mb-4">
+<article class="container mx-auto px-4 py-8 max-w-3xl">
+	<div class="text-sm breadcrumbs">
 		<ul>
 			<li>
-				<a
-					href="/"
-					class="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300"
+				<a href="/" class="text-primary hover:text-primary-focus transition-colors duration-200"
 					>Home</a
 				>
 			</li>
 			{#each pathSegments as segment, index}
 				<li>
 					{#if index === pathSegments.length - 1}
-						<span class="text-secondary-500 dark:text-secondary-400">{segment}</span>
+						<span class="text-base-content opacity-80">{segment}</span>
 					{:else}
 						<a
 							href={`/${pathSegments.slice(0, index + 1).join('/')}`}
-							class="text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300"
+							class="text-primary hover:text-primary-focus transition-colors duration-200"
 						>
 							{segment}
 						</a>
@@ -80,7 +78,7 @@
 
 	<h1 class="text-4xl font-display font-bold mb-4 text-base-content">{title}</h1>
 
-	<div class="flex items-center space-x-4 text-sm text-secondary-500 dark:text-secondary-400 mb-4">
+	<div class="flex items-center space-x-4 text-sm text-base-content opacity-80 mb-4">
 		<div class="flex items-center">
 			<IconCalendar class="w-4 h-4 mr-1" />
 			<span>{formatDates(date, lastUpdated)}</span>
@@ -113,7 +111,7 @@
 					href={githubUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200"
+					class="flex items-center text-primary hover:text-primary-focus transition-colors duration-200"
 				>
 					<IconGithub class="w-5 h-5 mr-1" /> GitHub
 				</a>
@@ -123,7 +121,7 @@
 					href={liveUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200"
+					class="flex items-center text-primary hover:text-primary-focus transition-colors duration-200"
 				>
 					<IconExternalLink class="w-5 h-5 mr-1" /> Live Demo
 				</a>
@@ -132,10 +130,10 @@
 	{/if}
 
 	{#if type === 'project' && summary}
-		<p class="text-lg font-semibold mb-4 text-secondary-700 dark:text-secondary-300">{summary}</p>
+		<p class="text-lg font-semibold mb-4 text-base-content opacity-90">{summary}</p>
 	{/if}
 
-	<div class="prose dark:prose-invert prose-primary font-body">
+	<div class="prose prose-base-content max-w-none">
 		{@render children()}
 	</div>
 </article>

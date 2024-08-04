@@ -1,88 +1,155 @@
 <script>
-	import { fly, scale } from 'svelte/transition';
-	import { spring } from 'svelte/motion';
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import IconUser from '~icons/lucide/user';
 	import IconBook from '~icons/lucide/book';
+	import HeroPostCard from './HeroPostCard.svelte';
 
-	let { subtitle, title } = $props();
-	let typedText = $state('');
-	let currentIndex = $state(0);
-	let mouseX = $state(0);
-	let mouseY = $state(0);
+	let { title, subtitle, featuredPosts } = $props();
 
-	const coords = spring(
-		{ x: 0, y: 0 },
-		{
-			stiffness: 0.1,
-			damping: 0.25
-		}
-	);
+	let canvas = $state(null);
+	let ctx = $state(null);
+	let particles = $state([]);
+	let mouse = $state({ x: 0, y: 0 });
+	let animationFrameId = $state(null);
 
 	$effect(() => {
-		const interval = setInterval(() => {
-			if (currentIndex < title.length) {
-				typedText += title[currentIndex];
-				currentIndex++;
-			} else {
-				clearInterval(interval);
-			}
-		}, 50);
+		if (canvas) {
+			initCanvas();
+			window.addEventListener('mousemove', handleMouseMove);
+			animationFrameId = requestAnimationFrame(animate);
 
-		return () => clearInterval(interval);
+			return () => {
+				window.removeEventListener('mousemove', handleMouseMove);
+				if (animationFrameId) {
+					cancelAnimationFrame(animationFrameId);
+				}
+			};
+		}
 	});
 
-	function handleMouseMove(event) {
-		mouseX = event.clientX / window.innerWidth;
-		mouseY = event.clientY / window.innerHeight;
-		coords.set({ x: mouseX * 20 - 10, y: mouseY * 20 - 10 });
+	function initCanvas() {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		ctx = canvas.getContext('2d');
+
+		particles = Array.from({ length: 50 }, () => ({
+			x: Math.random() * canvas.width,
+			y: Math.random() * canvas.height,
+			radius: Math.random() * 2 + 1,
+			vx: Math.random() * 2 - 1,
+			vy: Math.random() * 2 - 1
+		}));
+	}
+
+	function handleMouseMove(e) {
+		mouse = { x: e.clientX, y: e.clientY };
+	}
+
+	function animate() {
+		if (!canvas || !ctx) return;
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.globalCompositeOperation = 'lighter';
+
+		particles.forEach((p, index) => {
+			p.x += p.vx;
+			p.y += p.vy;
+
+			if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+			if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+			ctx.beginPath();
+			ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+			ctx.fillStyle = 'rgba(88, 166, 255, 0.5)';
+			ctx.fill();
+
+			for (let j = index + 1; j < particles.length; j++) {
+				let p2 = particles[j];
+				let dx = p.x - p2.x;
+				let dy = p.y - p2.y;
+				let distance = Math.sqrt(dx * dx + dy * dy);
+
+				if (distance < 100) {
+					ctx.beginPath();
+					ctx.moveTo(p.x, p.y);
+					ctx.lineTo(p2.x, p2.y);
+					ctx.strokeStyle = `rgba(88, 166, 255, ${1 - distance / 100})`;
+					ctx.stroke();
+				}
+			}
+		});
+
+		animationFrameId = requestAnimationFrame(animate);
 	}
 </script>
 
-<svelte:window on:mousemove={handleMouseMove} />
-
-<div class="text-center max-w-4xl mx-auto relative py-20" style="perspective: 1000px;">
-	<div class="mb-8 relative" style="transform: translate3d({$coords.x}px, {$coords.y}px, 0)">
-		<h2
-			class="text-xl sm:text-2xl md:text-3xl font-light mb-4 text-primary-200"
-			in:fly={{ y: 20, duration: 1000, delay: 300 }}
-		>
-			DevSecOps Engineer @Stim
-		</h2>
-		<h1
-			class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 sm:mb-8 leading-tight relative"
-		>
-			<span class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-				{typedText}<span class="animate-pulse">|</span>
-			</span>
-			<span class="opacity-0">{title}</span>
-		</h1>
-		<p
-			class="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 text-primary-100"
-			in:fly={{ y: 20, duration: 1000, delay: 700 }}
-		>
-			{subtitle}
-		</p>
-	</div>
+<div class="relative min-h-screen flex items-center overflow-hidden bg-base-100">
+	<canvas bind:this={canvas} class="absolute inset-0"></canvas>
+	<div class="absolute inset-0 bg-gradient-to-b from-base-100 via-base-100/70 to-base-100/20"></div>
 	<div
-		class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
-		in:scale={{ duration: 1000, delay: 900 }}
+		class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center lg:items-start justify-between"
 	>
-		<a href="/posts" class="btn btn-primary btn-lg group overflow-hidden relative">
-			<span class="relative z-10">Explore My Work</span>
-			<span
-				class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-			></span>
-			<IconBook class="w-5 h-5 ml-2 relative z-10" />
-		</a>
-		<a
-			href="/about"
-			class="btn btn-outline btn-lg group overflow-hidden relative text-white border-white hover:border-primary-300"
-		>
-			<span class="relative z-10">About Me</span>
-			<span
-				class="absolute inset-0 bg-primary-300 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-			></span>
-			<IconUser class="w-5 h-5 ml-2 relative z-10" />
-		</a>
+		<div class="lg:w-1/2 lg:pr-8 mb-12 lg:mb-0">
+			<h2
+				class="text-xl sm:text-2xl font-light text-base-content opacity-60 mb-4"
+				in:fly={{ x: -50, duration: 800, delay: 300, easing: cubicOut }}
+			>
+				DevSecOps Engineer
+			</h2>
+			<h1
+				class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight text-base-content mb-6"
+			>
+				{#each title.split(' ') as word, index}
+					<span
+						in:fly={{ x: -50, duration: 800, delay: 500 + index * 100, easing: cubicOut }}
+						class="inline-block"
+					>
+						{word}&nbsp;
+					</span>
+				{/each}
+			</h1>
+			<p
+				class="text-lg sm:text-xl md:text-2xl text-base-content opacity-80 max-w-xl mb-12"
+				in:fly={{ x: -50, duration: 800, delay: 1200, easing: cubicOut }}
+			>
+				{subtitle}
+			</p>
+			<div
+				class="flex flex-col sm:flex-row gap-4 sm:gap-6"
+				in:fade={{ duration: 800, delay: 1500 }}
+			>
+				<a href="/posts" class="btn btn-primary">
+					<span class="flex items-center">
+						Explore My Work
+						<IconBook class="w-5 h-5 ml-2" />
+					</span>
+				</a>
+				<a
+					href="/about"
+					class="btn btn-outline border-primary text-primary hover:bg-primary hover:text-base-100"
+				>
+					<span class="flex items-center">
+						About Me
+						<IconUser class="w-5 h-5 ml-2" />
+					</span>
+				</a>
+			</div>
+		</div>
+		{#if featuredPosts && featuredPosts.length > 0}
+			<div class="lg:w-1/2 lg:pl-8">
+				<h2 class="text-2xl font-bold mb-4">Featured Works</h2>
+				<div
+					class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+					in:fly={{ x: 50, duration: 800, delay: 800, easing: cubicOut }}
+				>
+					{#each featuredPosts as post, index}
+						<div in:fade={{ duration: 500, delay: 1000 + index * 200 }}>
+							<HeroPostCard {post} />
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
 	</div>
 </div>

@@ -1,6 +1,7 @@
 ---
 title: "Personal Portfolio Website"
 description: "Modern, responsive portfolio site built with SvelteKit, TailwindCSS, and DaisyUI."
+highlight: "portfolio"
 date: "2024-07-14"
 lastUpdated: "2024-07-30"
 type: project

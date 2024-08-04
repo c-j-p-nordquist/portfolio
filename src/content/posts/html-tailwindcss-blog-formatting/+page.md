@@ -1,6 +1,7 @@
 ---
 title: HTML and Tailwind CSS for Blog Formatting
 description: Exploring the use of HTML and Tailwind CSS for efficient blog formatting.
+highlight: "HTML and Tailwind CSS"
 date: '2024-07-14'
 type: blog
 topics:

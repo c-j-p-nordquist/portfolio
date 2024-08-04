@@ -10,22 +10,9 @@
 	let key = $derived($page.url.pathname);
 </script>
 
-<div class="min-h-screen flex flex-col bg-base-100 text-base-content relative">
-	{#if !isLandingPage}
-		<Nav />
-		<div class="pt-16">
-			<!-- Add padding to account for fixed navbar -->
-			{#key key}
-				<main
-					class="flex-grow"
-					in:fly={{ y: 50, duration: 300, delay: 150, easing: cubicInOut }}
-					out:fade={{ duration: 150 }}
-				>
-					{@render children()}
-				</main>
-			{/key}
-		</div>
-	{:else}
+<div class="min-h-screen flex flex-col bg-base-100 text-base-content">
+	<Nav />
+	{#if isLandingPage}
 		{#key key}
 			<main
 				class="flex-grow"
@@ -35,5 +22,17 @@
 				{@render children()}
 			</main>
 		{/key}
+	{:else}
+		<div class="">
+			{#key key}
+				<main
+					class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-base-content"
+					in:fly={{ y: 50, duration: 300, delay: 150, easing: cubicInOut }}
+					out:fade={{ duration: 150 }}
+				>
+					{@render children()}
+				</main>
+			{/key}
+		</div>
 	{/if}
 </div>

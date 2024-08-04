@@ -1,6 +1,7 @@
 ---
 title: "Ekolod - Lightweight HTTP Status Probe"
 description: "Versatile HTTP probe for quick web service status checks with SvelteKit UI."
+highlight: "Versatile HTTP probe"
 date: "2024-07-14"
 type: project
 topics:

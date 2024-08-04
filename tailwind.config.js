@@ -4,88 +4,37 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Space Grotesk', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Noto Sans"', 'Helvetica', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"'],
         display: ['Syne', 'sans-serif'],
-        body: ['Inter']
+        body: ['Inter', 'sans-serif']
       },
-      colors: {
-        primary: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
-          950: '#042f2e',
-        },
-        secondary: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
-          950: '#4a044e',
-        },
-        accent: {
-          50: '#fff9ec',
-          100: '#ffefc2',
-          200: '#ffdf85',
-          300: '#ffc847',
-          400: '#ffb21d',
-          500: '#ff9203',
-          600: '#e27000',
-          700: '#bb4d02',
-          800: '#983b08',
-          900: '#7c310b',
-          950: '#481700',
-        },
-      },
-      animation: {
-        'gradient-x': 'gradient-x 15s ease infinite',
-        'gradient-y': 'gradient-y 15s ease infinite',
-        'gradient-xy': 'gradient-xy 15s ease infinite',
-      },
-      keyframes: {
-        'gradient-y': {
-          '0%, 100%': {
-            'background-size': '400% 400%',
-            'background-position': 'center top'
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.base-content'),
+            h1: {
+              color: theme('colors.base-content'),
+              fontFamily: theme('fontFamily.display').join(', '),
+            },
+            h2: {
+              color: theme('colors.base-content'),
+              fontFamily: theme('fontFamily.display').join(', '),
+            },
+            h3: {
+              color: theme('colors.base-content'),
+              fontFamily: theme('fontFamily.display').join(', '),
+            },
+            h4: {
+              color: theme('colors.base-content'),
+              fontFamily: theme('fontFamily.display').join(', '),
+            },
+            'h1, h2, h3, h4': {
+              fontWeight: 'bold',
+              letterSpacing: '-0.025em',
+            },
           },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'center center'
-          }
         },
-        'gradient-x': {
-          '0%, 100%': {
-            'background-size': '200% 200%',
-            'background-position': 'left center'
-          },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'right center'
-          }
-        },
-        'gradient-xy': {
-          '0%, 100%': {
-            'background-size': '400% 400%',
-            'background-position': 'left center'
-          },
-          '50%': {
-            'background-size': '200% 200%',
-            'background-position': 'right center'
-          }
-        }
-      },
+      }),
     },
   },
   plugins: [
@@ -95,33 +44,35 @@ export default {
   daisyui: {
     themes: [
       {
-        light: {
-          "primary": "#14b8a6",
-          "secondary": "#d946ef",
-          "accent": "#ff9203",
-          "neutral": "#115e59",
-          "base-100": "#f0fdfa",
-          "base-200": "#ccfbf1",
-          "base-300": "#99f6e4",
-          "info": "#06b6d4",
-          "success": "#22c55e",
-          "warning": "#fbbf24",
-          "error": "#ef4444",
-        },
         dark: {
-          "primary": "#5eead4",
-          "secondary": "#f0abfc",
-          "accent": "#ffc847",
-          "neutral": "#99f6e4",
-          "base-100": "#042f2e",
-          "base-200": "#134e4a",
-          "base-300": "#115e59",
-          "info": "#67e8f9",
-          "success": "#4ade80",
-          "warning": "#fde047",
-          "error": "#fca5a5",
-        }
-      }
+          "primary": "#58a6ff",
+          "secondary": "#1f6feb",
+          "accent": "#238636",
+          "neutral": "#30363d",
+          "base-100": "#0d1117",
+          "base-200": "#161b22",
+          "base-300": "#21262d",
+          "base-content": "#c9d1d9",
+          "info": "#3b8eea",
+          "success": "#238636",
+          "warning": "#d29922",
+          "error": "#f85149",
+        },
+        light: {
+          "primary": "#0969da",
+          "secondary": "#1f6feb",
+          "accent": "#2da44e",
+          "neutral": "#d0d7de",
+          "base-100": "#ffffff",
+          "base-200": "#f6f8fa",
+          "base-300": "#eaeef2",
+          "base-content": "#24292f",
+          "info": "#0969da",
+          "success": "#2da44e",
+          "warning": "#9a6700",
+          "error": "#cf222e",
+        },
+      },
     ],
   },
 }
