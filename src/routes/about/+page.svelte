@@ -13,7 +13,7 @@
 </script>
 
 <div class="flex min-h-screen">
-	<main class="flex-grow p-8 pt-20">
+	<main class="flex-grow p-8">
 		<div class="max-w-4xl mx-auto">
 			<div class="flex items-center mb-8">
 				<div class="avatar placeholder mr-4">

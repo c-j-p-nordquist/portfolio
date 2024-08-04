@@ -1,6 +1,7 @@
 ---
 title: "Argo CD on AWS EC2 Automation"
 description: "Deploy Argo CD control cluster on AWS EC2 using Packer, Terraform, and Helm."
+highlight: "Deploy Argo CD control cluster"
 date: "2024-07-14"
 type: project
 topics:
