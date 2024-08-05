@@ -1,4 +1,6 @@
 <script>
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import Badge from '$lib/components/Badge.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
 	import { page } from '$app/stores';
@@ -7,6 +9,7 @@
 	import IconExternalLink from '~icons/lucide/external-link';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconClock from '~icons/lucide/clock';
+	import IconArrowLeft from '~icons/lucide/arrow-left';
 	import ReadingEnhancements from '$lib/components/ReadingEnhancements.svelte';
 
 	let {
@@ -23,9 +26,6 @@
 		readingTime
 	} = $props();
 
-	let currentPath = $derived($page.url.pathname);
-	let pathSegments = $derived(currentPath.split('/').filter(Boolean));
-
 	function formatDates(publishedDate, lastUpdatedDate) {
 		let dateString = `Published on ${formatDate(publishedDate)}`;
 		if (lastUpdatedDate && lastUpdatedDate !== publishedDate) {
@@ -41,6 +41,10 @@
 	function filterByTopic(topic) {
 		goto(`/posts?topic=${encodeURIComponent(topic)}`);
 	}
+
+	function goBack() {
+		history.back();
+	}
 </script>
 
 <svelte:head>
@@ -51,34 +55,26 @@
 
 <ReadingEnhancements />
 
-<article class="container mx-auto px-4 py-8 max-w-3xl">
-	<div class="text-sm breadcrumbs">
-		<ul>
-			<li>
-				<a href="/" class="text-primary hover:text-primary-focus transition-colors duration-200"
-					>Home</a
-				>
-			</li>
-			{#each pathSegments as segment, index}
-				<li>
-					{#if index === pathSegments.length - 1}
-						<span class="text-base-content opacity-80">{segment}</span>
-					{:else}
-						<a
-							href={`/${pathSegments.slice(0, index + 1).join('/')}`}
-							class="text-primary hover:text-primary-focus transition-colors duration-200"
-						>
-							{segment}
-						</a>
-					{/if}
-				</li>
-			{/each}
-		</ul>
-	</div>
+<article class="container mx-auto px-4 py-8 max-w-3xl pt-20">
+	<button
+		onclick={goBack}
+		class="mb-6 flex items-center text-primary hover:text-primary-focus transition-colors duration-200"
+		in:fly={{ x: -20, duration: 500, delay: 200, easing: cubicOut }}
+	>
+		<IconArrowLeft class="w-4 h-4 mr-2" /> Back
+	</button>
 
-	<h1 class="text-4xl font-display font-bold mb-4 text-base-content">{title}</h1>
+	<h1
+		class="text-4xl font-display font-bold mb-4 text-base-content"
+		in:fly={{ y: 20, duration: 500, delay: 400, easing: cubicOut }}
+	>
+		{title}
+	</h1>
 
-	<div class="flex items-center space-x-4 text-sm text-base-content opacity-80 mb-4">
+	<div
+		class="flex items-center space-x-4 text-sm text-base-content opacity-80 mb-6"
+		in:fade={{ duration: 500, delay: 600 }}
+	>
 		<div class="flex items-center">
 			<IconCalendar class="w-4 h-4 mr-1" />
 			<span>{formatDates(date, lastUpdated)}</span>
@@ -92,10 +88,19 @@
 	</div>
 
 	{#if type === 'project' && imageUrl}
-		<img src={imageUrl} alt={title} class="w-full h-64 object-cover rounded-lg mb-6 shadow-md" />
+		<div class="mb-8 overflow-hidden rounded-lg shadow-lg" in:fade={{ duration: 500, delay: 800 }}>
+			<img
+				src={imageUrl}
+				alt={title}
+				class="w-full h-64 object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+			/>
+		</div>
 	{/if}
 
-	<div class="flex flex-wrap gap-2 mb-4">
+	<div
+		class="flex flex-wrap gap-2 mb-6"
+		in:fly={{ y: 20, duration: 500, delay: 1000, easing: cubicOut }}
+	>
 		<Badge {type} variant="type" onclick={() => filterByType(type)} />
 		{#if topics && topics.length > 0}
 			{#each topics as topic}
@@ -104,36 +109,39 @@
 		{/if}
 	</div>
 
+	{#if type === 'project' && summary}
+		<div class="mb-8 text-lg text-base-content" in:fade={{ duration: 500, delay: 1200 }}>
+			<p class="leading-relaxed">{summary}</p>
+		</div>
+	{/if}
+
 	{#if type === 'project' && (githubUrl || liveUrl)}
-		<div class="flex space-x-4 mb-6">
+		<div
+			class="flex flex-wrap gap-4 mb-8"
+			in:fly={{ y: 20, duration: 500, delay: 1400, easing: cubicOut }}
+		>
 			{#if githubUrl}
 				<a
 					href={githubUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="flex items-center text-primary hover:text-primary-focus transition-colors duration-200"
+					class="btn btn-outline btn-primary"
 				>
-					<IconGithub class="w-5 h-5 mr-1" /> GitHub
+					<IconGithub class="w-5 h-5 mr-2" /> View on GitHub
 				</a>
 			{/if}
 			{#if liveUrl}
-				<a
-					href={liveUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="flex items-center text-primary hover:text-primary-focus transition-colors duration-200"
-				>
-					<IconExternalLink class="w-5 h-5 mr-1" /> Live Demo
+				<a href={liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+					<IconExternalLink class="w-5 h-5 mr-2" /> Live Demo
 				</a>
 			{/if}
 		</div>
 	{/if}
 
-	{#if type === 'project' && summary}
-		<p class="text-lg font-semibold mb-4 text-base-content opacity-90">{summary}</p>
-	{/if}
-
-	<div class="prose prose-base-content max-w-none">
+	<div
+		class="prose prose-lg prose-base-content max-w-none"
+		in:fade={{ duration: 500, delay: 1600 }}
+	>
 		{@render children()}
 	</div>
 </article>
