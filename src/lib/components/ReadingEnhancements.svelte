@@ -3,6 +3,8 @@
 	import IconList from '~icons/lucide/list';
 	import IconX from '~icons/lucide/x';
 	import IconArrowUp from '~icons/lucide/arrow-up';
+	import IconChevronRight from '~icons/lucide/chevron-right';
+	import IconChevronDown from '~icons/lucide/chevron-down';
 
 	let headings = $state([]);
 	let activeId = $state('');
@@ -54,9 +56,8 @@
 
 		window.addEventListener('scroll', handleScroll);
 
-		// Re-populate headings and observe them when the content changes
 		const contentObserver = new MutationObserver(() => {
-			headings = []; // Clear existing headings
+			headings = [];
 			populateHeadings();
 			observeHeadings();
 		});
@@ -90,45 +91,46 @@
 </script>
 
 {#snippet progressBar()}
-	<div class="reading-progress-container">
-		<div class="reading-progress-bar" style="width: {readingProgress}%"></div>
+	<div class="fixed top-0 left-0 w-full h-1 bg-base-300 z-50">
+		<div
+			class="h-full bg-primary transition-all duration-300 ease-out"
+			style="width: {readingProgress}%"
+		></div>
 	</div>
 {/snippet}
 
 {#snippet tableOfContents()}
-	<div class="toc-content bg-base-200 rounded-lg shadow-md p-4">
-		<h2 class="text-lg font-bold mb-2">Table of Contents</h2>
-		<ul class="space-y-2">
+	<div class="bg-base-200 rounded-lg shadow-lg p-4 w-64 md:w-80 max-h-[80vh] overflow-y-auto">
+		<h2 class="text-xl font-bold mb-4 text-base-content">Table of Contents</h2>
+		<div class="space-y-1">
 			{#each headings as heading}
-				<li style="margin-left: {(heading.level - 2) * 16}px">
-					<a
-						href="#{heading.id}"
-						class="text-base-content hover:text-primary transition-colors duration-200"
-						class:font-bold={activeId === heading.id}
-						class:text-primary={activeId === heading.id}
-						onclick={(event) => scrollToHeading(heading.id, event)}
-					>
-						{heading.text}
-					</a>
-				</li>
+				<button
+					onclick={(event) => scrollToHeading(heading.id, event)}
+					class="w-full text-left py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-between"
+					class:bg-base-300={activeId === heading.id}
+					style="padding-left: {(heading.level - 2) * 16 + 12}px"
+				>
+					<span class="text-sm">{heading.text}</span>
+					{#if activeId === heading.id}
+						<IconChevronDown class="w-4 h-4 text-primary" />
+					{:else}
+						<IconChevronRight class="w-4 h-4" />
+					{/if}
+				</button>
 			{/each}
-		</ul>
+		</div>
 	</div>
 {/snippet}
 
 {#snippet floatingActionButtons()}
-	<div class="fab-container">
+	<div class="fixed bottom-4 right-4 flex flex-col items-end space-y-2 z-40">
 		{#if showScrollButton && !isOpen}
-			<button
-				onclick={scrollToTop}
-				class="btn btn-circle btn-primary fab-button"
-				aria-label="Scroll to top"
-			>
+			<button onclick={scrollToTop} class="btn btn-circle btn-primary" aria-label="Scroll to top">
 				<IconArrowUp />
 			</button>
 		{/if}
 		<button
-			class="btn btn-circle btn-primary fab-button"
+			class="btn btn-circle btn-primary"
 			onclick={toggleOpen}
 			aria-label="Toggle Table of Contents"
 		>
@@ -139,57 +141,12 @@
 			{/if}
 		</button>
 		{#if isOpen}
-			{@render tableOfContents()}
+			<div class="absolute bottom-16 right-0">
+				{@render tableOfContents()}
+			</div>
 		{/if}
 	</div>
 {/snippet}
 
 {@render progressBar()}
 {@render floatingActionButtons()}
-
-<style>
-	.reading-progress-container {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 4px;
-		background-color: rgba(0, 0, 0, 0.1);
-		z-index: 1000;
-	}
-
-	.reading-progress-bar {
-		height: 100%;
-		background-color: var(--primary);
-		transition: width 0.3s ease;
-	}
-
-	.fab-container {
-		position: fixed;
-		bottom: 20px;
-		right: 20px;
-		z-index: 1000;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-	}
-
-	.fab-button {
-		margin-top: 10px;
-	}
-
-	.toc-content {
-		position: absolute;
-		bottom: 60px;
-		right: 0;
-		width: 250px;
-		max-height: 60vh;
-		overflow-y: auto;
-	}
-
-	@media (min-width: 768px) {
-		.toc-content {
-			width: 300px;
-		}
-	}
-</style>

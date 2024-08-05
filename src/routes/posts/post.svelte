@@ -55,7 +55,7 @@
 
 <ReadingEnhancements />
 
-<article class="container mx-auto px-4 py-8 max-w-3xl pt-20">
+<article class="container mx-auto px-4 py-8 max-w-3xl">
 	<button
 		onclick={goBack}
 		class="mb-6 flex items-center text-primary hover:text-primary-focus transition-colors duration-200"
