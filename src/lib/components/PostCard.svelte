@@ -3,8 +3,8 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
 	import { goto } from '$app/navigation';
-	import IconGithub from '~icons/lucide/github';
-	import IconExternalLink from '~icons/lucide/external-link';
+	import IconGithub from '~icons/mdi/github';
+	import IconExternalLink from '~icons/mdi/external-link';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconClock from '~icons/lucide/clock';
 	import { toggleTopic, toggleType } from '$lib/utils/filter.svelte.js'; // Add this import
@@ -146,9 +146,9 @@
 							href={post.githubUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-base-content opacity-70 hover:text-primary transition-colors duration-200 flex items-center"
+							class="text-base-content/70 hover:text-base-content transition-colors duration-200 flex items-center"
 						>
-							<IconGithub class="w-4 h-4" />
+							<IconGithub class="w-6 h-6" />
 						</a>
 					{/if}
 					{#if post.liveUrl}
@@ -158,7 +158,7 @@
 							rel="noopener noreferrer"
 							class="text-primary hover:text-primary-focus transition-colors duration-200 flex items-center"
 						>
-							<IconExternalLink class="w-4 h-4" />
+							<IconExternalLink class="w-6 h-6" />
 						</a>
 					{/if}
 				</div>

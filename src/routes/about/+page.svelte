@@ -1,8 +1,8 @@
 <script>
 	import IconDownload from '~icons/lucide/download';
 	import IconMail from '~icons/lucide/mail';
-	import IconGithub from '~icons/lucide/github';
-	import IconLinkedin from '~icons/lucide/linkedin';
+	import IconGithub from '~icons/mdi/github';
+	import IconLinkedin from '~icons/mdi/linkedin';
 	import TechIcons from '$lib/components/TechIcons.svelte';
 
 	let resumeUrl = $state('/files/resume.pdf');
