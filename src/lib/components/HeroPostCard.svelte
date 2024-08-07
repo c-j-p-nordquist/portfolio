@@ -75,15 +75,15 @@
 			<Badge type={post.type} onclick={handleTypeClick} variant="type" />
 		</div>
 
-		<h3 class="text-lg font-semibold mb-2 text-base-content">{post.title}</h3>
+		<h3 class="text-lg font-display font-semibold mb-2 text-base-content">{post.title}</h3>
 
-		<p class="text-sm text-base-content/70 mb-4 flex-grow">
+		<p class="text-sm font-body text-base-content/70 mb-4 flex-grow">
 			{truncatedDescription}
 		</p>
 
 		<button
 			onclick={handleReadMore}
-			class="text-primary hover:text-primary-focus transition-all duration-300 inline-block relative text-sm font-medium"
+			class="text-primary hover:text-primary-focus transition-all duration-300 inline-block relative text-sm font-medium font-display"
 		>
 			Read more
 			<span

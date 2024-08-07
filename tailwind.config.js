@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', '"Noto Sans"', 'Helvetica', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"'],
-        display: ['Syne', 'sans-serif'],
-        body: ['Inter', 'sans-serif']
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Montserrat', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
       },
       typography: (theme) => ({
         DEFAULT: {

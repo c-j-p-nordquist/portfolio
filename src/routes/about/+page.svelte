@@ -29,10 +29,11 @@
 
 			<div class="prose lg:prose-xl">
 				<p>
-					With over a decade of experience in IT infrastructure, networking, and security, I've
-					developed a passion for solving complex technical challenges. My expertise spans a wide
-					range of environments, from on-premise solutions to cloud platforms, always focusing on
-					finding the most efficient and scalable approach to each unique problem.
+					I've spent over a decade crafting robust cloud infrastructures and optimizing operations.
+					I'm passionate about solving complex challenges through automation, security, and
+					innovation. My expertise spans from designing cloud architectures to implementing
+					DevSecOps best practices. I'm always eager to explore new technologies and find creative
+					solutions.
 				</p>
 				<!-- ... rest of the content ... -->
 			</div>

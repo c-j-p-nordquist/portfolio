@@ -2,10 +2,8 @@
 	import Hero from '$lib/components/Hero.svelte';
 
 	let { data } = $props();
-	let title = $state('Design for Failure, Operate for Success');
-	let subtitle = $state(
-		'Insights on resilient systems, operational excellence, and modern infrastructure'
-	);
+	let title = $state('Cloud Infrastructure & DevSecOps Engineer');
+	let subtitle = $state('Architecting Secure, Scalable, and Observable Systems');
 	let featuredPosts = $derived(
 		data.posts.filter((post) => post.featured).slice(0, 4) || data.posts.slice(0, 4) || []
 	);

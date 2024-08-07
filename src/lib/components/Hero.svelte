@@ -105,13 +105,13 @@
 	>
 		<div class="lg:w-1/2 lg:pr-8 mb-12 lg:mb-0 text-center lg:text-left">
 			<h2
-				class="text-xl sm:text-2xl font-light text-primary mb-4"
+				class="font-display text-xl sm:text-2xl font-medium text-primary mb-4 tracking-wide"
 				in:fly={{ y: -20, duration: 800, delay: 300, easing: cubicOut }}
 			>
-				DevSecOps Engineer
+				Philip Nordquist
 			</h2>
 			<h1
-				class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight text-base-content mb-6"
+				class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-base-content mb-6"
 			>
 				{#each title.split(' ') as word, index}
 					<span
@@ -123,7 +123,7 @@
 				{/each}
 			</h1>
 			<p
-				class="text-lg sm:text-xl md:text-2xl text-base-content/80 max-w-xl mx-auto lg:mx-0 mb-12"
+				class="font-body text-lg sm:text-xl md:text-2xl text-base-content/80 max-w-xl mx-auto lg:mx-0 mb-12 leading-relaxed font-light"
 				in:fly={{ y: 20, duration: 800, delay: 1200, easing: cubicOut }}
 			>
 				{subtitle}
@@ -132,7 +132,7 @@
 				class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start"
 				in:fade={{ duration: 800, delay: 1500 }}
 			>
-				<a href="/posts" class="btn btn-primary btn-lg group">
+				<a href="/posts" class="btn btn-primary btn-lg group font-display">
 					<span class="flex items-center">
 						Explore My Work
 						<IconBook
@@ -142,7 +142,7 @@
 				</a>
 				<a
 					href="/about"
-					class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-base-100 group"
+					class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-base-100 group font-display"
 				>
 					<span class="flex items-center">
 						About Me
@@ -155,7 +155,11 @@
 		</div>
 		{#if featuredPosts && featuredPosts.length > 0}
 			<div class="lg:w-1/2 lg:pl-8 mt-12 lg:mt-0">
-				<h2 class="text-2xl font-bold mb-6 text-center lg:text-left">Featured Works</h2>
+				<h2
+					class="font-display text-3xl font-semibold mb-6 text-center lg:text-left text-base-content"
+				>
+					Featured Works
+				</h2>
 				<div
 					class="grid grid-cols-1 sm:grid-cols-2 gap-6"
 					in:fly={{ x: 50, duration: 800, delay: 800, easing: cubicOut }}
