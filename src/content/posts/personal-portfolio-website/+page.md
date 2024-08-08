@@ -15,7 +15,7 @@ topics:
 featured: false
 published: true
 summary: "Modern, responsive portfolio site built with SvelteKit, TailwindCSS, and DaisyUI."
-imageUrl: "/images/projects/personal-portfolio.png"
+hasImage: true
 githubUrl: "https://github.com/c-j-p-nordquist/portfolio"
 liveUrl: "https://philip.nordquist.me"
 ---

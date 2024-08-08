@@ -1,8 +1,9 @@
 <script>
 	import { spring } from 'svelte/motion';
-	import { fade } from 'svelte/transition';
 	import Badge from '$lib/components/Badge.svelte';
 	import { goto } from '$app/navigation';
+	import LazyImage from '$lib/components/LazyImage.svelte';
+	import ResponsiveImage from '$lib/components/ResponsiveImage.svelte';
 
 	let { post } = $props();
 
@@ -26,8 +27,8 @@
 		mouseX = (clientX - left) / width;
 		mouseY = (clientY - top) / height;
 
-		const tiltX = (mouseY - 0.5) * 10;
-		const tiltY = (mouseX - 0.5) * -10;
+		const tiltX = (mouseY - 0.5) * 5;
+		const tiltY = (mouseX - 0.5) * -5;
 		tiltSpring.set({ x: tiltX, y: tiltY });
 	}
 
@@ -70,22 +71,26 @@
 		></div>
 	{/if}
 
-	<div class="p-6 flex flex-col h-full">
-		<div class="mb-4">
+	<ResponsiveImage imageBasePath={post.imageBasePath} imageType="hero" aspectRatio="4/3" />
+
+	<div class="p-4 flex flex-col flex-grow">
+		<div class="mb-2">
 			<Badge type={post.type} onclick={handleTypeClick} variant="type" />
 		</div>
 
-		<h3 class="text-lg font-display font-semibold mb-2 text-base-content leading-tight">
+		<h3
+			class="text-lg font-display font-semibold mb-2 text-base-content leading-tight line-clamp-2"
+		>
 			{post.title}
 		</h3>
 
-		<p class="text-sm font-body text-base-content/70 mb-4 flex-grow leading-relaxed">
+		<p class="text-sm font-body text-base-content/70 mb-4 flex-grow leading-relaxed line-clamp-3">
 			{truncatedDescription}
 		</p>
 
 		<button
 			onclick={handleReadMore}
-			class="text-primary hover:text-primary-focus transition-all duration-300 inline-block relative text-sm font-medium font-display"
+			class="text-primary hover:text-primary-focus transition-all duration-300 inline-block relative text-sm font-medium font-display mt-auto"
 		>
 			Read more
 			<span

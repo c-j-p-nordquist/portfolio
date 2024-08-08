@@ -8,6 +8,7 @@
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconClock from '~icons/lucide/clock';
 	import { toggleTopic, toggleType } from '$lib/utils/filter.svelte.js';
+	import ResponsiveImage from '$lib/components/ResponsiveImage.svelte';
 
 	let { post } = $props();
 
@@ -79,16 +80,7 @@
 		></div>
 	{/if}
 
-	{#if post.imageUrl}
-		<div class="relative h-48 overflow-hidden">
-			<img
-				src={post.imageUrl}
-				alt={post.title}
-				class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-			/>
-			<div class="absolute inset-0 bg-gradient-to-t from-base-200/50 to-transparent"></div>
-		</div>
-	{/if}
+	<ResponsiveImage imageBasePath={post.imageBasePath} imageType="card" aspectRatio="3/2" />
 
 	<div class="p-6 flex flex-col flex-grow space-y-4">
 		<div class="flex justify-between items-start">

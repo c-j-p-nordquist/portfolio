@@ -9,7 +9,7 @@ topics:
   - Automation
   - Bash
   - MacOS
-featured: true
+featured: false
 published: true
 summary: "Automate your MacOS dev environment setup with customizable bash scripts."
 imageUrl: "/images/projects/mac-terminal-bootstrap.png"

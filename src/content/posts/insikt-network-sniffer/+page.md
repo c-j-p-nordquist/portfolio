@@ -12,7 +12,7 @@ topics:
 featured: true
 published: true
 summary: "Lightweight Go-based network sniffer for packet capture and analytics."
-imageUrl: "/images/projects/insikt-network-sniffer.png"
+hasImages: true
 githubUrl: "https://github.com/c-j-p-nordquist/insikt"
 liveUrl: null
 ---

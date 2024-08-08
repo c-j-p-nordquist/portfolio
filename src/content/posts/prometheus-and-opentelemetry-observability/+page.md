@@ -7,6 +7,7 @@ type: blog
 topics: ["Prometheus", "OpenTelemetry", "Observability", "Monitoring"]
 featured: true
 published: true
+hasImages: true
 ---
 
 In the world of modern distributed systems, observability has become a critical aspect of maintaining and troubleshooting applications. Two tools that often come up in discussions about observability are Prometheus and OpenTelemetry (OTel). While some might view them as competing solutions, they are in fact complementary tools that can work together to provide a more comprehensive observability strategy.

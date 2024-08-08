@@ -12,10 +12,10 @@ topics:
   - Terraform
   - Packer
   - Helm
-featured: true
+featured: false
 published: true
 summary: "Deploy Argo CD control cluster on AWS EC2 using Packer, Terraform, and Helm."
-imageUrl: "/images/projects/argocd-on-ec2.png"
+hasImages: true
 githubUrl: "https://github.com/c-j-p-nordquist/argocd-on-ec2"
 liveUrl: null
 ---

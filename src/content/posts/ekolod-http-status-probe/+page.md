@@ -11,10 +11,10 @@ topics:
   - Docker
   - Kubernetes
   - DevOps
-featured: false
+featured: true
 published: true
 summary: "Versatile HTTP probe for quick web service status checks with SvelteKit UI."
-imageUrl: "/images/projects/ekolod-http-probe.png"
+hasImages: true
 githubUrl: "https://github.com/c-j-p-nordquist/ekolod"
 liveUrl: "https://status.nordquist.me"
 ---

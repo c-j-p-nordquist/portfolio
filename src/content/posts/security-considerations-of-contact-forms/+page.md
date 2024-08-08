@@ -7,6 +7,7 @@ type: blog
 topics: ["Web Security", "Contact Methods", "Professional Networking", "Risk Assessment"]
 featured: true
 published: true
+hasImages: true
 ---
 
 If you've been searching for a contact form on my blog, you might have noticed its absence. Instead, you'll find links to my email, GitHub, and LinkedIn profiles. This choice wasn't made on a whim, but after careful consideration of security implications and the specific context of my small personal blog.

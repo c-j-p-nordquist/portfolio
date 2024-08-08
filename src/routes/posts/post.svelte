@@ -3,28 +3,30 @@
 	import { cubicOut } from 'svelte/easing';
 	import Badge from '$lib/components/Badge.svelte';
 	import { formatDate } from '$lib/utils/formatDate';
-	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import IconGithub from '~icons/lucide/github';
+	import IconGithub from '~icons/mdi/github';
 	import IconExternalLink from '~icons/lucide/external-link';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconClock from '~icons/lucide/clock';
 	import IconArrowLeft from '~icons/lucide/arrow-left';
 	import ReadingEnhancements from '$lib/components/ReadingEnhancements.svelte';
+	import ResponsiveImage from '$lib/components/ResponsiveImage.svelte';
 
 	let {
-		children,
 		title,
 		date,
 		lastUpdated,
 		topics,
 		type,
-		imageUrl,
+		imageBasePath,
 		githubUrl,
 		liveUrl,
 		summary,
-		readingTime
+		readingTime,
+		children
 	} = $props();
+
+	console.log('Post props:', { title, imageBasePath, type });
 
 	function formatDates(publishedDate, lastUpdatedDate) {
 		let dateString = `Published on ${formatDate(publishedDate)}`;
@@ -64,6 +66,14 @@
 		<IconArrowLeft class="w-4 h-4 mr-2" /> Back
 	</button>
 
+	{#if imageBasePath}
+		<div class="mb-8 overflow-hidden rounded-lg">
+			<ResponsiveImage {imageBasePath} imageType="full" aspectRatio="16/9" alt={title} />
+		</div>
+	{:else}
+		<p>No image available for this post</p>
+	{/if}
+
 	<h1
 		class="text-4xl md:text-5xl font-display font-bold mb-6 text-base-content leading-tight"
 		in:fly={{ y: 20, duration: 500, delay: 400, easing: cubicOut }}
@@ -87,16 +97,6 @@
 		{/if}
 	</div>
 
-	{#if type === 'project' && imageUrl}
-		<div class="mb-12 overflow-hidden rounded-lg shadow-lg" in:fade={{ duration: 500, delay: 800 }}>
-			<img
-				src={imageUrl}
-				alt={title}
-				class="w-full h-64 object-cover transition-transform duration-300 ease-in-out hover:scale-105"
-			/>
-		</div>
-	{/if}
-
 	<div
 		class="flex flex-wrap gap-3 mb-8"
 		in:fly={{ y: 20, duration: 500, delay: 1000, easing: cubicOut }}
@@ -109,7 +109,7 @@
 		{/if}
 	</div>
 
-	{#if type === 'project' && summary}
+	{#if summary}
 		<div
 			class="mb-12 text-lg text-base-content/90 leading-relaxed"
 			in:fade={{ duration: 500, delay: 1200 }}

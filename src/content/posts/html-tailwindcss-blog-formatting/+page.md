@@ -9,8 +9,8 @@ topics:
   - Tailwind CSS
   - Web Development
   - Blog Styling
-featured: true
-published: true
+featured: false
+published: false
 ---
 
 This post explores a method for formatting blog content using HTML in combination with Tailwind CSS and its typography plugin. We'll discuss the technical setup, practical benefits, and potential limitations of this approach, including visual comparisons of styled and unstyled content.
