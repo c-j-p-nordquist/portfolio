@@ -1,9 +1,10 @@
 <script>
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import IconUser from '~icons/lucide/user';
+	import IconMail from '~icons/lucide/mail';
 	import IconBook from '~icons/lucide/book';
 	import HeroPostCard from './HeroPostCard.svelte';
+	import SocialLinks from './SocialLinks.svelte';
 
 	let { title, subtitle, featuredPosts } = $props();
 
@@ -103,15 +104,15 @@
 	<div
 		class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center lg:items-start justify-between"
 	>
-		<div class="lg:w-1/2 lg:pr-8 mb-12 lg:mb-0 text-center lg:text-left">
+		<div class="lg:w-1/2 lg:pr-8 mb-12 lg:mb-0 text-left">
 			<h2
 				class="font-display text-xl sm:text-2xl font-medium text-primary mb-4 tracking-wide"
 				in:fly={{ y: -20, duration: 800, delay: 300, easing: cubicOut }}
 			>
-				Philip Nordquist
+				DevSecOps Engineer @Stim
 			</h2>
 			<h1
-				class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-base-content mb-6"
+				class="font-hero text-4xl sm:text-5xl md:text-6xl lg:text7xl font-extrabold leading-tight tracking-wider text-base-content mb-6"
 			>
 				{#each title.split(' ') as word, index}
 					<span
@@ -128,6 +129,7 @@
 			>
 				{subtitle}
 			</p>
+			<SocialLinks />
 			<div
 				class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start"
 				in:fade={{ duration: 800, delay: 1500 }}
@@ -141,12 +143,12 @@
 					</span>
 				</a>
 				<a
-					href="/about"
+					href="mailto:philip@nordquist.me"
 					class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-base-100 group font-display"
 				>
 					<span class="flex items-center">
-						About Me
-						<IconUser
+						Lets Connect!
+						<IconMail
 							class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
 						/>
 					</span>
@@ -156,7 +158,7 @@
 		{#if featuredPosts && featuredPosts.length > 0}
 			<div class="lg:w-1/2 lg:pl-8 mt-12 lg:mt-0">
 				<h2
-					class="font-display text-3xl font-semibold mb-6 text-center lg:text-left text-base-content"
+					class="font-hero text-3xl font-semibold mb-6 text-center lg:text-left text-base-content"
 				>
 					Featured Works
 				</h2>

@@ -15,10 +15,10 @@
 		switch (variant) {
 			case 'type':
 				return type === 'blog'
-					? 'bg-success/20 text-success/70 hover:bg-success/30 hover:text-success'
+					? 'bg-success/20 text-success/90 hover:bg-success/30 hover:text-success'
 					: 'bg-info/20 text-info/70 hover:bg-info/30 hover:text-info';
 			case 'topic':
-				return 'bg-base-200 text-base-content/50 border border-base-300 hover:bg-base-200 hover:text-base-content/70';
+				return 'bg-base-200 text-base-content/50 border border-base-300 hover:bg-base-200 hover:text-base-content';
 			default:
 				return 'bg-primary/20 text-primary hover:bg-primary/30';
 		}

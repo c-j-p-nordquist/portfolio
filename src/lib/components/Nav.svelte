@@ -14,8 +14,7 @@
 
 	let navItems = [
 		{ href: '/', label: 'Home' },
-		{ href: '/posts', label: 'Blog & Projects' },
-		{ href: '/about', label: 'About' }
+		{ href: '/posts', label: 'Blog & Projects' }
 	];
 
 	afterNavigate(() => {

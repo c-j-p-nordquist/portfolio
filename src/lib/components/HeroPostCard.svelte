@@ -75,9 +75,11 @@
 			<Badge type={post.type} onclick={handleTypeClick} variant="type" />
 		</div>
 
-		<h3 class="text-lg font-display font-semibold mb-2 text-base-content">{post.title}</h3>
+		<h3 class="text-lg font-display font-semibold mb-2 text-base-content leading-tight">
+			{post.title}
+		</h3>
 
-		<p class="text-sm font-body text-base-content/70 mb-4 flex-grow">
+		<p class="text-sm font-body text-base-content/70 mb-4 flex-grow leading-relaxed">
 			{truncatedDescription}
 		</p>
 

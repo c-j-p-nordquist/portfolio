@@ -7,14 +7,14 @@
 	import IconExternalLink from '~icons/mdi/external-link';
 	import IconCalendar from '~icons/lucide/calendar';
 	import IconClock from '~icons/lucide/clock';
-	import { toggleTopic, toggleType } from '$lib/utils/filter.svelte.js'; // Add this import
+	import { toggleTopic, toggleType } from '$lib/utils/filter.svelte.js';
 
 	let { post } = $props();
 
 	let isHovered = $state(false);
 	let mouseX = $state(0);
 	let mouseY = $state(0);
-	let cardElement;
+	let cardElement = $state(null);
 
 	const tiltSpring = spring(
 		{ x: 0, y: 0 },
@@ -51,11 +51,11 @@
 	}
 
 	function handleTypeClick() {
-		toggleType(post.type); // Use toggleType instead of direct navigation
+		toggleType(post.type);
 	}
 
 	function handleTopicClick(topic) {
-		toggleTopic(topic); // Use toggleTopic instead of direct navigation
+		toggleTopic(topic);
 	}
 
 	let truncatedDescription = $derived(truncate(post.description, 120));
@@ -90,42 +90,40 @@
 		</div>
 	{/if}
 
-	<div class="p-6 flex flex-col flex-grow">
-		<div class="flex-grow space-y-4">
-			<div class="flex justify-between items-start">
-				<Badge type={post.type} variant="type" onclick={handleTypeClick} />
-				<div class="flex items-center text-sm text-base-content/60">
-					<IconCalendar class="w-4 h-4 mr-1" />
-					<span>{formatDate(post.date)}</span>
-				</div>
+	<div class="p-6 flex flex-col flex-grow space-y-4">
+		<div class="flex justify-between items-start">
+			<Badge type={post.type} variant="type" onclick={handleTypeClick} />
+			<div class="flex items-center text-sm text-base-content/60">
+				<IconCalendar class="w-4 h-4 mr-1" />
+				<span>{formatDate(post.date)}</span>
 			</div>
-
-			<h3 class="text-xl font-semibold text-base-content font-sans line-clamp-2">{post.title}</h3>
-
-			{#if post.description}
-				<p class="text-sm text-base-content/70 line-clamp-3">
-					{truncatedDescription}
-				</p>
-			{/if}
-
-			<div class="flex flex-wrap gap-2">
-				{#each post.topics?.slice(0, 3) || [] as topic}
-					<Badge
-						{topic}
-						variant="topic"
-						class="text-xs py-0.5 px-2"
-						onclick={() => handleTopicClick(topic)}
-					/>
-				{/each}
-			</div>
-
-			{#if post.readingTime}
-				<div class="flex items-center text-sm text-base-content/60">
-					<IconClock class="w-4 h-4 mr-1" />
-					<span>{post.readingTime} min read</span>
-				</div>
-			{/if}
 		</div>
+
+		<h3 class="text-xl font-semibold text-base-content font-sans leading-tight">{post.title}</h3>
+
+		{#if post.description}
+			<p class="text-sm text-base-content/70 leading-relaxed line-clamp-3">
+				{truncatedDescription}
+			</p>
+		{/if}
+
+		<div class="flex flex-wrap gap-2 mt-auto">
+			{#each post.topics?.slice(0, 3) || [] as topic}
+				<Badge
+					{topic}
+					variant="topic"
+					class="text-xs py-0.5 px-2"
+					onclick={() => handleTopicClick(topic)}
+				/>
+			{/each}
+		</div>
+
+		{#if post.readingTime}
+			<div class="flex items-center text-sm text-base-content/60">
+				<IconClock class="w-4 h-4 mr-1" />
+				<span>{post.readingTime} min read</span>
+			</div>
+		{/if}
 
 		<div class="mt-4 flex justify-between items-center">
 			<button
