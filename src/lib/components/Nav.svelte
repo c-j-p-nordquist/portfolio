@@ -1,25 +1,10 @@
 <script>
 	import { page } from '$app/stores';
-	import { afterNavigate } from '$app/navigation';
-	import SearchModal from './SearchModal.svelte';
-	import DarkModeToggle from './DarkModeToggle.svelte';
-	import IconSearch from '~icons/lucide/search';
-	import IconMenu from '~icons/lucide/menu';
-	import IconX from '~icons/lucide/x';
+	import { fade, fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
-	let { posts } = $props();
-	let showSearchModal = $state(false);
-	let isMenuOpen = $state(false);
 	let isScrolled = $state(false);
-
-	let navItems = [
-		{ href: '/', label: 'Home' },
-		{ href: '/posts', label: 'Blog & Projects' }
-	];
-
-	afterNavigate(() => {
-		isMenuOpen = false;
-	});
+	let isMenuOpen = $state(false);
 
 	$effect(() => {
 		const handleScroll = () => {
@@ -33,76 +18,81 @@
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
 	}
+
+	function closeMenu() {
+		isMenuOpen = false;
+	}
+
+	const navItems = [
+		{ href: '/', label: 'Home' },
+		{ href: '/posts', label: 'Projects' },
+		{ href: '/about', label: 'About' }
+	];
 </script>
 
-{#snippet navLink(item)}
-	<a
-		href={item.href}
-		class="px-3 py-2 rounded-md text-sm font-medium text-base-content hover:text-primary transition-colors duration-200 relative group"
-		class:text-primary={$page.url.pathname === item.href}
-	>
-		{item.label}
-		<span
-			class="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-		></span>
-	</a>
-{/snippet}
-
-<nav class="bg-base-100 transition-all duration-300 z-50" class:shadow-md={isScrolled}>
+<nav
+	class="fixed w-full z-50 transition-all duration-300 {isScrolled
+		? 'bg-gray-900/80 backdrop-blur-sm'
+		: 'bg-transparent'}"
+>
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between h-16">
 			<div class="flex items-center">
-				<a href="/" class="flex-shrink-0 group">
-					<span
-						class="text-2xl font-bold text-primary group-hover:text-primary-focus transition-colors duration-200"
-						>PN</span
-					>
-				</a>
-				<div class="hidden md:block ml-10">
-					<div class="flex items-baseline space-x-4">
-						{#each navItems as item}
-							{@render navLink(item)}
-						{/each}
-					</div>
+				<a href="/" class="text-white font-bold text-xl">PN</a>
+			</div>
+			<div class="hidden md:block">
+				<div class="ml-10 flex items-baseline space-x-4">
+					{#each navItems as item}
+						<a
+							href={item.href}
+							class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 {$page
+								.url.pathname === item.href
+								? 'bg-gray-800 text-white'
+								: ''}"
+						>
+							{item.label}
+						</a>
+					{/each}
 				</div>
 			</div>
-			<div class="flex items-center">
+			<div class="md:hidden">
 				<button
-					class="p-1 rounded-full text-base-content hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-base-100 focus:ring-primary transition-colors duration-200"
-					onclick={() => (showSearchModal = true)}
-					aria-label="Toggle search"
+					onclick={toggleMenu}
+					class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 				>
-					<IconSearch class="w-6 h-6" />
+					<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M4 6h16M4 12h16M4 18h16"
+						/>
+					</svg>
 				</button>
-				<DarkModeToggle />
-				<div class="md:hidden ml-3">
-					<button
-						class="p-2 rounded-md text-base-content hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-base-100 focus:ring-primary transition-colors duration-200"
-						onclick={toggleMenu}
-						aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-					>
-						{#if isMenuOpen}
-							<IconX class="h-6 w-6" />
-						{:else}
-							<IconMenu class="h-6 w-6" />
-						{/if}
-					</button>
-				</div>
 			</div>
 		</div>
 	</div>
 
 	{#if isMenuOpen}
-		<div class="md:hidden">
-			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+		<div
+			class="md:hidden"
+			in:fly={{ y: -20, duration: 300, easing: cubicOut }}
+			out:fade={{ duration: 200 }}
+		>
+			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900">
 				{#each navItems as item}
-					{@render navLink(item)}
+					<a
+						href={item.href}
+						onclick={closeMenu}
+						class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium {$page
+							.url.pathname === item.href
+							? 'bg-gray-800 text-white'
+							: ''}"
+					>
+						{item.label}
+					</a>
 				{/each}
 			</div>
 		</div>
 	{/if}
 </nav>
-
-{#if showSearchModal}
-	<SearchModal {posts} onClose={() => (showSearchModal = false)} />
-{/if}

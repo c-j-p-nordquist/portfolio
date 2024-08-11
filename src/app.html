@@ -9,27 +9,20 @@
 	<!-- Optimized Google Fonts setup -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload" as="style"
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Syne:wght@400;500;600;700&display=swap">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Syne:wght@400;500;600;700&display=swap"
-		media="print" onload="this.media='all'">
-	<noscript>
-		<link rel="stylesheet"
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Syne:wght@400;500;600;700&display=swap">
-	</noscript>
+	<!-- Preload fonts -->
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" as="style"
+		onload="this.onload=null;this.rel='stylesheet'" />
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap"
+		as="style" onload="this.onload=null;this.rel='stylesheet'" />
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style"
+		onload="this.onload=null;this.rel='stylesheet'" />
 
-	<script>
-		(function () {
-			const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const storedTheme = localStorage.getItem('theme');
-			if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-				document.documentElement.setAttribute('data-theme', 'dark');
-			} else {
-				document.documentElement.setAttribute('data-theme', 'light');
-			}
-		})();
-	</script>
+	<!-- Fallback in case JavaScript is disabled -->
+	<noscript>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap"
+			rel="stylesheet" type="text/css" />
+	</noscript>
 	%sveltekit.head%
 </head>
 

@@ -1,54 +1,22 @@
 <script>
-	import { goto } from '$app/navigation';
+	let props = $props();
+	let text = $derived(props.text || '');
+	let variant = $derived(props.variant || 'default');
 
-	let {
-		tag = undefined,
-		topic = undefined,
-		type = undefined,
-		onclick = undefined,
-		href = undefined,
-		variant = 'default'
-	} = $props();
-	let text = $state(tag || topic || type);
-
-	let colorClass = $derived.by(() => {
+	let className = $derived.by(() => {
+		let baseClasses =
+			'inline-block px-3 py-1 text-xs font-medium rounded-full transition-colors duration-200';
 		switch (variant) {
-			case 'type':
-				return type === 'blog'
-					? 'bg-success/20 text-success/90 hover:bg-success/30 hover:text-success'
-					: 'bg-info/20 text-info/70 hover:bg-info/30 hover:text-info';
-			case 'topic':
-				return 'bg-base-200 text-base-content/50 border border-base-300 hover:bg-base-200 hover:text-base-content';
+			case 'tech':
+				return `${baseClasses} bg-blue-500/20 text-blue-300 hover:bg-blue-500/30`;
+			case 'skill':
+				return `${baseClasses} bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30`;
 			default:
-				return 'bg-primary/20 text-primary hover:bg-primary/30';
+				return `${baseClasses} bg-gray-500/20 text-gray-300 hover:bg-gray-500/30`;
 		}
 	});
-
-	$effect(() => {
-		// Capitalize the first letter if it's a type
-		if (type) {
-			text = text.charAt(0).toUpperCase() + text.slice(1);
-		}
-	});
-
-	let className = $derived(
-		`inline-block px-2 py-1 text-xs font-medium rounded-full ${colorClass} 
-		transition-all duration-200 ease-in-out 
-		hover:scale-105 active:scale-95 cursor-pointer`
-	);
-
-	function handleClick() {
-		if (onclick) {
-			onclick();
-		} else {
-			// Navigate to the post summary page with the appropriate filter
-			const filterType = type ? 'type' : 'topic';
-			const filterValue = encodeURIComponent(text.toLowerCase());
-			goto(`/posts?${filterType}=${filterValue}`);
-		}
-	}
 </script>
 
-<button onclick={handleClick} class={className}>
+<span class={className}>
 	{text}
-</button>
+</span>

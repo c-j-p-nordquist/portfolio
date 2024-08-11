@@ -2,7 +2,6 @@
 	import { spring } from 'svelte/motion';
 	import Badge from '$lib/components/Badge.svelte';
 	import { goto } from '$app/navigation';
-	import LazyImage from '$lib/components/LazyImage.svelte';
 	import ResponsiveImage from '$lib/components/ResponsiveImage.svelte';
 
 	let { post } = $props();
@@ -103,7 +102,7 @@
 
 <style>
 	article {
-		--tw-gradient-from: theme('colors.primary');
+		--tw-gradient-from: theme('colors.primary.500');
 		transition: transform 0.1s ease-out;
 	}
 </style>

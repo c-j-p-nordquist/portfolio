@@ -1,153 +1,81 @@
 <script>
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import FilterModal from '$lib/components/FilterModal.svelte';
-	import IconFilter from '~icons/lucide/filter';
-	import IconX from '~icons/lucide/x';
 	import PostCard from '$lib/components/PostCard.svelte';
-	import Badge from '$lib/components/Badge.svelte';
-	import {
-		initializeFilters,
-		toggleTopic,
-		toggleType,
-		clearFilters,
-		getSelectedTopics,
-		getSelectedType,
-		getAllTopics,
-		getFilteredItems
-	} from '$lib/utils/filter.svelte.js';
 
 	let { data } = $props();
+	let activeTab = $state('all');
 
-	let isFilterOpen = $state(false);
-
-	$effect(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		initializeFilters(data.posts, urlParams);
+	let filteredPosts = $derived.by(() => {
+		if (activeTab === 'all') return data.posts;
+		return data.posts.filter((post) => post.type === activeTab);
 	});
 
-	function toggleFilter() {
-		isFilterOpen = !isFilterOpen;
+	function setActiveTab(tab) {
+		activeTab = tab;
 	}
-
-	$effect(() => {
-		document.title = 'Blog & Projects - Philip Nordquist';
-	});
-
-	let itemsPerPage = 9;
-	let currentPage = $state(1);
-
-	let filteredItems = $derived(getFilteredItems());
-
-	let paginatedItems = $derived.by(() => {
-		const startIndex = (currentPage - 1) * itemsPerPage;
-		const endIndex = startIndex + itemsPerPage;
-		return filteredItems.slice(startIndex, endIndex);
-	});
-
-	let totalPages = $derived(Math.ceil(filteredItems.length / itemsPerPage));
-
-	function changePage(newPage) {
-		if (newPage >= 1 && newPage <= totalPages) {
-			currentPage = newPage;
-			window.scrollTo({ top: 0, behavior: 'smooth' });
-		}
-	}
-
-	$effect(() => {
-		// Reset to first page when filters change
-		currentPage = 1;
-	});
 </script>
 
-<div class="min-h-screen bg-base-100 text-base-content">
-	<main class="container mx-auto px-4 py-8">
-		<div class="flex justify-between items-center mb-8">
-			<h1 class="text-4xl font-bold text-base-content">Blog & Projects</h1>
-			<button class="btn btn-primary" onclick={toggleFilter} aria-label="Filter content">
-				<IconFilter class="w-4 h-4 mr-2" /> Filter
-			</button>
+<svelte:head>
+	<title>Philip Nordquist - Projects & Articles</title>
+</svelte:head>
+
+<main class="min-h-screen w-full bg-[#0c0f1a] text-white relative">
+	<div class="absolute inset-0 z-0 opacity-5 mix-blend-overlay">
+		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+			<filter id="noiseFilter">
+				<feTurbulence
+					type="fractalNoise"
+					baseFrequency="0.65"
+					numOctaves="3"
+					stitchTiles="stitch"
+				/>
+			</filter>
+			<rect width="100%" height="100%" filter="url(#noiseFilter)" />
+		</svg>
+	</div>
+
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+		<h1
+			class="text-6xl sm:text-7xl font-display mb-12 tracking-tighter text-center"
+			in:fly={{ y: -50, duration: 1000, delay: 300, easing: cubicOut }}
+		>
+			Projects <span class="text-blue-400 font-black italic">&</span> Articles
+		</h1>
+
+		<div class="flex justify-center mb-12" in:fade={{ duration: 1000, delay: 600 }}>
+			<div class="inline-flex rounded-md shadow-lg overflow-hidden" role="tablist">
+				{#each ['all', 'project', 'blog'] as tab}
+					<button
+						type="button"
+						role="tab"
+						aria-selected={activeTab === tab}
+						class="px-6 py-3 text-sm font-medium {activeTab === tab
+							? 'bg-blue-500 text-white'
+							: 'bg-[#1c2028] text-gray-300 hover:bg-[#2a3349] hover:text-white'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0c0f1a] focus:ring-blue-500 transition-all duration-200"
+						onclick={() => setActiveTab(tab)}
+					>
+						{tab.charAt(0).toUpperCase() + tab.slice(1)}
+					</button>
+				{/each}
+			</div>
 		</div>
 
-		{#if getSelectedTopics().length > 0 || getSelectedType() !== 'all'}
-			<div
-				class="bg-base-200 border border-base-300 p-2 rounded-lg mb-4 shadow-sm flex items-center flex-wrap gap-2"
-				transition:fade={{ duration: 300 }}
-			>
-				<span class="text-sm font-semibold text-base-content mr-2">Active Filters:</span>
-				{#if getSelectedType() !== 'all'}
-					<Badge
-						type={getSelectedType()}
-						onclick={() => toggleType(getSelectedType())}
-						variant="type"
-						closable={true}
-					/>
-				{/if}
-				{#each getSelectedTopics() as topic}
-					<Badge {topic} onclick={() => toggleTopic(topic)} variant="topic" closable={true} />
-				{/each}
-				<button
-					onclick={clearFilters}
-					class="btn btn-ghost btn-xs text-primary hover:text-primary-focus"
-				>
-					<IconX class="w-4 h-4 mr-1" /> Clear All
-				</button>
-			</div>
-		{/if}
-
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-			{#each paginatedItems as item, index (item.slug)}
-				<div in:fly={{ y: 50, duration: 500, delay: index * 150, easing: cubicOut }}>
-					<PostCard post={item} />
+			{#each filteredPosts as post, index}
+				<div
+					in:fly={{ y: 20, duration: 500, delay: 100 * index, easing: cubicOut }}
+					out:fade={{ duration: 300 }}
+				>
+					<PostCard {post} />
 				</div>
 			{/each}
 		</div>
 
-		{#if filteredItems.length === 0}
-			<p class="text-center text-xl mt-8 text-base-content opacity-80">
-				No items found for the current filters.
+		{#if filteredPosts.length === 0}
+			<p class="text-center text-gray-400 mt-12 font-sans" in:fade={{ duration: 500, delay: 300 }}>
+				No posts found in this category.
 			</p>
 		{/if}
-
-		{#if totalPages > 1}
-			<div class="flex justify-center mt-8">
-				<div class="btn-group">
-					<button
-						class="btn"
-						onclick={() => changePage(currentPage - 1)}
-						disabled={currentPage === 1}
-					>
-						«
-					</button>
-					{#each Array(totalPages) as _, i}
-						<button
-							class="btn"
-							class:btn-active={currentPage === i + 1}
-							onclick={() => changePage(i + 1)}
-						>
-							{i + 1}
-						</button>
-					{/each}
-					<button
-						class="btn"
-						onclick={() => changePage(currentPage + 1)}
-						disabled={currentPage === totalPages}
-					>
-						»
-					</button>
-				</div>
-			</div>
-		{/if}
-	</main>
-</div>
-
-<FilterModal
-	isOpen={isFilterOpen}
-	allTopics={getAllTopics()}
-	selectedTopics={getSelectedTopics()}
-	selectedType={getSelectedType()}
-	onClose={toggleFilter}
-	{toggleTopic}
-	{toggleType}
-	{clearFilters}
-/>
+	</div>
+</main>
