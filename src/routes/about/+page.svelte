@@ -60,8 +60,8 @@
 					in:fade={{ duration: 1000, delay: 500 }}
 				>
 					<p>
-						Experienced DevSecOps engineer with a strong foundation in infrastructure engineering
-						and a passion for building reliable, secure systems.
+						Hi, I'm Philip. A DevSecOps Engineer based in Sweden. This portfolio showcases my
+						personal projects, blog posts and professional experience.
 					</p>
 				</div>
 			</div>
