@@ -2,6 +2,7 @@
 	import '../app.css';
 	import { fade } from 'svelte/transition';
 	import Nav from '$lib/components/Nav.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
 	let { children } = $props();
 </script>
@@ -27,4 +28,6 @@
 	<main class="flex-grow relative z-10" in:fade={{ duration: 300 }}>
 		{@render children()}
 	</main>
+
+	<Footer />
 </div>

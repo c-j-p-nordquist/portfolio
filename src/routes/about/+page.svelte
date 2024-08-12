@@ -5,6 +5,7 @@
 	import IconGithub from '~icons/mdi/github';
 	import IconLinkedin from '~icons/mdi/linkedin';
 	import IconEmail from '~icons/mdi/email';
+	import IconMapPin from '~icons/lucide/map-pin';
 	import Badge from '$lib/components/Badge.svelte';
 	import { workHistory } from '$lib/data/workHistory.js';
 
@@ -86,6 +87,10 @@
 						<div class="flex-grow">
 							<h3 class="text-xl font-semibold mb-2">{job.position} at {job.company}</h3>
 							<p class="text-gray-400 mb-2">{job.period}</p>
+							<p class="text-gray-400 mb-2 flex items-center">
+								<IconMapPin class="w-4 h-4 mr-1" />
+								{job.location}
+							</p>
 							<p class="mb-4">{job.description}</p>
 							<div class="mb-3">
 								<h4 class="text-sm font-semibold mb-2 text-gray-400">Tech Stack</h4>
