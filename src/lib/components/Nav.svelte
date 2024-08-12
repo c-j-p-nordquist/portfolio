@@ -38,7 +38,22 @@
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between h-16">
 			<div class="flex items-center">
-				<a href="/" class="text-white font-bold text-xl">PN</a>
+				<a href="/" class="text-white font-bold flex items-center relative group">
+					<img src="/images/logos/favicon.svg" alt="Logo" class="w-10 h-10" />
+					<div
+						class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+					>
+						<svg
+							class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full"
+							width="10"
+							height="5"
+							viewBox="0 0 10 5"
+						>
+							<polygon points="0,5 5,0 10,5" fill="#1f2937" />
+						</svg>
+						https://philip.nordquist.me
+					</div>
+				</a>
 			</div>
 			<div class="hidden md:block">
 				<div class="ml-10 flex items-baseline space-x-4">
