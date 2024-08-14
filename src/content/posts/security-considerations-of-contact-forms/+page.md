@@ -5,8 +5,8 @@ highlight: "security implications of contact forms"
 date: "2024-07-16"
 type: blog
 topics: ["Web Security", "Contact Methods", "Professional Networking", "Risk Assessment"]
-featured: true
-published: true
+featured: false
+published: false
 hasImages: true
 ---
 
