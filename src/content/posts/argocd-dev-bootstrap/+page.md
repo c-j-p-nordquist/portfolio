@@ -14,7 +14,7 @@ topics:
 featured: true
 published: true
 summary: "A collection of scripts to set up a local Kubernetes cluster with ArgoCD installed, using K3d and Helm."
-hasImages: false
+hasImages: true
 githubUrl: "https://github.com/c-j-p-nordquist/argocd-dev-bootstrap"
 liveUrl: ""
 ---
