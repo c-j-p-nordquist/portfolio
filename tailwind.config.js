@@ -54,11 +54,25 @@ export default {
             '--tw-prose-pre-bg': theme('colors.gray.800'),
             '--tw-prose-th-borders': theme('colors.gray.700'),
             '--tw-prose-td-borders': theme('colors.gray.800'),
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+            'code': {
+              backgroundColor: theme('colors.gray.800'),
+              borderRadius: '0.25rem',
+              padding: '0.2em 0.4em',
+              fontWeight: '400',
+              fontSize: '0.875em',
+            },
           },
         },
       }),
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),],
+    require('@tailwindcss/typography'),
+  ],
 }

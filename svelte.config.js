@@ -4,11 +4,23 @@ import { mdsvex, escapeSvelte } from 'mdsvex';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
+import { visit } from 'unist-util-visit';
 import { createHighlighter } from 'shiki';
 import { enhancedImages } from '@sveltejs/enhanced-img';
 
-
 let highlighter;
+
+// Custom rehype plugin for inline code
+function rehypeInlineCode() {
+	return (tree) => {
+		visit(tree, 'element', (node) => {
+			if (node.tagName === 'code' && (!node.properties.className || !node.properties.className.includes('language-'))) {
+				node.properties.className = node.properties.className || [];
+				node.properties.className.push('inline-code');
+			}
+		});
+	};
+}
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -44,7 +56,7 @@ const config = {
 				}
 			},
 			remarkPlugins: [remarkUnwrapImages, [remarkToc, { tight: true }]],
-			rehypePlugins: [rehypeSlug]
+			rehypePlugins: [rehypeSlug, rehypeInlineCode]
 		})
 	],
 	kit: {

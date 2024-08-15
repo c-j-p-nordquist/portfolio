@@ -104,10 +104,10 @@
 			class="flex flex-wrap gap-3 mb-8"
 			in:fly={{ y: 20, duration: 500, delay: 1000, easing: cubicOut }}
 		>
-			<Badge {type} variant="type" />
+			<Badge text={type} variant="type" />
 			{#if topics && topics.length > 0}
 				{#each topics as topic}
-					<Badge {topic} variant="topic" />
+					<Badge text={topic} variant="topic" />
 				{/each}
 			{/if}
 		</div>
