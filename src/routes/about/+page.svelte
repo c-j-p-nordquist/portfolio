@@ -10,6 +10,7 @@
 	import IconCalendar from '~icons/lucide/calendar';
 	import Badge from '$lib/components/Badge.svelte';
 	import { workHistory } from '$lib/data/workHistory.js';
+	import SocialLinks from '$lib/components/SocialLinks.svelte';
 
 	let resumeUrl = $state('/files/Philip_Nordquist_06_24.pdf');
 
@@ -61,29 +62,8 @@
 					DevSecOps Engineer based in Sweden. Passionate about creating secure, scalable, and
 					observable systems.
 				</p>
-				<div class="flex space-x-4">
-					<a
-						href="https://github.com/nordquist"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400"
-					>
-						<IconGithub class="w-6 h-6" />
-					</a>
-					<a
-						href="https://linkedin.com/in/philipnordquist"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400"
-					>
-						<IconLinkedin class="w-6 h-6" />
-					</a>
-					<a
-						href="mailto:philip@nordquist.me"
-						class="text-gray-600 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400"
-					>
-						<IconEmail class="w-6 h-6" />
-					</a>
+				<div class="flex">
+					<SocialLinks size="md" />
 				</div>
 			</div>
 			<div

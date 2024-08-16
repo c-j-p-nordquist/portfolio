@@ -7,6 +7,7 @@
 	import IconEmail from '~icons/mdi/email';
 	import IconBriefcase from '~icons/mdi/briefcase';
 	import IconUser from '~icons/mdi/user';
+	import SocialLinks from '$lib/components/SocialLinks.svelte';
 
 	let mounted = $state(false);
 
@@ -72,28 +73,7 @@
 				class="flex justify-center items-center space-x-6"
 				in:fade={{ duration: 600, delay: 600 }}
 			>
-				<a
-					href="https://github.com/c-j-p-nordquist"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
-				>
-					<IconGithub class="w-8 h-8" />
-				</a>
-				<a
-					href="https://linkedin.com/in/philip-nordquist-269949a0"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
-				>
-					<IconLinkedin class="w-8 h-8" />
-				</a>
-				<a
-					href="mailto:philip@nordquist.me"
-					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
-				>
-					<IconEmail class="w-8 h-8" />
-				</a>
+				<SocialLinks size="lg" />
 			</div>
 		{/if}
 	</div>

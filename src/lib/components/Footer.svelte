@@ -2,6 +2,7 @@
 	import IconGithub from '~icons/mdi/github';
 	import IconLinkedin from '~icons/mdi/linkedin';
 	import IconEmail from '~icons/mdi/email';
+	import SocialLinks from '$lib/components/SocialLinks.svelte';
 
 	const currentYear = new Date().getFullYear();
 </script>
@@ -27,30 +28,7 @@
 					class="text-emerald-600 dark:text-emerald-400 hover:underline">TailwindCSS</a
 				>
 			</p>
-			<div class="flex space-x-4">
-				<a
-					href="https://github.com/c-j-p-nordquist"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"
-				>
-					<IconGithub class="w-6 h-6" />
-				</a>
-				<a
-					href="https://linkedin.com/in/philip-nordquist-269949a0"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"
-				>
-					<IconLinkedin class="w-6 h-6" />
-				</a>
-				<a
-					href="mailto:philip@nordquist.me"
-					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"
-				>
-					<IconEmail class="w-6 h-6" />
-				</a>
-			</div>
+			<SocialLinks size="md" />
 		</div>
 	</div>
 </footer>
