@@ -29,7 +29,7 @@
 			</p>
 			<div class="flex space-x-4">
 				<a
-					href="https://github.com/nordquist"
+					href="https://github.com/c-j-p-nordquist"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"
@@ -37,7 +37,7 @@
 					<IconGithub class="w-6 h-6" />
 				</a>
 				<a
-					href="https://linkedin.com/in/philipnordquist"
+					href="https://linkedin.com/in/philip-nordquist-269949a0"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"

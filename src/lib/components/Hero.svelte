@@ -73,7 +73,7 @@
 				in:fade={{ duration: 600, delay: 600 }}
 			>
 				<a
-					href="https://github.com/nordquist"
+					href="https://github.com/c-j-p-nordquist"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
@@ -81,7 +81,7 @@
 					<IconGithub class="w-8 h-8" />
 				</a>
 				<a
-					href="https://linkedin.com/in/philipnordquist"
+					href="https://linkedin.com/in/philip-nordquist-269949a0"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
