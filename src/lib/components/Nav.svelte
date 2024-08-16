@@ -24,7 +24,6 @@
 	}
 
 	const navItems = [
-		{ href: '/', label: 'Home' },
 		{ href: '/posts', label: 'Projects' },
 		{ href: '/about', label: 'About' }
 	];
@@ -32,38 +31,29 @@
 
 <nav
 	class="fixed w-full z-50 transition-all duration-300 {isScrolled
-		? 'bg-gray-900/80 backdrop-blur-sm'
+		? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg'
 		: 'bg-transparent'}"
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="flex items-center justify-between h-16">
+		<div class="flex items-center justify-between h-20">
 			<div class="flex items-center">
-				<a href="/" class="text-white font-bold flex items-center relative group">
-					<img src="/images/logos/favicon.svg" alt="Logo" class="w-10 h-10" />
-					<div
-						class="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+				<a href="/" class="flex items-center space-x-2">
+					<img src="/images/logos/favicon.svg" alt="PN Logo" class="h-8 w-8" />
+					<span
+						class="hidden sm:inline-block text-sm font-sans font-medium text-gray-700 dark:text-gray-300 tracking-wide"
+						>Philip Nordquist</span
 					>
-						<svg
-							class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full"
-							width="10"
-							height="5"
-							viewBox="0 0 10 5"
-						>
-							<polygon points="0,5 5,0 10,5" fill="#1f2937" />
-						</svg>
-						https://philip.nordquist.me
-					</div>
 				</a>
 			</div>
 			<div class="hidden md:block">
-				<div class="ml-10 flex items-baseline space-x-4">
+				<div class="ml-10 flex items-center space-x-4">
 					{#each navItems as item}
 						<a
 							href={item.href}
-							class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 {$page
-								.url.pathname === item.href
-								? 'bg-gray-800 text-white'
-								: ''}"
+							class="px-4 py-2 rounded-full text-sm font-sans font-medium transition-all duration-200
+							{$page.url.pathname === item.href
+								? 'bg-emerald-500 text-white'
+								: 'text-gray-700 dark:text-gray-300 hover:bg-emerald-500 hover:text-white'}"
 						>
 							{item.label}
 						</a>
@@ -73,7 +63,8 @@
 			<div class="md:hidden">
 				<button
 					onclick={toggleMenu}
-					class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+					class="text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-full p-2"
+					aria-label="Toggle menu"
 				>
 					<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path
@@ -90,19 +81,19 @@
 
 	{#if isMenuOpen}
 		<div
-			class="md:hidden"
+			class="md:hidden absolute top-full left-0 right-0"
 			in:fly={{ y: -20, duration: 300, easing: cubicOut }}
 			out:fade={{ duration: 200 }}
 		>
-			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900">
+			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-900 shadow-lg">
 				{#each navItems as item}
 					<a
 						href={item.href}
 						onclick={closeMenu}
-						class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium {$page
-							.url.pathname === item.href
-							? 'bg-gray-800 text-white'
-							: ''}"
+						class="block px-4 py-3 rounded-full text-base font-sans font-medium transition-all duration-200
+						{$page.url.pathname === item.href
+							? 'bg-emerald-500 text-white'
+							: 'text-gray-700 dark:text-gray-300 hover:bg-emerald-500 hover:text-white'}"
 					>
 						{item.label}
 					</a>

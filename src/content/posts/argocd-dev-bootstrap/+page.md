@@ -1,6 +1,6 @@
 ---
 title: "ArgoCD Dev Bootstrap - Local Kubernetes Environment Setup"
-description: "A project for setting up a local Kubernetes environment with ArgoCD using K3d and Helm"
+description: "A project for setting up a local Kubernetes environment with ArgoCD using K3d and Helm."
 highlight: "Local Kubernetes and ArgoCD setup"
 date: "2024-08-14"
 type: project

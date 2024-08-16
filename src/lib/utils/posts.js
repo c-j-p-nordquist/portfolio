@@ -11,6 +11,7 @@ export async function getPosts() {
                     slug,
                     path: `/posts/${slug}`,
                     type: post.metadata.type || 'post',
+                    featured: post.metadata.featured,
                     imageBasePath: post.metadata.hasImages ? `/images/posts/${slug}` : null,
                 };
             })

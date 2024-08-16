@@ -6,7 +6,7 @@ date: "2024-07-16"
 type: blog
 topics: ["Web Security", "Contact Methods", "Professional Networking", "Risk Assessment"]
 featured: false
-published: false
+published: true
 hasImages: true
 ---
 

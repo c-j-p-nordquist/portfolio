@@ -9,12 +9,12 @@
 		content="Philip Nordquist is a DevSecOps Engineer specializing in secure, scalable, and observable systems. Explore his projects and experience."
 	/>
 	<link
-		href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;600&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap"
 		rel="stylesheet"
 	/>
 </svelte:head>
 
-<main class="bg-[#0c0f1a] text-white relative">
+<main class="bg-gray-900 text-white relative">
 	<div class="absolute inset-0 z-0 opacity-10 mix-blend-overlay">
 		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
 			<filter id="noiseFilter">
