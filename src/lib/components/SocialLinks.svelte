@@ -19,7 +19,7 @@
 		href="https://github.com/c-j-p-nordquist"
 		target="_blank"
 		rel="noopener noreferrer"
-		class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+		class="text-gray-600 dark:text-dark-text-secondary hover:text-emerald-500 dark:hover:text-dark-primary transition-colors duration-200"
 	>
 		<IconGithub class={iconClass} />
 	</a>
@@ -27,13 +27,13 @@
 		href="https://linkedin.com/in/philip-nordquist-269949a0"
 		target="_blank"
 		rel="noopener noreferrer"
-		class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+		class="text-gray-600 dark:text-dark-text-secondary hover:text-emerald-500 dark:hover:text-dark-primary transition-colors duration-200"
 	>
 		<IconLinkedin class={iconClass} />
 	</a>
 	<a
 		href="mailto:philip@nordquist.me"
-		class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors duration-200"
+		class="text-gray-600 dark:text-dark-text-secondary hover:text-emerald-500 dark:hover:text-dark-primary transition-colors duration-200"
 	>
 		<IconEmail class={iconClass} />
 	</a>

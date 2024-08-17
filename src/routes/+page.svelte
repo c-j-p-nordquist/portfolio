@@ -14,7 +14,7 @@
 	/>
 </svelte:head>
 
-<main class="bg-gray-900 text-white relative">
+<main class="bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary relative">
 	<div class="absolute inset-0 z-0 opacity-10 mix-blend-overlay">
 		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
 			<filter id="noiseFilter">

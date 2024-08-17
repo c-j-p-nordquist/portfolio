@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" href="%sveltekit.assets%/images/logos/favicon.svg" />
+	<link rel="icon" href="%sveltekit.assets%/images/logos/favicon-light.svg" id="favicon" />
 	<meta name="viewport" content="width=device-width" />
 
 	<!-- Google Fonts setup -->
@@ -20,6 +20,24 @@
 			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap"
 			rel="stylesheet" type="text/css">
 	</noscript>
+
+	<script>
+		// Function to set the favicon based on color scheme
+		function setFavicon() {
+			const favicon = document.getElementById('favicon');
+			const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+			const faviconPath = prefersDarkScheme.matches
+				? '%sveltekit.assets%/images/logos/favicon-dark.svg'
+				: '%sveltekit.assets%/images/logos/favicon-light.svg';
+			favicon.href = faviconPath;
+		}
+
+		// Set favicon initially
+		setFavicon();
+
+		// Listen for changes in color scheme preference
+		window.matchMedia('(prefers-color-scheme: dark)').addListener(setFavicon);
+	</script>
 
 	%sveltekit.head%
 </head>

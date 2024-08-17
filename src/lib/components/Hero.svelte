@@ -2,9 +2,6 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import IconGithub from '~icons/mdi/github';
-	import IconLinkedin from '~icons/mdi/linkedin';
-	import IconEmail from '~icons/mdi/email';
 	import IconBriefcase from '~icons/mdi/briefcase';
 	import IconUser from '~icons/mdi/user';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
@@ -17,7 +14,7 @@
 </script>
 
 <div
-	class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white px-4 sm:px-6 lg:px-8"
+	class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary px-4 sm:px-6 lg:px-8"
 >
 	<div class="absolute inset-0 opacity-20 dark:opacity-10">
 		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +43,9 @@
 				in:fade={{ duration: 600, delay: 300 }}
 			>
 				DevSecOps Engineer crafting
-				<span class="font-semibold text-emerald-500">secure, scalable, and observable systems</span>
+				<span class="font-semibold text-emerald-500 dark:text-dark-primary"
+					>secure, scalable, and observable systems</span
+				>
 			</h2>
 
 			<div
@@ -55,14 +54,14 @@
 			>
 				<a
 					href="/posts"
-					class="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-white font-sans font-bold rounded-full hover:bg-emerald-400 transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center"
+					class="w-full sm:w-auto px-8 py-4 bg-emerald-500 dark:bg-dark-primary text-white dark:text-dark-bg font-sans font-bold rounded-full hover:bg-emerald-400 dark:hover:bg-dark-primary/90 transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
 				>
 					<IconBriefcase class="w-5 h-5 mr-2" />
 					View My Projects
 				</a>
 				<a
 					href="/about"
-					class="w-full sm:w-auto px-8 py-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white font-sans font-bold rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center"
+					class="w-full sm:w-auto px-8 py-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-sans font-bold rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
 				>
 					<IconUser class="w-5 h-5 mr-2" />
 					Learn About Me

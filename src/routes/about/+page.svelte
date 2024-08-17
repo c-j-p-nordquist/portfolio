@@ -2,9 +2,6 @@
 	import { fly, fade } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
 	import IconDownload from '~icons/lucide/download';
-	import IconGithub from '~icons/mdi/github';
-	import IconLinkedin from '~icons/mdi/linkedin';
-	import IconEmail from '~icons/mdi/email';
 	import IconMapPin from '~icons/lucide/map-pin';
 	import IconBriefcase from '~icons/lucide/briefcase';
 	import IconCalendar from '~icons/lucide/calendar';
@@ -12,7 +9,7 @@
 	import { workHistory } from '$lib/data/workHistory.js';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 
-	let resumeUrl = $state('/files/Philip_Nordquist_06_24.pdf');
+	let resumeUrl = $state('/files/resume.pdf');
 
 	let aboutMeParagraph = $state(`
 		<strong>DevSecOps Engineer with 10+ years of experience in architecting, implementing, and
@@ -37,7 +34,7 @@
 </svelte:head>
 
 <main
-	class="min-h-screen w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white py-24 px-4 sm:px-6 lg:px-8"
+	class="min-h-screen w-full bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary py-24 px-4 sm:px-6 lg:px-8"
 >
 	<div class="max-w-5xl mx-auto">
 		<h1
@@ -49,7 +46,7 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
 			<div
-				class="bg-emerald-100 dark:bg-emerald-900/30 rounded-3xl p-8 flex flex-col items-center"
+				class="bg-emerald-100 dark:bg-dark-surface/80 rounded-3xl p-8 flex flex-col items-center"
 				in:fly={{ x: -20, duration: 500, delay: 200, easing: cubicOut }}
 			>
 				<img
@@ -58,7 +55,7 @@
 					class="w-40 h-40 rounded-full mb-6 object-cover"
 				/>
 				<h2 class="text-2xl font-serif font-bold mb-4">Philip Nordquist</h2>
-				<p class="text-center mb-6 font-sans font-light">
+				<p class="text-center mb-6 font-sans font-light dark:text-dark-text-primary/80">
 					DevSecOps Engineer based in Sweden. Passionate about creating secure, scalable, and
 					observable systems.
 				</p>
@@ -67,18 +64,18 @@
 				</div>
 			</div>
 			<div
-				class="bg-sky-100 dark:bg-sky-900/30 rounded-3xl p-8 flex flex-col justify-between"
+				class="bg-sky-100 dark:bg-dark-surface/80 rounded-3xl p-8 flex flex-col justify-between"
 				in:fly={{ x: 20, duration: 500, delay: 300, easing: cubicOut }}
 			>
 				<div>
 					<h2 class="text-2xl font-serif font-bold mb-4">Professional Summary</h2>
-					<p class="mb-6 font-sans font-light">
+					<p class="mb-6 font-sans font-light dark:text-dark-text-primary/80">
 						{@html aboutMeParagraph}
 					</p>
 				</div>
 				<button
 					onclick={downloadResume}
-					class="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-sans font-normal rounded-full hover:bg-gray-800 transition-colors duration-200 self-start"
+					class="inline-flex items-center px-6 py-3 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 font-sans font-normal rounded-full hover:bg-gray-700 dark:hover:bg-gray-300 transition-colors duration-200 self-start"
 				>
 					<IconDownload class="w-5 h-5 mr-2" />
 					Download Resume
@@ -90,22 +87,28 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			{#each workHistory as job, index}
 				<div
-					class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm"
+					class="bg-white dark:bg-dark-surface/50 rounded-3xl p-6"
 					in:fly={{ y: 20, duration: 500, delay: 100 * index, easing: cubicOut }}
 				>
 					<div class="flex items-center mb-4">
 						<img src={job.logo} alt="{job.company} logo" class="w-12 h-12 mr-4" />
 						<div>
 							<h3 class="text-xl font-serif font-bold">{job.company}</h3>
-							<p class="text-gray-600 dark:text-gray-400 font-sans font-light">{job.position}</p>
+							<p class="text-gray-600 dark:text-dark-text-secondary font-sans font-light">
+								{job.position}
+							</p>
 						</div>
 					</div>
 					<div class="mb-4 space-y-2">
-						<p class="flex items-center text-gray-600 dark:text-gray-400 font-sans font-light">
+						<p
+							class="flex items-center text-gray-600 dark:text-dark-text-secondary font-sans font-light"
+						>
 							<IconCalendar class="w-4 h-4 mr-2" />
 							{job.period}
 						</p>
-						<p class="flex items-center text-gray-600 dark:text-gray-400 font-sans font-light">
+						<p
+							class="flex items-center text-gray-600 dark:text-dark-text-secondary font-sans font-light"
+						>
 							<IconMapPin class="w-4 h-4 mr-2" />
 							{job.location}
 						</p>

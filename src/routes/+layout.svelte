@@ -8,7 +8,7 @@
 </script>
 
 <div
-	class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white relative"
+	class="min-h-screen flex flex-col bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary relative"
 >
 	<div class="absolute inset-0 z-0 opacity-5 mix-blend-overlay">
 		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">

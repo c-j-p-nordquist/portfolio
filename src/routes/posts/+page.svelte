@@ -26,7 +26,7 @@
 </svelte:head>
 
 <main
-	class="min-h-screen w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white py-24 px-4 sm:px-6 lg:px-8"
+	class="min-h-screen w-full bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary py-24 px-4 sm:px-6 lg:px-8"
 >
 	<div class="max-w-5xl mx-auto">
 		<h1
@@ -40,14 +40,14 @@
 			class="flex justify-center mb-20"
 			in:fly={{ y: -15, duration: 500, delay: 200, easing: cubicOut }}
 		>
-			<div class="inline-flex rounded-full bg-gray-100 dark:bg-gray-800 p-1">
+			<div class="inline-flex rounded-full bg-gray-100 dark:bg-dark-surface p-1">
 				{#each ['all', 'project', 'blog'] as tab}
 					<button
 						type="button"
 						class="px-8 py-4 rounded-full text-base font-sans font-normal transition-all duration-200 {activeTab ===
 						tab
-							? 'bg-white dark:bg-gray-700 shadow-md'
-							: 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}"
+							? 'bg-white dark:bg-dark-primary text-gray-900 dark:text-dark-bg '
+							: 'text-gray-700 dark:text-dark-text-secondary hover:bg-gray-200 dark:hover:bg-dark-surface/90'}"
 						onclick={() => setActiveTab(tab)}
 					>
 						{tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -68,7 +68,7 @@
 
 		{#if filteredProjects.length === 0}
 			<p
-				class="text-center text-gray-600 dark:text-gray-400 mt-12 font-sans font-light"
+				class="text-center text-gray-600 dark:text-dark-text-secondary mt-12 font-sans font-light"
 				in:fade={{ duration: 300 }}
 			>
 				No items found in this category.

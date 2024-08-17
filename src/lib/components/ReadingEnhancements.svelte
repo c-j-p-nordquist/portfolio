@@ -80,14 +80,14 @@
 	{#if showScrollButton && !isOpen}
 		<button
 			onclick={scrollToTop}
-			class="p-2 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
+			class="p-2 bg-white text-gray-800 rounded-full hover:bg-gray-100 transition-colors duration-200"
 			aria-label="Scroll to top"
 		>
 			<IconArrowUp class="w-5 h-5" />
 		</button>
 	{/if}
 	<button
-		class="p-2 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
+		class="p-2 bg-white text-gray-800 rounded-full hover:bg-gray-100 transition-colors duration-200"
 		onclick={toggleOpen}
 		aria-label="Toggle Table of Contents"
 	>
@@ -99,7 +99,7 @@
 	</button>
 	{#if isOpen}
 		<div
-			class="absolute bottom-16 right-0 bg-white rounded-lg shadow-lg p-4 w-64 max-h-[80vh] overflow-y-auto"
+			class="absolute bottom-16 right-0 bg-white rounded-lg p-4 w-64 max-h-[80vh] overflow-y-auto"
 		>
 			<h2 class="text-xl font-semibold mb-4 text-gray-800">Table of Contents</h2>
 			<div class="space-y-1">
