@@ -5,7 +5,7 @@ export const workHistory = [
         position: 'DevSecOps Engineer',
         location: 'Stockholm, Sweden',
         period: 'Nov 2023 - Present',
-        description: 'Architected and implemented robust observability and security solutions. Drove incident response and automation initiatives. Contributed to strategic technology evaluations.',
+        description: 'Spearheading the design and implementation of advanced observability and security solutions, enhancing incident response times and driving strategic automation initiatives.',
         skills: ['Observability', 'SIEM', 'Incident Response', 'CIS CSC', 'Automation', 'Infrastructure as Code', 'GitOps', 'Cloud Security'],
         techstack: ['Kubernetes', 'ArgoCD', 'Helm', 'Microsoft Sentinel', 'Grafana', 'GCP', 'VMware', 'Prometheus', 'Loki', 'Ansible', 'Terraform']
     },
@@ -15,7 +15,7 @@ export const workHistory = [
         position: 'Staff Operations Engineer',
         location: 'Hong Kong',
         period: 'Apr 2021 - Jul 2023',
-        description: 'Led multiple server releases across a global infrastructure of 3,000+ servers in 100+ countries. Architected and implemented observability and security systems to mitigate complex VPN service disruptions. Drove technical design of password manager disaster recovery, reducing recovery time by over 90%.',
+        description: 'Led the execution of multiple server releases, managing a global infrastructure of 3,000+ servers across 100+ countries. Architected high-resilience observability and security systems to mitigate complex service disruptions, significantly improving service reliability.',
         skills: ['Infrastructure Management', 'Service Reliability', 'Disaster Recovery', 'Performance Optimization', 'Security Enhancement', 'Team Leadership', 'Mentoring'],
         techstack: ['AWS', 'Python', 'Terraform', 'Docker', 'Jenkins', 'Prometheus', 'Grafana', 'ELK Stack']
     },
@@ -25,7 +25,7 @@ export const workHistory = [
         position: 'Senior IT Cloud/Infrastructure Engineer',
         location: 'Hong Kong',
         period: 'Apr 2019 - Apr 2021',
-        description: 'Led a comprehensive global network overhaul, implementing a new network architecture with redundant infrastructure. Managed IT operations across multiple countries, optimizing network performance and eliminating recurring outages. Established IT standards for identity and access management, automating user provisioning and enhancing security.',
+        description: 'Drove a global network overhaul, implementing a new, resilient architecture. Managed IT operations across multiple regions, optimizing network performance and eliminating outages while setting standards for identity and access management.',
         skills: ['Network Architecture', 'Global IT Management', 'Identity and Access Management', 'Security Implementation', 'Process Automation'],
         techstack: ['Cisco', 'Palo Alto Networks', 'AWS', 'Azure', 'Google Workspace', 'Okta']
     },
