@@ -18,9 +18,7 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@tailwindcss/typography": "^0.5.14",
 		"autoprefixer": "^10.4.19",
-		"gray-matter": "^4.0.3",
 		"mdsvex": "^0.11.2",
-		"node-html-parser": "^6.1.13",
 		"postcss": "^8.4.39",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
@@ -31,14 +29,10 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
-		"clsx": "^2.1.1",
-		"flexsearch": "^0.7.43",
 		"rehype-slug": "^6.0.0",
 		"remark-toc": "^9.0.0",
 		"remark-unwrap-images": "^4.0.0",
-		"svelte-motion": "^0.12.2",
-		"tailwind-merge": "^2.4.0",
-		"theme-change": "^2.5.0"
+		"svelte-motion": "^0.12.2"
 	},
 	"type": "module",
 	"overrides": {

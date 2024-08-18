@@ -16,8 +16,8 @@ export const workHistory = [
         location: 'Hong Kong',
         period: 'Apr 2021 - Jul 2023',
         description: 'Led the execution of multiple server releases, managing a global infrastructure of 3,000+ servers across 100+ countries. Architected high-resilience observability and security systems to mitigate complex service disruptions, significantly improving service reliability.',
-        skills: ['Infrastructure Management', 'Service Reliability', 'Disaster Recovery', 'Performance Optimization', 'Security Enhancement', 'Team Leadership', 'Mentoring'],
-        techstack: ['AWS', 'Python', 'Terraform', 'Docker', 'Jenkins', 'Prometheus', 'Grafana', 'ELK Stack']
+        skills: ['Infrastructure Management', 'Observability', 'Service Reliability', 'Disaster Recovery', 'Performance Optimization', 'Security Enhancement', 'Team Leadership', 'Mentoring'],
+        techstack: ['AWS', 'Python', 'Terraform', 'PostgreSQL', 'Debian', 'Prometheus', 'Grafana']
     },
     {
         company: 'ExpressVPN',
@@ -27,7 +27,7 @@ export const workHistory = [
         period: 'Apr 2019 - Apr 2021',
         description: 'Drove a global network overhaul, implementing a new, resilient architecture. Managed IT operations across multiple regions, optimizing network performance and eliminating outages while setting standards for identity and access management.',
         skills: ['Network Architecture', 'Global IT Management', 'Identity and Access Management', 'Security Implementation', 'Process Automation'],
-        techstack: ['Cisco', 'Palo Alto Networks', 'AWS', 'Azure', 'Google Workspace', 'Okta']
+        techstack: ['Terraform', 'Palo Alto Networks', 'AWS', 'Python', 'Google Workspace', 'Okta']
     },
     {
         company: 'Universum Communications Sweden AB',
@@ -37,7 +37,7 @@ export const workHistory = [
         period: 'Sep 2017 - Apr 2019',
         description: 'Orchestrated and maintained IT infrastructure across multiple international offices. Played a pivotal role during Universums acquisition by Stepstone, managing IT integration and migration processes.',
         skills: ['IT Infrastructure Management', 'Cross-functional Collaboration', 'Acquisition IT Integration', 'Project Management', 'Systems Migration'],
-        techstack: ['Office 365', 'Azure AD', 'Windows Server', 'VMware', 'Cisco']
+        techstack: ['Office 365', 'AWS', 'Google Workspace', 'Windows Server', 'VMware']
     },
     {
         company: 'ExternIT',
@@ -47,7 +47,7 @@ export const workHistory = [
         period: 'Sep 2015 - Sep 2017',
         description: 'Delivered end-to-end technical solutions for SMBs, from network equipment procurement to server infrastructure setup. Conducted numerous email migrations from on-premises servers to cloud platforms like Office365 and Gmail.',
         skills: ['SMB IT Solutions', 'Server Infrastructure', 'Cloud Migration', 'Network Setup', 'Technical Support'],
-        techstack: ['Windows Server', 'Office 365', 'G Suite', 'Exchange Server', 'Active Directory']
+        techstack: ['Windows Server', 'Office 365', 'Google Workspace', 'Exchange Server', 'Active Directory']
     },
     {
         company: 'Binero AB',

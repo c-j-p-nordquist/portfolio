@@ -3,7 +3,6 @@
 	import { cubicOut } from 'svelte/easing';
 	import IconDownload from '~icons/lucide/download';
 	import IconMapPin from '~icons/lucide/map-pin';
-	import IconBriefcase from '~icons/lucide/briefcase';
 	import IconCalendar from '~icons/lucide/calendar';
 	import Badge from '$lib/components/Badge.svelte';
 	import { workHistory } from '$lib/data/workHistory.js';
@@ -31,106 +30,85 @@
 			About Me
 		</h1>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20" in:fade={{ duration: 500 }}>
-			<div
-				class="bg-emerald-100 dark:bg-dark-surface/30 rounded-3xl p-8 flex flex-col items-center"
-				in:fly={{ x: -20, duration: 500, delay: 200, easing: cubicOut }}
-			>
-				<picture>
-					<source srcset="/images/portrait.webp" type="image/webp" />
-					<source srcset="/images/portrait.jpg" type="image/jpeg" />
-					<img
-						src="/images/portrait.jpg"
-						alt="Philip Nordquist"
-						class="w-40 h-40 rounded-full mb-6 object-cover"
-					/>
-				</picture>
-				<h2 class="text-2xl font-serif font-bold mb-4 text-gray-800 dark:text-gray-200">
-					Philip Nordquist
-				</h2>
-				<p class="text-center mb-6 font-sans font-light text-gray-600 dark:text-gray-400">
-					DevSecOps Engineer crafting secure, scalable, and efficient IT infrastructures. Based in
-					Sweden, committed to driving digital transformation and operational excellence on global
-					platforms.
-				</p>
-				<div class="flex">
+		<div class="mb-20" in:fade={{ duration: 500 }}>
+			<div class="flex flex-col md:flex-row items-center md:items-start gap-12 mb-12">
+				<div class="md:w-1/3 flex flex-col items-center">
+					<div class="mb-6">
+						<picture>
+							<source srcset="/images/portrait.webp" type="image/webp" />
+							<source srcset="/images/portrait.jpg" type="image/jpeg" />
+							<img
+								src="/images/portrait.jpg"
+								alt="Philip Nordquist"
+								class="w-48 h-48 rounded-full object-cover"
+							/>
+						</picture>
+					</div>
+					<h2
+						class="text-3xl font-serif font-bold mb-4 text-gray-800 dark:text-gray-200 text-center"
+					>
+						Philip Nordquist
+					</h2>
+					<div class="space-y-2 mb-6 text-center">
+						<p class="font-sans text-gray-600 dark:text-gray-400">DevSecOps Engineer at STIM</p>
+						<p class="font-sans text-gray-600 dark:text-gray-400">Owner of CJP IT Consulting AB</p>
+					</div>
 					<SocialLinks size="md" />
 				</div>
-			</div>
-			<div
-				class="bg-sky-100 dark:bg-dark-surface/30 rounded-3xl p-8 flex flex-col justify-between"
-				in:fly={{ x: 20, duration: 500, delay: 300, easing: cubicOut }}
-			>
-				<div>
-					<h2 class="text-2xl font-serif font-bold mb-4 text-gray-800 dark:text-gray-200">
-						Professional Summary
-					</h2>
-					<div
-						class="space-y-4 mb-6 text-base font-sans font-light text-gray-700 dark:text-gray-400"
-					>
+				<div class="md:w-2/3">
+					<div class="space-y-4 mb-6 text-base font-sans text-gray-700 dark:text-gray-300">
 						<p>
-							DevSecOps Engineer with <span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							DevSecOps Engineer with <span class="font-medium text-gray-900 dark:text-gray-100"
 								>10+ years of experience</span
 							>
 							in architecting and implementing
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							<span class="font-medium text-gray-900 dark:text-gray-100"
 								>secure, scalable IT infrastructures</span
 							>.
 						</p>
 						<p>
-							Expertise in <span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							Expertise in <span class="font-medium text-gray-900 dark:text-gray-100"
 								>cloud platforms</span
 							>
 							(AWS, GCP, Azure),
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							<span class="font-medium text-gray-900 dark:text-gray-100"
 								>infrastructure as code</span
 							>
 							(Terraform), and embedding
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							<span class="font-medium text-gray-900 dark:text-gray-100"
 								>security-by-design principles</span
 							> into every stage of development.
 						</p>
 						<p>
-							Adept at delivering <span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							Adept at delivering <span class="font-medium text-gray-900 dark:text-gray-100"
 								>high-performance systems</span
 							>
 							through GitOps,
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							<span class="font-medium text-gray-900 dark:text-gray-100"
 								>observability best practices</span
 							>, and a proactive approach to
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
-								>automation</span
-							>. Proven track record of driving
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							<span class="font-medium text-gray-900 dark:text-gray-100">automation</span>. Proven
+							track record of driving
+							<span class="font-medium text-gray-900 dark:text-gray-100"
 								>digital transformation</span
 							>
 							and
-							<span
-								class="font-medium bg-primary-100 dark:bg-primary-800/50 px-1 rounded text-primary-800 dark:text-primary-200"
+							<span class="font-medium text-gray-900 dark:text-gray-100"
 								>operational excellence</span
 							> in diverse environments.
 						</p>
 					</div>
+					<a
+						href={resumeUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Download resume"
+						class="inline-flex items-center px-6 py-3 bg-gray-800 dark:bg-gray-700 text-white font-sans font-normal rounded-full hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200"
+					>
+						<IconDownload class="w-5 h-5 mr-2" />
+						Download Resume
+					</a>
 				</div>
-				<a
-					href={resumeUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					aria-label="Download resume"
-					class="inline-flex items-center px-6 py-3 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 font-sans font-normal rounded-full hover:bg-gray-700 dark:hover:bg-gray-300 transition-colors duration-200 self-start"
-				>
-					<IconDownload class="w-5 h-5 mr-2" />
-					Download Resume
-				</a>
 			</div>
 		</div>
 
@@ -140,7 +118,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			{#each workHistory as job, index}
 				<div
-					class="bg-white dark:bg-dark-surface/50 rounded-3xl p-6"
+					class="bg-white dark:bg-dark-surface/50 rounded-3xl p-6 shadow-sm"
 					in:fly={{ y: 20, duration: 500, delay: 100 * index, easing: cubicOut }}
 				>
 					<div class="flex items-center mb-4">
@@ -149,22 +127,22 @@
 							<h3 class="text-xl font-serif font-bold text-gray-800 dark:text-gray-200">
 								{job.company}
 							</h3>
-							<p class="text-gray-600 dark:text-gray-400 font-sans font-light">
+							<p class="text-gray-600 dark:text-gray-400 font-sans">
 								{job.position}
 							</p>
 						</div>
 					</div>
 					<div class="mb-4 space-y-2">
-						<p class="flex items-center text-gray-600 dark:text-gray-400 font-sans font-light">
+						<p class="flex items-center text-gray-600 dark:text-gray-400 font-sans">
 							<IconCalendar class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-500" />
 							{job.period}
 						</p>
-						<p class="flex items-center text-gray-600 dark:text-gray-400 font-sans font-light">
+						<p class="flex items-center text-gray-600 dark:text-gray-400 font-sans">
 							<IconMapPin class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-500" />
 							{job.location}
 						</p>
 					</div>
-					<p class="mb-4 text-base font-sans font-light text-gray-700 dark:text-gray-300">
+					<p class="mb-4 text-base font-sans text-gray-700 dark:text-gray-300">
 						{job.description}
 					</p>
 					<div class="mb-4">
