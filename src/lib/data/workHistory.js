@@ -1,7 +1,9 @@
 export const workHistory = [
     {
         company: 'STIM',
-        logo: '/images/logos/placeholder.svg',
+        logo: '/images/logos/stim.svg',
+        industry: 'Music',
+        color: '#5952A5',
         position: 'DevSecOps Engineer',
         location: 'Stockholm, Sweden',
         period: 'Nov 2023 - Present',
@@ -11,7 +13,9 @@ export const workHistory = [
     },
     {
         company: 'ExpressVPN',
+        industry: 'Cybersecurity',
         logo: '/images/logos/expressvpn.svg',
+        color: '#DA3940',
         position: 'Staff Operations Engineer',
         location: 'Hong Kong',
         period: 'Apr 2021 - Jul 2023',
@@ -21,7 +25,9 @@ export const workHistory = [
     },
     {
         company: 'ExpressVPN',
+        industry: 'Cybersecurity',
         logo: '/images/logos/expressvpn.svg',
+        color: '#DA3940',
         position: 'Senior IT Cloud/Infrastructure Engineer',
         location: 'Hong Kong',
         period: 'Apr 2019 - Apr 2021',
@@ -30,8 +36,10 @@ export const workHistory = [
         techstack: ['Terraform', 'Palo Alto Networks', 'AWS', 'Python', 'Google Workspace', 'Okta']
     },
     {
-        company: 'Universum Communications Sweden AB',
-        logo: '/images/logos/placeholder.svg',
+        company: 'Universum Global',
+        industry: 'Research',
+        logo: '/images/logos/universum.svg',
+        color: '#092431',
         position: 'IT Infrastructure & Operations Manager',
         location: 'Stockholm, Sweden',
         period: 'Sep 2017 - Apr 2019',
@@ -40,8 +48,10 @@ export const workHistory = [
         techstack: ['Office 365', 'AWS', 'Google Workspace', 'Windows Server', 'VMware']
     },
     {
-        company: 'ExternIT',
-        logo: '/images/logos/placeholder.svg',
+        company: 'Binero IT (formerly ExternIT)',
+        industry: 'Cloud Services',
+        logo: '/images/logos/binero.svg',
+        color: '#f0eeee',
         position: 'IT Engineer',
         location: 'Stockholm, Sweden',
         period: 'Sep 2015 - Sep 2017',
@@ -50,8 +60,10 @@ export const workHistory = [
         techstack: ['Windows Server', 'Office 365', 'Google Workspace', 'Exchange Server', 'Active Directory']
     },
     {
-        company: 'Binero AB',
-        logo: '/images/logos/placeholder.svg',
+        company: 'Websupport (formerly Binero)',
+        industry: 'Web',
+        logo: '/images/logos/websupport.svg',
+        color: '#2c3843',
         position: 'Support Engineer',
         location: 'Stockholm, Sweden',
         period: 'Oct 2014 - Sep 2015',

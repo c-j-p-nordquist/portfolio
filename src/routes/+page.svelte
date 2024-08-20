@@ -8,10 +8,6 @@
 		name="description"
 		content="Philip Nordquist is a DevSecOps Engineer specializing in secure, scalable, and observable systems. Explore his projects and experience."
 	/>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap"
-		rel="stylesheet"
-	/>
 </svelte:head>
 
 <main class="bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary relative">
