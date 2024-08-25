@@ -1,34 +1,21 @@
 <script>
 	import '../app.css';
-	import { fade } from 'svelte/transition';
-	import Nav from '$lib/components/Nav.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import Navbar from '$lib/components/Navbar.svelte';
 
-	let { children } = $props();
+	let { children } = $props(); // Using Svelte 5 syntax to manage children
 </script>
 
-<div
-	class="min-h-screen flex flex-col bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary relative"
->
-	<div class="absolute inset-0 z-0 opacity-5 mix-blend-overlay">
-		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-			<filter id="noiseFilter">
-				<feTurbulence
-					type="fractalNoise"
-					baseFrequency="0.65"
-					numOctaves="3"
-					stitchTiles="stitch"
-				/>
-			</filter>
-			<rect width="100%" height="100%" filter="url(#noiseFilter)" />
-		</svg>
-	</div>
+<div class="relative min-h-screen flex flex-col bg-background text-text font-sans">
+	<!-- Sticky Navbar -->
+	<Navbar title="Philip Nordquist" />
 
-	<Nav />
-
-	<main class="flex-grow relative z-10" in:fade={{ duration: 300 }}>
+	<main class="flex-grow relative z-0 py-24">
 		{@render children()}
 	</main>
 
-	<Footer />
+	<footer class="bg-gray-800 text-gray-400 p-6 mt-12 relative z-0">
+		<div class="container mx-auto text-center">
+			<p>&copy; 2024 Philip Nordquist. All rights reserved.</p>
+		</div>
+	</footer>
 </div>

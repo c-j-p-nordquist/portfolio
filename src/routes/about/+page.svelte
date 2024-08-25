@@ -18,7 +18,7 @@
 	/>
 </svelte:head>
 
-<main class="min-h-screen w-full bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-gray-100 py-24">
+<main class="min-h-screen w-full bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-gray-100">
 	<div class="px-6 sm:px-8 lg:px-12">
 		<div class="max-w-5xl mx-auto">
 			<h1

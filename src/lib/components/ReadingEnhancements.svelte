@@ -69,9 +69,9 @@
 	}
 </script>
 
-<div class="fixed top-0 left-0 w-full bg-gray-200 z-50">
+<div class="fixed top-[5rem] left-0 w-full h-1 bg-transparent z-40">
 	<div
-		class="h-full bg-blue-500 transition-all duration-300 ease-out"
+		class="h-full bg-accent transition-all duration-300 ease-out"
 		style="width: {readingProgress}%"
 	></div>
 </div>
@@ -80,42 +80,61 @@
 	{#if showScrollButton && !isOpen}
 		<button
 			onclick={scrollToTop}
-			class="p-2 bg-white text-gray-800 rounded-full hover:bg-gray-100 transition-colors duration-200"
+			class="p-2 bg-background text-text rounded-full shadow-md hover:bg-gray-800 transition-colors duration-200"
 			aria-label="Scroll to top"
 		>
-			<IconArrowUp class="w-5 h-5" />
+			<IconArrowUp class="w-6 h-6" />
 		</button>
 	{/if}
 	<button
-		class="p-2 bg-white text-gray-800 rounded-full hover:bg-gray-100 transition-colors duration-200"
+		class="p-2 bg-background text-text rounded-full shadow-md hover:bg-gray-800 transition-colors duration-200"
 		onclick={toggleOpen}
 		aria-label="Toggle Table of Contents"
+		aria-expanded={isOpen}
 	>
 		{#if isOpen}
-			<IconX class="w-5 h-5" />
+			<IconX class="w-6 h-6" />
 		{:else}
-			<IconList class="w-5 h-5" />
+			<IconList class="w-6 h-6" />
 		{/if}
 	</button>
 	{#if isOpen}
 		<div
-			class="absolute bottom-16 right-0 bg-white rounded-lg p-4 w-64 max-h-[80vh] overflow-y-auto"
+			class="bg-background text-text shadow-xl rounded-lg w-64 max-h-[80vh] overflow-y-auto fixed bottom-20 right-4 sm:bottom-auto sm:top-24 sm:right-4"
 		>
-			<h2 class="text-xl font-semibold mb-4 text-gray-800">Table of Contents</h2>
-			<div class="space-y-1">
-				{#each headings as heading}
-					<button
-						onclick={() => scrollToHeading(heading.id)}
-						class="w-full text-left py-2 px-3 rounded-lg transition-colors duration-200 {activeId ===
-						heading.id
-							? 'bg-blue-100 text-blue-800'
-							: 'text-gray-600 hover:bg-gray-100'}"
-						style="padding-left: {(heading.level - 2) * 16 + 12}px"
-					>
-						{heading.text}
-					</button>
-				{/each}
+			<div class="p-4">
+				<h2 class="text-xl font-bold mb-4">Table of Contents</h2>
+				<div class="space-y-1">
+					{#each headings as heading}
+						<button
+							onclick={() => scrollToHeading(heading.id)}
+							class="w-full text-left py-2 px-3 rounded-lg transition-colors duration-200 {activeId ===
+							heading.id
+								? 'bg-accent/10 text-accent'
+								: 'text-text hover:bg-gray-800'}"
+							style="padding-left: {(heading.level - 2) * 16 + 12}px"
+						>
+							{heading.text}
+						</button>
+					{/each}
+				</div>
 			</div>
 		</div>
 	{/if}
 </div>
+
+<style>
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.7;
+		}
+	}
+
+	.bg-accent {
+		animation: pulse 2s ease-in-out infinite;
+	}
+</style>

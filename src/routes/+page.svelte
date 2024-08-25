@@ -1,30 +1,49 @@
 <script>
 	import Hero from '$lib/components/Hero.svelte';
+	import ServiceCard from '$lib/components/ServiceCard.svelte';
+	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
+	import { workHistory } from '$lib/data/workHistory';
+	import { services } from '$lib/data/services';
+
+	let featuredExperiences = $derived(workHistory ? workHistory.slice(0, 2) : []);
+	let featuredServices = $derived(services ? services.slice(0, 3) : []);
 </script>
 
-<svelte:head>
-	<title>Philip Nordquist - DevSecOps Engineer</title>
-	<meta
-		name="description"
-		content="Philip Nordquist is a DevSecOps Engineer specializing in secure, scalable, and observable systems. Explore his projects and experience."
-	/>
-</svelte:head>
+<div class="bg-base-100 h-full text-base-content font-sans">
+	<!-- Hero Section -->
+	<section id="hero" class="">
+		<Hero
+			subtitle="Delivering advanced solutions in observability, security, and automation for secure, scalable IT infrastructures."
+		/>
+	</section>
 
-<main class="bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary relative">
-	<div class="absolute inset-0 z-0 opacity-10 mix-blend-overlay">
-		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-			<filter id="noiseFilter">
-				<feTurbulence
-					type="fractalNoise"
-					baseFrequency="0.65"
-					numOctaves="3"
-					stitchTiles="stitch"
-				/>
-			</filter>
-			<rect width="100%" height="100%" filter="url(#noiseFilter)" />
-		</svg>
-	</div>
-	<div class="relative z-10">
-		<Hero />
-	</div>
-</main>
+	<!-- Featured Services Section -->
+	<section id="featured-services" class="bg-base-200 py-24">
+		<div class="container mx-auto px-4">
+			<h2 class="text-4xl font-heading text-center mb-12">Featured Services</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{#each featuredServices as service}
+					<ServiceCard {service} />
+				{/each}
+			</div>
+			<div class="text-center mt-12">
+				<a href="/services" class="btn btn-primary">View All Services</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Featured Experience Section -->
+	<section id="featured-experience" class="py-24">
+		<div class="container mx-auto px-4">
+			<h2 class="text-4xl font-heading text-center mb-12">Featured Experience</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				{#each featuredExperiences as experience}
+					<ExperienceCard {experience} />
+				{/each}
+			</div>
+			<div class="text-center mt-12">
+				<a href="/experience" class="btn btn-primary">View Full Experience</a>
+			</div>
+		</div>
+	</section>
+</div>

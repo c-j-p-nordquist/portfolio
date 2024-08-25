@@ -1,79 +1,56 @@
 <script>
-	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
-	import IconBriefcase from '~icons/mdi/briefcase';
-	import IconUser from '~icons/mdi/user';
-	import SocialLinks from '$lib/components/SocialLinks.svelte';
-
-	let mounted = $state(false);
-
-	onMount(() => {
-		mounted = true;
-	});
+	let { subtitle } = $props();
 </script>
 
-<div
-	class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary px-4 sm:px-6 lg:px-8"
->
-	<div class="absolute inset-0 opacity-20 dark:opacity-10">
-		<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-			<filter id="noiseFilter">
-				<feTurbulence
-					type="fractalNoise"
-					baseFrequency="0.65"
-					numOctaves="3"
-					stitchTiles="stitch"
-				/>
-			</filter>
-			<rect width="100%" height="100%" filter="url(#noiseFilter)" />
-		</svg>
+<div class="relative bg-background text-text text-center overflow-visible py-16">
+	<div class="absolute inset-0 z-0 flex justify-center items-center pointer-events-none">
+		<div
+			class="animate-float bg-gradient-to-r from-primary via-accent to-transparent opacity-30 w-64 h-64 sm:w-80 sm:h-80 rounded-full blur-2xl"
+		></div>
 	</div>
-	<div class="relative z-10 max-w-4xl w-full text-center">
-		{#if mounted}
-			<h1
-				class="text-5xl sm:text-7xl md:text-8xl font-bold mb-8 tracking-tighter"
-				in:fly={{ y: -30, duration: 600, delay: 150, easing: cubicOut }}
+	<div class="container mx-auto px-4 sm:px-6 lg:px-8 z-10 animate-fadeIn">
+		<h1
+			class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 leading-tight"
+		>
+			Engineer with <span
+				class="bg-gradient-to-r from-gradientStart to-gradientEnd bg-clip-text text-transparent"
+				>a Decade of Expertise</span
+			> in Secure, Scalable IT Infrastructures
+		</h1>
+		<p class="text-base sm:text-lg md:text-xl lg:text-2xl font-sans mb-8 max-w-2xl mx-auto">
+			{subtitle}
+		</p>
+		<div
+			class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
+		>
+			<a
+				href="#featured-services"
+				class="w-full sm:w-auto inline-block bg-accent text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 hover:bg-primary"
+				>View My Work</a
 			>
-				<span class="block font-serif font-thin">PHILIP</span>
-				<span class="block font-serif italic font-black">NORDQUIST</span>
-			</h1>
-			<h2
-				class="text-xl sm:text-2xl md:text-3xl mb-12 tracking-wide font-light max-w-3xl mx-auto"
-				in:fade={{ duration: 600, delay: 300 }}
+			<a
+				href="/contact"
+				class="w-full sm:w-auto inline-block border border-accent text-accent font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 hover:border-primary hover:text-primary"
+				>Contact Me</a
 			>
-				DevSecOps Engineer crafting
-				<span class="font-semibold text-emerald-500 dark:text-dark-primary"
-					>secure, scalable, and observable systems</span
-				>
-			</h2>
-
-			<div
-				class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12"
-				in:fly={{ y: 30, duration: 600, delay: 450, easing: cubicOut }}
-			>
-				<a
-					href="/posts"
-					class="w-full sm:w-auto px-8 py-4 bg-emerald-500 dark:bg-dark-primary text-white dark:text-dark-bg font-sans font-bold rounded-full hover:bg-emerald-400 dark:hover:bg-dark-primary/90 transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
-				>
-					<IconBriefcase class="w-5 h-5 mr-2" />
-					View My Projects
-				</a>
-				<a
-					href="/about"
-					class="w-full sm:w-auto px-8 py-4 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-sans font-bold rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
-				>
-					<IconUser class="w-5 h-5 mr-2" />
-					Learn About Me
-				</a>
-			</div>
-
-			<div
-				class="flex justify-center items-center space-x-6"
-				in:fade={{ duration: 600, delay: 600 }}
-			>
-				<SocialLinks size="lg" />
-			</div>
-		{/if}
+		</div>
 	</div>
 </div>
+
+<style>
+	@keyframes float {
+		0% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	.animate-float {
+		animation: float 6s ease-in-out infinite;
+	}
+</style>
