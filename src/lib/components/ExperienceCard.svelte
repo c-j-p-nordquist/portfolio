@@ -1,43 +1,58 @@
 <script>
-	let { experience } = $props();
+	import { fly, scale } from 'svelte/transition';
+	import IconMapPin from '~icons/lucide/map-pin';
+	import IconCalendar from '~icons/lucide/calendar';
+
+	export let experience;
 </script>
 
-<div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-	<div class="card-body">
-		<div class="flex items-center mb-4">
-			{#if experience.logo}
-				<img src={experience.logo} alt={`${experience.company} logo`} class="w-12 h-12 mr-4" />
-			{/if}
+<div
+	class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all hover:scale-105 rounded-lg overflow-hidden"
+	in:fly={{ y: 50, duration: 500 }}
+>
+	<div class="card-body p-6">
+		<div class="flex items-start mb-4">
+			<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mr-4">
+				<svelte:component this={experience.industry} class="w-8 h-8 text-primary-content" />
+			</div>
 			<div>
-				<h3 class="card-title text-2xl font-heading">
-					{experience.position || 'Position Not Specified'}
-				</h3>
-				<h4 class="text-lg text-base-content/70">
-					{experience.company || 'Company Not Specified'} - {experience.location ||
-						'Location Not Specified'}
-				</h4>
+				<h2 class="card-title text-2xl font-heading">{experience.position}</h2>
+				<h3 class="text-xl text-accent">{experience.company}</h3>
 			</div>
 		</div>
-		<p class="text-sm text-base-content/60 mb-2">{experience.period || 'Period Not Specified'}</p>
-		<p class="mb-4">{experience.description || 'No description available.'}</p>
 
-		{#if Array.isArray(experience.skills) && experience.skills.length > 0}
-			<div class="mb-4">
-				<h5 class="text-lg font-heading mb-2">Key Skills:</h5>
+		<div class="flex items-center text-sm mb-4 text-gray-400">
+			<IconMapPin class="w-4 h-4 mr-2" />
+			<span class="mr-4">{experience.location}</span>
+			<IconCalendar class="w-4 h-4 mr-2" />
+			<span>{experience.start} - {experience.end}</span>
+		</div>
+
+		<p class="mb-6 text-gray-400">{experience.description}</p>
+
+		{#if experience.skills && experience.skills.length}
+			<div class="mb-4" in:fly={{ y: 20, duration: 300, delay: 200 }}>
+				<h4 class="font-bold mb-2 text-text">Key Skills:</h4>
 				<div class="flex flex-wrap gap-2">
-					{#each experience.skills.slice(0, 5) as skill}
-						<span class="badge badge-primary">{skill}</span>
+					{#each experience.skills as skill, i}
+						<span
+							class="badge bg-primary bg-opacity-20 text-primary text-xs px-2 py-1"
+							in:scale={{ duration: 200, delay: i * 50 }}>{skill}</span
+						>
 					{/each}
 				</div>
 			</div>
 		{/if}
 
-		{#if Array.isArray(experience.techstack) && experience.techstack.length > 0}
-			<div>
-				<h5 class="text-lg font-heading mb-2">Tech Stack:</h5>
+		{#if experience.techstack && experience.techstack.length}
+			<div in:fly={{ y: 20, duration: 300, delay: 400 }}>
+				<h4 class="font-bold mb-2 text-text">Tech Stack:</h4>
 				<div class="flex flex-wrap gap-2">
-					{#each experience.techstack.slice(0, 5) as tech}
-						<span class="badge badge-secondary">{tech}</span>
+					{#each experience.techstack as tech, i}
+						<span
+							class="badge bg-secondary bg-opacity-20 text-secondary text-xs px-2 py-1"
+							in:scale={{ duration: 200, delay: i * 50 }}>{tech}</span
+						>
 					{/each}
 				</div>
 			</div>

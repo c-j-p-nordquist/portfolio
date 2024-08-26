@@ -10,8 +10,8 @@
 	<meta name="description" content="Browse all projects" />
 </svelte:head>
 
-<div class="container mx-auto px-4">
-	<h1 class="text-4xl font-heading text-white mb-8">Projects</h1>
+<div class="container mx-auto">
+	<h1 class="text-4xl font-heading text-center mb-12">Projects</h1>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 		{#each projects as project}
