@@ -1,24 +1,19 @@
 <script>
-	let { service } = $props();
+	let { service, observed } = $props();
 </script>
 
-<div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-	<div class="card-body">
-		<div class="flex items-start mb-4">
-			<div class="flex-shrink-0 mr-4">
-				{#if service.icon}
-					<service.icon class="w-8 h-8 text-primary" />
-				{/if}
-			</div>
-			<div>
-				<h3 class="card-title text-2xl font-heading">{service.title}</h3>
-				<p class="text-gray-400">{service.description}</p>
-			</div>
-		</div>
-		{#if service.visual}
-			<div class="mt-6">
-				<service.visual />
-			</div>
-		{/if}
+<div
+	class="group flex flex-col h-full p-6 bg-transparent backdrop-blur-sm rounded-lg transition-all duration-300 hover:-translate-y-1"
+>
+	<div class="mb-4">
+		<service.icon
+			class="w-12 h-12 transition-colors duration-300 group-hover:text-secondary {observed
+				? 'text-secondary md:text-primary/30 dark:md:text-darkText/30'
+				: 'text-primary/30 dark:text-darkText/30'}"
+		/>
 	</div>
+	<h3 class="text-xl font-bold mb-3 font-serif text-primary dark:text-darkText">{service.title}</h3>
+	<p class="text-subtitleText dark:text-darkSubtitleText flex-grow font-sans">
+		{service.description}
+	</p>
 </div>

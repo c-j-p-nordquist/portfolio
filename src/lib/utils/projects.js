@@ -28,3 +28,8 @@ export async function getProjectBySlug(slug) {
     const projects = await getProjects();
     return projects.find(project => project.slug === slug);
 }
+
+export async function getFeaturedProjects() {
+    const projects = await getProjects();
+    return projects.filter(project => project.featured === true);
+}

@@ -28,3 +28,8 @@ export async function getBlogPostBySlug(slug) {
     const posts = await getBlogPosts();
     return posts.find(post => post.slug === slug);
 }
+
+export async function getFeaturedBlogPosts() {
+    const posts = await getBlogPosts();
+    return posts.filter(post => post.featured === true);
+}

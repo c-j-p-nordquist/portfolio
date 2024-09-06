@@ -42,7 +42,7 @@
 			{/if}
 		</div>
 	{/if}
-	<div class="prose-lg">
+	<div class="prose prose-lg dark:prose-invert">
 		{@render children()}
 	</div>
 	<ReadingEnhancements />

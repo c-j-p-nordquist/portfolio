@@ -8,7 +8,7 @@
 	<meta name="description" content={description} />
 </svelte:head>
 
-<article class="prose prose-invert lg:prose-xl mx-auto my-8 px-4 sm:px-6 lg:px-8">
+<article class="prose dark:prose-invert lg:prose-xl mx-auto my-8 px-4 sm:px-6 lg:px-8">
 	<h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">{title}</h1>
 	<p class="text-sm text-gray-400 mb-4">Published on {new Date(date).toLocaleDateString()}</p>
 	<div class="flex flex-wrap gap-2 mb-8">
@@ -18,7 +18,7 @@
 			</span>
 		{/each}
 	</div>
-	<div class="prose-lg">
+	<div class="prose prose-lg dark:prose-invert">
 		{@render children()}
 	</div>
 	<ReadingEnhancements />

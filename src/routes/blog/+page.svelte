@@ -7,15 +7,30 @@
 
 <svelte:head>
 	<title>Blog | Philip Nordquist</title>
-	<meta name="description" content="Browse all blog posts" />
+	<meta
+		name="description"
+		content="Read Philip Nordquist's insights on DevSecOps, cloud architecture, and IT infrastructure management."
+	/>
 </svelte:head>
 
-<div class="container mx-auto">
-	<h1 class="text-4xl font-heading text-center mb-12">Blog Posts</h1>
+<section class="bg-background dark:bg-darkBackground text-text dark:text-darkText py-16">
+	<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+		<h1
+			class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-center mb-8 text-primary dark:text-darkText"
+		>
+			Blog
+		</h1>
+		<p
+			class="text-lg text-center max-w-3xl mx-auto mb-16 text-subtitleText dark:text-darkSubtitleText"
+		>
+			Explore articles and insights on DevSecOps, cloud architecture, and the latest trends in IT
+			infrastructure management.
+		</p>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-		{#each blogPosts as post}
-			<BlogCard {post} />
-		{/each}
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			{#each blogPosts as post}
+				<BlogCard {post} />
+			{/each}
+		</div>
 	</div>
-</div>
+</section>

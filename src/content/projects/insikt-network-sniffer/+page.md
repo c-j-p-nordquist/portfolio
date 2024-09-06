@@ -9,7 +9,7 @@ topics:
   - Networking
   - Security
   - Analytics
-featured: true
+featured: false
 published: true
 summary: "Lightweight Go-based network sniffer for packet capture and analytics."
 hasImages: true
