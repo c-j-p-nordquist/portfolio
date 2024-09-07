@@ -37,7 +37,7 @@
 			</div>
 			<h1
 				in:fly={{ y: -10, duration: 600, delay: 200, easing: cubicOut }}
-				class="text-3xl md:text-5xl lg:text-6xl font-heading font-black tracking-wider mb-4 text-primary dark:text-darkText"
+				class="text-3xl md:text-5xl lg:text-6xl font-serif font-black tracking-wider mb-4 text-primary dark:text-darkText"
 			>
 				Transform your cloud with AI, DevOps, and security.
 			</h1>

@@ -106,9 +106,9 @@
 		<div class="flex items-center justify-between h-24">
 			<!-- Logo -->
 			<div class="flex-shrink-0 mr-8">
-				<a href="/" class="flex items-center">
+				<div class="flex items-center">
 					<Logo size={60} animated={!isScrolled} clickable={true} />
-				</a>
+				</div>
 			</div>
 
 			<!-- Desktop Menu -->

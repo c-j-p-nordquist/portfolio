@@ -32,9 +32,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['IBM Plex Sans', 'sans-serif'],
-        heading: ['IBM Plex Sans', 'sans-serif'],
+        heading: ['Spectral', 'serif'],
         body: ['IBM Plex Sans', 'sans-serif'],
-        mono: ['Fira Code', 'monospace'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],
