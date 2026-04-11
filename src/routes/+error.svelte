@@ -1,29 +1,30 @@
 <script>
 	import { page } from '$app/stores';
-	import IconHome from '~icons/lucide/home';
-	import IconArrowLeft from '~icons/lucide/arrow-left';
 </script>
 
 <svelte:head>
-	<title>404 - Page Not Found</title>
+	<title>{$page.status} – Philip Nordquist</title>
 </svelte:head>
 
-<div class="flex items-center justify-center min-h-screen bg-base-200 px-4">
-	<div class="text-center">
-		<h1 class="text-9xl font-bold text-primary mb-4">404</h1>
-		<p class="text-2xl font-semibold mb-4 text-base-content">Oops! Page not found</p>
-		<p class="text-base-content mb-8">
-			The page you're looking for doesn't exist or has been moved.
-		</p>
-		<div class="flex justify-center space-x-4">
-			<a href="/" class="btn btn-primary">
-				<IconHome class="w-5 h-5 mr-2" />
-				Go Home
-			</a>
-			<button onclick={() => history.back()} class="btn btn-outline">
-				<IconArrowLeft class="w-5 h-5 mr-2" />
-				Go Back
-			</button>
-		</div>
+<div class="max-w-2xl mx-auto px-6 py-16 sm:py-24">
+	<h1 class="text-6xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 mb-4">
+		{$page.status}
+	</h1>
+	<p class="text-stone-600 dark:text-stone-400 mb-8">
+		{$page.error?.message || "The page you're looking for doesn't exist."}
+	</p>
+	<div class="flex gap-4">
+		<a
+			href="/"
+			class="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
+		>
+			Go home
+		</a>
+		<button
+			onclick={() => history.back()}
+			class="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
+		>
+			Go back
+		</button>
 	</div>
 </div>

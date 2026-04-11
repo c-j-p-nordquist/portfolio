@@ -24,13 +24,3 @@ export async function getPosts() {
         return [];
     }
 }
-
-export function getPostBySlug(slug) {
-    const posts = getPosts();
-    return posts.find(post => post.slug === slug);
-}
-
-export function getPostsByType(type) {
-    const posts = getPosts();
-    return posts.filter(post => post.type === type);
-}

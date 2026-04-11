@@ -1,74 +1,84 @@
 export const workHistory = [
     {
         company: 'STIM',
-        logo: '/images/logos/stim.svg',
-        industry: 'Music',
-        color: '#5952A5',
         position: 'DevSecOps Engineer',
-        location: 'Stockholm, Sweden',
-        period: 'Nov 2023 - Present',
-        description: 'Spearheading the design and implementation of advanced observability and security solutions, enhancing incident response times and driving strategic automation initiatives.',
-        skills: ['Observability', 'SIEM', 'Incident Response', 'CIS CSC', 'Automation', 'Infrastructure as Code', 'GitOps', 'Cloud Security'],
-        techstack: ['Kubernetes', 'ArgoCD', 'Helm', 'Microsoft Sentinel', 'Grafana', 'GCP', 'VMware', 'Prometheus', 'Loki', 'Ansible', 'Terraform']
+        location: 'Stockholm',
+        period: 'Nov 2023 – Present',
+        description: 'Building and maintaining the Kubernetes platform, implementing observability and security tooling, and driving automation across the infrastructure.',
+        highlights: [
+            'Architected a fully automated Kubernetes platform with Terraform and ArgoCD, cutting environment provisioning from days to under 20 minutes',
+            'Implemented real-time threat detection via enterprise SIEM, reducing detection time from days to minutes',
+            'Standardized automated patching and observability with Prometheus and Grafana, eliminating 100 hours of annual out-of-hours maintenance'
+        ]
     },
     {
         company: 'ExpressVPN',
-        industry: 'Cybersecurity',
-        logo: '/images/logos/expressvpn.svg',
-        color: '#DA3940',
         position: 'Staff Operations Engineer',
-        location: 'Hong Kong',
-        period: 'Apr 2021 - Jul 2023',
-        description: 'Led the execution of multiple server releases, managing a global infrastructure of 3,000+ servers across 100+ countries. Architected high-resilience observability and security systems to mitigate complex service disruptions, significantly improving service reliability.',
-        skills: ['Infrastructure Management', 'Observability', 'Service Reliability', 'Disaster Recovery', 'Performance Optimization', 'Security Enhancement', 'Team Leadership', 'Mentoring'],
-        techstack: ['AWS', 'Python', 'Terraform', 'PostgreSQL', 'Debian', 'Prometheus', 'Grafana']
+        location: 'Hong Kong / Remote',
+        period: 'Apr 2021 – Jul 2023',
+        description: 'Operations tech lead for global product launches, network traffic analysis, and managing weekly releases across 3,000+ VPN servers worldwide.',
+        highlights: [
+            'Led operational readiness for the global launch of ExpressVPN Keys, defining DR standards with under 15 min failover',
+            'Ran network traffic analysis research to improve connectivity in restrictive network regions',
+            'Managed weekly releases across 3,000+ global servers, maintaining 99.9% uptime'
+        ]
     },
     {
         company: 'ExpressVPN',
-        industry: 'Cybersecurity',
-        logo: '/images/logos/expressvpn.svg',
-        color: '#DA3940',
-        position: 'Senior IT Cloud/Infrastructure Engineer',
+        position: 'Senior Cloud & Infrastructure Engineer',
         location: 'Hong Kong',
-        period: 'Apr 2019 - Apr 2021',
-        description: 'Drove a global network overhaul, implementing a new, resilient architecture. Managed IT operations across multiple regions, optimizing network performance and eliminating outages while setting standards for identity and access management.',
-        skills: ['Network Architecture', 'Global IT Management', 'Identity and Access Management', 'Security Implementation', 'Process Automation'],
-        techstack: ['Terraform', 'Palo Alto Networks', 'AWS', 'Python', 'Google Workspace', 'Okta']
+        period: 'Apr 2019 – Apr 2021',
+        description: 'Built Zero-Trust network infrastructure, automated identity management, and enabled secure remote work for 1,000+ global staff during COVID-19.',
+        highlights: [
+            'Architected a Zero-Trust network model using Palo Alto firewalls',
+            'Automated IAM for 200+ SaaS applications via Okta, reducing provisioning time by 90%',
+            'Deployed secure remote work infrastructure for 1,000+ staff with zero downtime'
+        ]
     },
     {
-        company: 'Universum Global',
-        industry: 'Research',
-        logo: '/images/logos/universum.svg',
-        color: '#092431',
+        company: 'Universum',
         position: 'IT Infrastructure & Operations Manager',
-        location: 'Stockholm, Sweden',
-        period: 'Sep 2017 - Apr 2019',
-        description: 'Orchestrated and maintained IT infrastructure across multiple international offices. Played a pivotal role during Universums acquisition by Stepstone, managing IT integration and migration processes.',
-        skills: ['IT Infrastructure Management', 'Cross-functional Collaboration', 'Acquisition IT Integration', 'Project Management', 'Systems Migration'],
-        techstack: ['Office 365', 'AWS', 'Google Workspace', 'Windows Server', 'VMware']
+        location: 'Stockholm',
+        period: 'Sep 2017 – Apr 2019',
+        description: 'Managed global IT operations and led technical due diligence during acquisition by Stepstone, including full infrastructure migration.',
+        highlights: [
+            'Led infrastructure migration from G Suite to O365 during M&A',
+            'Spearheaded GDPR compliance efforts with technical controls and data governance'
+        ]
     },
     {
-        company: 'Binero IT (formerly ExternIT)',
-        industry: 'Cloud Services',
-        logo: '/images/logos/binero.svg',
-        color: '#f0eeee',
+        company: 'ExternIT',
         position: 'IT Engineer',
-        location: 'Stockholm, Sweden',
-        period: 'Sep 2015 - Sep 2017',
-        description: 'Delivered end-to-end technical solutions for SMBs, from network equipment procurement to server infrastructure setup. Conducted numerous email migrations from on-premises servers to cloud platforms like Office365 and Gmail.',
-        skills: ['SMB IT Solutions', 'Server Infrastructure', 'Cloud Migration', 'Network Setup', 'Technical Support'],
-        techstack: ['Windows Server', 'Office 365', 'Google Workspace', 'Exchange Server', 'Active Directory']
+        location: 'Stockholm',
+        period: 'Sep 2015 – Sep 2017',
+        description: 'Managed server infrastructure and network configuration for a range of client environments.',
+        highlights: []
     },
     {
-        company: 'Websupport (formerly Binero)',
-        industry: 'Web',
-        logo: '/images/logos/websupport.svg',
-        color: '#2c3843',
+        company: 'Binero',
         position: 'Support Engineer',
-        location: 'Stockholm, Sweden',
-        period: 'Oct 2014 - Sep 2015',
-        description: 'Offered product guidance, resolved complex domain and DNS challenges, and ensured smooth website operations for customers. Assisted customers with issues related to popular content management systems like Wordpress and Drupal.',
-        skills: ['Technical Support', 'DNS Management', 'Web Hosting', 'Customer Service', 'Troubleshooting'],
-        techstack: ['Linux', 'Apache', 'MySQL', 'PHP', 'WordPress', 'Drupal', 'cPanel']
+        location: 'Stockholm',
+        period: 'Oct 2014 – Sep 2015',
+        description: 'Technical support for web hosting, DNS, and email services.',
+        highlights: []
     }
+];
+
+export const education = [
+    {
+        institution: 'Högskolan i Skövde',
+        program: 'Computer Game Development & Music',
+        period: '2011 – 2014'
+    },
+    {
+        institution: 'Linköpings Universitet',
+        program: 'Communication, Media & Society',
+        period: '2008 – 2011'
+    }
+];
+
+export const certifications = [
+    'AWS Certified Solutions Architect – Associate',
+    'AWS Certified Cloud Practitioner',
+    'Palo Alto Networks Certified Cybersecurity Associate (PCCSA)'
 ];

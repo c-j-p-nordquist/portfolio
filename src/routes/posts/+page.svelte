@@ -1,78 +1,68 @@
 <script>
-	import { fade, fly } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
-	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import { formatDate } from '$lib/utils/formatDate';
 
 	let { data } = $props();
 	let activeTab = $state('all');
-	let mounted = $state(false);
 
-	let filteredProjects = $derived.by(() => {
+	let filteredPosts = $derived.by(() => {
 		if (activeTab === 'all') return data.posts;
 		return data.posts.filter((post) => post.type === activeTab);
-	});
-
-	function setActiveTab(tab) {
-		activeTab = tab;
-	}
-
-	$effect(() => {
-		mounted = true;
 	});
 </script>
 
 <svelte:head>
-	<title>Philip Nordquist - Projects & Articles</title>
+	<title>Writing – Philip Nordquist</title>
+	<meta
+		name="description"
+		content="Posts about infrastructure, DevOps, and things I've built."
+	/>
 </svelte:head>
 
-<main
-	class="min-h-screen w-full bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-dark-text-primary py-24 px-4 sm:px-6 lg:px-8"
->
-	<div class="max-w-5xl mx-auto">
-		<h1
-			class="text-5xl md:text-6xl font-serif font-bold mb-16 text-center"
-			in:fly={{ y: -20, duration: 500, delay: 100, easing: cubicOut }}
-		>
-			Projects & Articles
-		</h1>
+<div class="max-w-2xl mx-auto px-6 py-16 sm:py-24">
+	<h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 mb-4">
+		Writing
+	</h1>
+	<p class="text-stone-600 dark:text-stone-400 leading-relaxed mb-10">
+		Notes on infrastructure, DevOps tooling, and side projects.
+	</p>
 
-		<div
-			class="flex justify-center mb-20"
-			in:fly={{ y: -15, duration: 500, delay: 200, easing: cubicOut }}
-		>
-			<div class="inline-flex rounded-full bg-gray-100 dark:bg-dark-surface p-1">
-				{#each ['all', 'project', 'blog'] as tab}
-					<button
-						type="button"
-						class="px-8 py-4 rounded-full text-base font-sans font-normal transition-all duration-200 {activeTab ===
-						tab
-							? 'bg-white dark:bg-dark-primary text-gray-900 dark:text-dark-bg '
-							: 'text-gray-700 dark:text-dark-text-secondary hover:bg-gray-200 dark:hover:bg-dark-surface/90'}"
-						onclick={() => setActiveTab(tab)}
-					>
-						{tab.charAt(0).toUpperCase() + tab.slice(1)}
-					</button>
-				{/each}
-			</div>
-		</div>
-
-		{#if mounted}
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-				{#each filteredProjects as project, index}
-					<div in:fly={{ y: 20, duration: 400, delay: 100 * index, easing: cubicOut }}>
-						<ProjectCard {project} />
-					</div>
-				{/each}
-			</div>
-		{/if}
-
-		{#if filteredProjects.length === 0}
-			<p
-				class="text-center text-gray-600 dark:text-dark-text-secondary mt-12 font-sans font-light"
-				in:fade={{ duration: 300 }}
+	<div class="flex gap-4 mb-12 border-b border-stone-200 dark:border-stone-800">
+		{#each ['all', 'project', 'blog'] as tab}
+			<button
+				type="button"
+				class="pb-2 text-sm transition-colors border-b-2 -mb-px {activeTab === tab
+					? 'border-stone-900 dark:border-stone-100 text-stone-900 dark:text-stone-100'
+					: 'border-transparent text-stone-400 dark:text-stone-600 hover:text-stone-600 dark:hover:text-stone-400'}"
+				onclick={() => (activeTab = tab)}
 			>
-				No items found in this category.
-			</p>
-		{/if}
+				{tab === 'all' ? 'All' : tab === 'project' ? 'Projects' : 'Articles'}
+			</button>
+		{/each}
 	</div>
-</main>
+
+	{#if filteredPosts.length > 0}
+		<div class="space-y-8">
+			{#each filteredPosts as post}
+				<a href={post.path} class="block group">
+					<article>
+						<div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+							<h2 class="font-medium text-stone-900 dark:text-stone-100 group-hover:text-stone-600 dark:group-hover:text-stone-300 transition-colors">
+								{post.title}
+							</h2>
+							<span class="text-sm text-stone-400 dark:text-stone-600 shrink-0">
+								{formatDate(post.date)}
+							</span>
+						</div>
+						<p class="text-sm text-stone-500 dark:text-stone-500 leading-relaxed">
+							{post.description}
+						</p>
+					</article>
+				</a>
+			{/each}
+		</div>
+	{:else}
+		<p class="text-stone-400 dark:text-stone-600">
+			Nothing here yet.
+		</p>
+	{/if}
+</div>
