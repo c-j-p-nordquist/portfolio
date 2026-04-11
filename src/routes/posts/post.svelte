@@ -24,35 +24,45 @@
 			readingTime = calculateReadingTime(content);
 		}
 	});
+
+	let metaItems = $derived.by(() => {
+		const items = [formatDate(date)];
+		if (lastUpdated && lastUpdated !== date) items.push(`Updated ${formatDate(lastUpdated)}`);
+		if (readingTime > 0) items.push(`${readingTime} min read`);
+		return items;
+	});
 </script>
 
 <svelte:head>
 	<title>{title} – Philip Nordquist</title>
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={title} />
+	{#if summary}
+		<meta property="og:description" content={summary} />
+	{/if}
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content={title} />
 </svelte:head>
 
 <article class="max-w-2xl mx-auto px-6 py-16 sm:py-24">
 	<header class="mb-12">
 		<a
 			href="/posts"
-			class="inline-block mb-8 text-sm text-stone-400 dark:text-stone-600 hover:text-stone-600 dark:hover:text-stone-400 transition-colors"
+			class="group inline-flex items-center gap-1 mb-8 text-sm text-stone-400 dark:text-stone-600 hover:text-stone-600 dark:hover:text-stone-400 transition-colors"
 		>
-			&larr; Back to posts
+			<svg class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+			Posts
 		</a>
 
 		<h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 leading-tight mb-4">
 			{title}
 		</h1>
 
-		<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-stone-400 dark:text-stone-600 mb-4">
-			<span>{formatDate(date)}</span>
-			{#if lastUpdated && lastUpdated !== date}
-				<span>Updated {formatDate(lastUpdated)}</span>
-			{/if}
-			{#if readingTime > 0}
-				<span>{readingTime} min read</span>
-			{/if}
+		<div class="text-sm text-stone-400 dark:text-stone-600 mb-4">
+			{#each metaItems as item, i}
+				{#if i > 0}<span class="mx-1.5">·</span>{/if}
+				<span>{item}</span>
+			{/each}
 		</div>
 
 		{#if topics && topics.length > 0}
@@ -78,9 +88,10 @@
 						href={githubUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="text-sm text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
+						class="group inline-flex items-center gap-1 text-sm text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 transition-colors"
 					>
-						View on GitHub
+						GitHub
+						<svg class="w-3 h-3 text-stone-400 dark:text-stone-600 group-hover:text-stone-900 dark:group-hover:text-stone-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
 					</a>
 				{/if}
 				{#if liveUrl}
@@ -88,13 +99,16 @@
 						href={liveUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="text-sm text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
+						class="group inline-flex items-center gap-1 text-sm text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 transition-colors"
 					>
 						Live demo
+						<svg class="w-3 h-3 text-stone-400 dark:text-stone-600 group-hover:text-stone-900 dark:group-hover:text-stone-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" /></svg>
 					</a>
 				{/if}
 			</div>
 		{/if}
+
+		<hr class="border-stone-200 dark:border-stone-800 mt-8" />
 	</header>
 
 	<div
@@ -104,8 +118,10 @@
 			prose-a:underline-offset-4 prose-a:decoration-stone-300 dark:prose-a:decoration-stone-700
 			prose-a:hover:decoration-stone-500
 			prose-pre:rounded-lg prose-pre:border prose-pre:border-stone-200 dark:prose-pre:border-stone-800
-			prose-code:text-sm prose-code:font-normal
-			prose-img:rounded-lg"
+			prose-pre:font-mono
+			prose-code:text-sm prose-code:font-normal prose-code:font-mono
+			prose-img:rounded-lg
+			prose-hr:border-stone-200 dark:prose-hr:border-stone-800"
 	>
 		{@render children()}
 	</div>

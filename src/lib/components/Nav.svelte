@@ -15,7 +15,7 @@
 	}
 </script>
 
-<nav class="border-b border-stone-200 dark:border-stone-800">
+<nav class="sticky top-0 z-[100] bg-surface/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 transition-colors duration-300">
 	<div class="max-w-2xl mx-auto px-6 h-14 flex items-center justify-between">
 		<a href="/" class="text-sm font-medium text-stone-900 dark:text-stone-100 tracking-tight">
 			Philip Nordquist
@@ -50,14 +50,14 @@
 	</div>
 
 	{#if isMenuOpen}
-		<div class="sm:hidden border-t border-stone-200 dark:border-stone-800 px-6 py-3 space-y-1">
+		<div class="sm:hidden border-t border-stone-200 dark:border-stone-800 bg-surface/80 dark:bg-surface-dark/80 backdrop-blur-md px-6 py-3 space-y-1">
 			{#each navItems as item}
 				<a
 					href={item.href}
 					onclick={() => (isMenuOpen = false)}
-					class="block py-2 text-sm {isActive(item.href)
+					class="block py-2 text-sm transition-colors {isActive(item.href)
 						? 'text-stone-900 dark:text-stone-100'
-						: 'text-stone-500 dark:text-stone-500'}"
+						: 'text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-300'}"
 				>
 					{item.label}
 				</a>

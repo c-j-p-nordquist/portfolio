@@ -4,11 +4,11 @@ export const workHistory = [
         position: 'DevSecOps Engineer',
         location: 'Stockholm',
         period: 'Nov 2023 – Present',
-        description: 'Building and maintaining the Kubernetes platform, implementing observability and security tooling, and driving automation across the infrastructure.',
+        description: 'Looking after the Kubernetes platform, setting up observability and security tooling, and automating what I can across the infrastructure.',
         highlights: [
-            'Architected a fully automated Kubernetes platform with Terraform and ArgoCD, cutting environment provisioning from days to under 20 minutes',
-            'Implemented real-time threat detection via enterprise SIEM, reducing detection time from days to minutes',
-            'Standardized automated patching and observability with Prometheus and Grafana, eliminating 100 hours of annual out-of-hours maintenance'
+            'Built a fully automated Kubernetes platform with Terraform and ArgoCD. Environment provisioning went from days to under 20 minutes',
+            'Set up real-time threat detection through an enterprise SIEM, bringing detection time down from days to minutes',
+            'Standardised patching and observability with Prometheus and Grafana, cutting about 100 hours of annual out-of-hours maintenance'
         ]
     },
     {
@@ -16,11 +16,11 @@ export const workHistory = [
         position: 'Staff Operations Engineer',
         location: 'Hong Kong / Remote',
         period: 'Apr 2021 – Jul 2023',
-        description: 'Operations tech lead for global product launches, network traffic analysis, and managing weekly releases across 3,000+ VPN servers worldwide.',
+        description: 'Operations tech lead for product launches, network traffic analysis, and weekly releases across 3,000+ VPN servers.',
         highlights: [
-            'Led operational readiness for the global launch of ExpressVPN Keys, defining DR standards with under 15 min failover',
-            'Ran network traffic analysis research to improve connectivity in restrictive network regions',
-            'Managed weekly releases across 3,000+ global servers, maintaining 99.9% uptime'
+            'Owned operational readiness for the global launch of ExpressVPN Keys, including DR with under 15 min failover',
+            'Ran network traffic analysis research to improve connectivity in restrictive regions',
+            'Handled weekly releases across 3,000+ servers, keeping uptime at 99.9%'
         ]
     },
     {
@@ -28,11 +28,11 @@ export const workHistory = [
         position: 'Senior Cloud & Infrastructure Engineer',
         location: 'Hong Kong',
         period: 'Apr 2019 – Apr 2021',
-        description: 'Built Zero-Trust network infrastructure, automated identity management, and enabled secure remote work for 1,000+ global staff during COVID-19.',
+        description: 'Built out Zero-Trust networking, automated identity management, and set up secure remote work for 1,000+ staff when COVID hit.',
         highlights: [
-            'Architected a Zero-Trust network model using Palo Alto firewalls',
-            'Automated IAM for 200+ SaaS applications via Okta, reducing provisioning time by 90%',
-            'Deployed secure remote work infrastructure for 1,000+ staff with zero downtime'
+            'Put together a Zero-Trust network model using Palo Alto firewalls',
+            'Automated IAM for 200+ SaaS apps through Okta, cutting provisioning time by 90%',
+            'Got secure remote work infrastructure up for 1,000+ staff with zero downtime'
         ]
     },
     {
@@ -40,10 +40,10 @@ export const workHistory = [
         position: 'IT Infrastructure & Operations Manager',
         location: 'Stockholm',
         period: 'Sep 2017 – Apr 2019',
-        description: 'Managed global IT operations and led technical due diligence during acquisition by Stepstone, including full infrastructure migration.',
+        description: 'Ran global IT operations and handled the technical side of the acquisition by Stepstone, including migrating all infrastructure.',
         highlights: [
-            'Led infrastructure migration from G Suite to O365 during M&A',
-            'Spearheaded GDPR compliance efforts with technical controls and data governance'
+            'Managed infrastructure migration from G Suite to O365 during the acquisition',
+            'Drove GDPR readiness with technical controls and data governance processes'
         ]
     },
     {
@@ -51,7 +51,7 @@ export const workHistory = [
         position: 'IT Engineer',
         location: 'Stockholm',
         period: 'Sep 2015 – Sep 2017',
-        description: 'Managed server infrastructure and network configuration for a range of client environments.',
+        description: 'Server infrastructure and network configuration for various client environments.',
         highlights: []
     },
     {
@@ -59,7 +59,7 @@ export const workHistory = [
         position: 'Support Engineer',
         location: 'Stockholm',
         period: 'Oct 2014 – Sep 2015',
-        description: 'Technical support for web hosting, DNS, and email services.',
+        description: 'Technical support for web hosting, DNS, and email.',
         highlights: []
     }
 ];
@@ -78,7 +78,7 @@ export const education = [
 ];
 
 export const certifications = [
-    'AWS Certified Solutions Architect – Associate',
-    'AWS Certified Cloud Practitioner',
-    'Palo Alto Networks Certified Cybersecurity Associate (PCCSA)'
+    'AWS Solutions Architect, Associate',
+    'AWS Cloud Practitioner',
+    'Palo Alto Networks PCCSA'
 ];

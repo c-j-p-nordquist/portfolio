@@ -12,7 +12,7 @@
 				href="https://github.com/c-j-p-nordquist"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400 transition-colors"
+				class="text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400 transition-all hover:scale-110 hover:-translate-y-0.5 active:scale-95 active:translate-y-0"
 				aria-label="GitHub"
 			>
 				<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -23,7 +23,7 @@
 				href="https://linkedin.com/in/philip-nordquist-269949a0"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400 transition-colors"
+				class="text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400 transition-all hover:scale-110 hover:-translate-y-0.5 active:scale-95 active:translate-y-0"
 				aria-label="LinkedIn"
 			>
 				<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -32,7 +32,7 @@
 			</a>
 			<a
 				href="mailto:philip@nordquist.me"
-				class="text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400 transition-colors"
+				class="text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-400 transition-all hover:scale-110 hover:-translate-y-0.5 active:scale-95 active:translate-y-0"
 				aria-label="Email"
 			>
 				<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
