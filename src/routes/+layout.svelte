@@ -2,10 +2,20 @@
 	import '../app.css';
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { page } from '$app/stores';
-	import { fade } from 'svelte/transition';
+	import { onNavigate } from '$app/navigation';
 
 	let { children } = $props();
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 </script>
 
 <!-- Subtle noise texture overlay -->
@@ -18,11 +28,7 @@
 	<Nav />
 
 	<main class="flex-grow">
-		{#key $page.url.pathname}
-			<div in:fade={{ duration: 300, delay: 100 }} out:fade={{ duration: 100 }}>
-				{@render children()}
-			</div>
-		{/key}
+		{@render children()}
 	</main>
 
 	<Footer />
