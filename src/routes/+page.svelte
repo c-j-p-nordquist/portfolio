@@ -29,17 +29,17 @@
 			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-2.5 max-w-[460px]"
 			style="text-wrap: pretty;"
 		>
-			Platform and DevSecOps engineer in Linköping, Sweden. I work with infrastructure,
-			security, and keeping things running.
+			Platform and DevSecOps engineer in Linköping. I build and run cloud platforms, security
+			tooling, and the automation around them.
 		</p>
 		<p
 			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-[30px] max-w-[460px]"
 			style="text-wrap: pretty;"
 		>
 			Currently at <strong class="text-stone-900 dark:text-stone-100 font-medium">STIM</strong>,
-			looking after their platform and security tooling. Before that at
-			<strong class="text-stone-900 dark:text-stone-100 font-medium">ExpressVPN</strong>
-			for a few years, working on infrastructure across 3,000+ servers in 100+ countries.
+			working with Kubernetes, observability, and security tooling. Previously at
+			<strong class="text-stone-900 dark:text-stone-100 font-medium">ExpressVPN</strong>, working on
+			global infrastructure and internal platforms.
 		</p>
 
 		<div class="flex items-center gap-[18px] flex-wrap">
@@ -98,14 +98,24 @@
 					<path d="M7 17L17 7M17 7H7M17 7v10" />
 				</svg>
 			</a>
-			<div class="w-px h-[14px] bg-stone-200 dark:bg-stone-800"></div>
 			<a
 				href="/files/pn_resume_26.pdf"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-[5px] text-[12.5px] font-medium px-[13px] py-[5px] rounded-[5px] border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-stone-100 hover:bg-stone-900 hover:text-stone-50 hover:border-stone-900 dark:hover:bg-stone-100 dark:hover:text-stone-900 dark:hover:border-stone-100 transition-colors"
+				class="group inline-flex items-center gap-1 text-[13px] text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 transition-colors"
 			>
 				Resume
+				<svg
+					class="w-[11px] h-[11px]"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M7 17L17 7M17 7H7M17 7v10" />
+				</svg>
 			</a>
 		</div>
 	</section>
@@ -183,9 +193,9 @@
 			class="text-[14.5px] text-stone-600 dark:text-stone-400 leading-[1.75]"
 			style="text-wrap: pretty;"
 		>
-			Mostly Kubernetes, Terraform, and CI/CD pipelines. I spend a lot of time in AWS and
-			GCP. For observability I lean on Prometheus and Grafana. When something needs
-			automating I'll reach for Python, Go, or Bash depending on what fits.
+			Mostly Kubernetes, Terraform, and CI/CD pipelines. I spend a lot of time in AWS and GCP, with
+			Prometheus and Grafana close by. When something needs automating, I reach for Python, Go, or
+			Bash depending on what fits. Outside work, I build small AI and trading tools for my own use.
 		</p>
 	</section>
 </div>

@@ -1,5 +1,6 @@
 <script>
 	let { data } = $props();
+	let Content = $derived(data.content);
 </script>
 
-<svelte:component this={data.content} {...data.metadata} />
+<Content {...data.metadata} />
