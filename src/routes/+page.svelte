@@ -1,5 +1,5 @@
 <script>
-	import { workHistory, education, certifications } from '$lib/data/workHistory.js';
+	import { workHistory, education } from '$lib/data/workHistory.js';
 	import JobEntry from '$lib/components/JobEntry.svelte';
 </script>
 
@@ -7,10 +7,10 @@
 	<title>Philip Nordquist</title>
 	<meta
 		name="description"
-		content="Philip Nordquist, platform and DevSecOps engineer in Linköping, Sweden."
+		content="Philip Nordquist, platform and DevSecOps engineer in Mantorp, Sweden."
 	/>
 	<meta property="og:title" content="Philip Nordquist" />
-	<meta property="og:description" content="Platform and DevSecOps engineer in Linköping, Sweden." />
+	<meta property="og:description" content="Platform and DevSecOps engineer in Mantorp, Sweden." />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="Philip Nordquist" />
@@ -29,17 +29,19 @@
 			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-2.5 max-w-[460px]"
 			style="text-wrap: pretty;"
 		>
-			Platform and DevSecOps engineer in Linköping. I build and run cloud platforms, security
-			tooling, and the automation around them.
+			Platform and DevSecOps engineer in Mantorp, Sweden. I build and run cloud platforms,
+			security tooling, and the automation around them. Recently focused on applying LLM agents
+			to security operations, incident triage, and internal automation.
 		</p>
 		<p
 			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-[30px] max-w-[460px]"
 			style="text-wrap: pretty;"
 		>
 			Currently at <strong class="text-stone-900 dark:text-stone-100 font-medium">STIM</strong>,
-			working with Kubernetes, observability, and security tooling. Previously at
+			working on the Kubernetes platform, Sentinel detections, and an LLM triage layer over
+			incidents. Previously at
 			<strong class="text-stone-900 dark:text-stone-100 font-medium">ExpressVPN</strong>, working on
-			global infrastructure and internal platforms.
+			global VPN infrastructure and protocol-level countermeasures.
 		</p>
 
 		<div class="flex items-center gap-[18px] flex-wrap">
@@ -139,44 +141,35 @@
 		{/each}
 	</section>
 
-	<!-- Education & Certifications -->
+	<!-- Education -->
 	<section class="mb-20">
 		<div class="flex items-center gap-[14px] mb-6">
 			<span
 				class="text-[10.5px] tracking-[0.1em] uppercase font-medium text-stone-400 dark:text-stone-600 whitespace-nowrap"
 			>
-				Education & Certifications
+				Education
 			</span>
 			<div class="flex-1 h-px bg-stone-200 dark:bg-stone-800"></div>
 		</div>
 
-		{#each education as edu}
-			<div>
-				<div class="py-[18px]">
-					<div class="flex justify-between items-baseline gap-4 mb-[5px]">
-						<span
-							class="text-[14.5px] font-medium tracking-[-0.01em] text-stone-900 dark:text-stone-100"
-						>
-							{edu.institution}
-						</span>
-						<span class="text-[11.5px] text-stone-400 dark:text-stone-600 shrink-0">
-							{edu.period}
-						</span>
-					</div>
-					<p class="text-[13px] text-stone-600 dark:text-stone-400">{edu.program}</p>
+		{#each education as edu, i}
+			<div class="py-[18px]">
+				<div class="flex justify-between items-baseline gap-4 mb-[5px]">
+					<span
+						class="text-[14.5px] font-medium tracking-[-0.01em] text-stone-900 dark:text-stone-100"
+					>
+						{edu.institution}
+					</span>
+					<span class="text-[11.5px] text-stone-400 dark:text-stone-600 shrink-0">
+						{edu.period}
+					</span>
 				</div>
-				<div class="h-px bg-stone-100 dark:bg-stone-900"></div>
+				<p class="text-[13px] text-stone-600 dark:text-stone-400">{edu.program}</p>
 			</div>
+			{#if i < education.length - 1}
+				<div class="h-px bg-stone-100 dark:bg-stone-900"></div>
+			{/if}
 		{/each}
-
-		<div class="py-[18px] flex flex-col gap-2">
-			{#each certifications as cert}
-				<div class="flex items-baseline gap-2.5">
-					<span class="text-[12px] text-stone-200 dark:text-stone-800 shrink-0">—</span>
-					<span class="text-sm text-stone-600 dark:text-stone-400">{cert}</span>
-				</div>
-			{/each}
-		</div>
 	</section>
 
 	<!-- Day to day -->
@@ -193,9 +186,12 @@
 			class="text-[14.5px] text-stone-600 dark:text-stone-400 leading-[1.75]"
 			style="text-wrap: pretty;"
 		>
-			Mostly Kubernetes, Terraform, and CI/CD pipelines. I spend a lot of time in AWS and GCP, with
-			Prometheus and Grafana close by. When something needs automating, I reach for Python, Go, or
-			Bash depending on what fits. Outside work, I build small AI and trading tools for my own use.
+			Mostly Kubernetes, Terraform, and CI/CD pipelines, with Prometheus and Grafana close by. A
+			growing share of the work is wiring LLM agents into operational workflows — alert triage,
+			runbooks, and the boring parts of incident response — using OpenAI, Anthropic, and Gemini
+			APIs alongside MCP and human-in-the-loop patterns. When something needs automating, I reach
+			for Python, Go, or Bash depending on what fits. Outside work, I build small AI and trading
+			tools for my own use.
 		</p>
 	</section>
 </div>
