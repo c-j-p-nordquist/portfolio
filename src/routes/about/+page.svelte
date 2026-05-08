@@ -1,5 +1,5 @@
 <script>
-	import { workHistory, education, certifications } from '$lib/data/workHistory.js';
+	import { workHistory, education } from '$lib/data/workHistory.js';
 </script>
 
 <svelte:head>
@@ -24,11 +24,12 @@
 		</p>
 		<p>
 			These days most of my time goes into Kubernetes, infrastructure as code,
-			observability, and automating the tedious parts. The goal is usually to make
-			things easier to run and harder to break.
+			observability, and automating the tedious parts. Lately a lot of that means
+			wiring LLM agents into security operations and incident triage — turning
+			noisy alert payloads into something an analyst can act on at a glance.
 		</p>
 		<p>
-			Based in Linköping, Sweden. Outside of work I'm into music, games, and the
+			Based in Mantorp, Sweden. Outside of work I'm into music, games, and the
 			occasional side project.
 		</p>
 		<a
@@ -65,7 +66,7 @@
 					<p class="text-stone-600 dark:text-stone-400 leading-relaxed mb-3">
 						{job.description}
 					</p>
-					{#if job.highlights.length > 0}
+					{#if job.highlights && job.highlights.length > 0}
 						<ul class="space-y-1.5">
 							{#each job.highlights as highlight}
 								<li class="text-sm text-stone-500 dark:text-stone-500 leading-relaxed pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-stone-300 dark:before:text-stone-700">
@@ -109,31 +110,22 @@
 
 	<hr class="border-stone-200 dark:border-stone-800 mb-16" />
 
-	<section class="mb-16">
-		<h2 class="text-xs font-medium uppercase tracking-widest text-stone-400 dark:text-stone-600 mb-8">
-			Certifications
-		</h2>
-		<ul class="space-y-2">
-			{#each certifications as cert}
-				<li class="text-stone-600 dark:text-stone-400">
-					{cert}
-				</li>
-			{/each}
-		</ul>
-	</section>
-
-	<hr class="border-stone-200 dark:border-stone-800 mb-16" />
-
 	<section>
 		<h2 class="text-xs font-medium uppercase tracking-widest text-stone-400 dark:text-stone-600 mb-8">
 			Day to day
 		</h2>
-		<div class="text-stone-600 dark:text-stone-400 leading-relaxed">
+		<div class="text-stone-600 dark:text-stone-400 leading-relaxed space-y-4">
 			<p>
 				Mostly Kubernetes, Terraform, and CI/CD pipelines. I spend a lot of time in
-				AWS, GCP, and occasionally Azure. For observability I lean on Prometheus and
-				Grafana. When something needs automating I'll reach for Python, Go, or Bash
-				depending on what fits.
+				AWS, GCP, and Azure. For observability I lean on Prometheus and Grafana. When
+				something needs automating I'll reach for Python, Go, or Bash depending on
+				what fits.
+			</p>
+			<p>
+				A growing share of the work is wiring LLM agents into operational workflows —
+				alert triage, runbooks, and the boring parts of incident response — using
+				OpenAI, Anthropic, and Gemini APIs alongside MCP and human-in-the-loop
+				patterns.
 			</p>
 		</div>
 	</section>
