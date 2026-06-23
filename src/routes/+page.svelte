@@ -30,16 +30,14 @@
 			style="text-wrap: pretty;"
 		>
 			Platform and DevSecOps engineer in Mantorp, Sweden. I build and run cloud platforms,
-			security tooling, and the automation around them. Recently focused on applying LLM agents
-			to security operations, incident triage, and internal automation.
+			security operations, and deep networking, plus the automation around them.
 		</p>
 		<p
 			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-[30px] max-w-[460px]"
 			style="text-wrap: pretty;"
 		>
 			Currently at <strong class="text-stone-900 dark:text-stone-100 font-medium">STIM</strong>,
-			working on the Kubernetes platform, Sentinel detections, and an LLM triage layer over
-			incidents. Previously at
+			working on the Kubernetes platform and Sentinel detections. Previously at
 			<strong class="text-stone-900 dark:text-stone-100 font-medium">ExpressVPN</strong>, working on
 			global VPN infrastructure and protocol-level countermeasures.
 		</p>
@@ -186,12 +184,10 @@
 			class="text-[14.5px] text-stone-600 dark:text-stone-400 leading-[1.75]"
 			style="text-wrap: pretty;"
 		>
-			Mostly Kubernetes, Terraform, and CI/CD pipelines, with Prometheus and Grafana close by. A
-			growing share of the work is wiring LLM agents into operational workflows — alert triage,
-			runbooks, and the boring parts of incident response — using OpenAI, Anthropic, and Gemini
-			APIs alongside MCP and human-in-the-loop patterns. When something needs automating, I reach
-			for Python, Go, or Bash depending on what fits. Outside work, I build small AI and trading
-			tools for my own use.
+			Mostly Kubernetes, Terraform, and CI/CD pipelines, with Prometheus and Grafana close by, plus
+			a fair bit of security and incident work. When something needs automating I reach for
+			Python, Go, or Bash, and bring in an LLM where it genuinely helps. Outside work, I build
+			small AI and trading tools for my own use: MCP servers, agent tooling, that kind of thing.
 		</p>
 	</section>
 </div>
