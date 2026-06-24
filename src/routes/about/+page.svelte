@@ -24,9 +24,9 @@
 		</p>
 		<p>
 			These days most of my time goes into Kubernetes, infrastructure as code,
-			observability, and automating the tedious parts. Lately a lot of that means
-			wiring LLM agents into security operations and incident triage — turning
-			noisy alert payloads into something an analyst can act on at a glance.
+			observability, security operations, and automating the tedious parts. Now and
+			then that includes wiring an LLM into a workflow where it helps cut through
+			noisy alerts, but it's a small piece next to the platform and security work.
 		</p>
 		<p>
 			Based in Mantorp, Sweden. Outside of work I'm into music, games, and the
@@ -122,10 +122,10 @@
 				what fits.
 			</p>
 			<p>
-				A growing share of the work is wiring LLM agents into operational workflows —
-				alert triage, runbooks, and the boring parts of incident response — using
-				OpenAI, Anthropic, and Gemini APIs alongside MCP and human-in-the-loop
-				patterns.
+				There's security and incident work in the mix too, and I'll bring in an LLM where it
+				genuinely earns its place. Most of my LLM tinkering, though, is side projects:
+				MCP servers, agent tooling, and small AI and trading tools I build for my own
+				use, across the OpenAI, Anthropic, and Gemini APIs.
 			</p>
 		</div>
 	</section>

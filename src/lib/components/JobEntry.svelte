@@ -25,7 +25,7 @@
 		<ul class="mt-3.5 list-none flex flex-col gap-[7px]">
 			{#each visibleHighlights as highlight}
 				<li class="flex gap-2.5 text-[13px] text-stone-500 dark:text-stone-500 leading-[1.6]">
-					<span class="text-stone-300 dark:text-stone-700 shrink-0 text-[15px]">—</span>
+					<span class="text-stone-300 dark:text-stone-700 shrink-0 text-[15px]">–</span>
 					<span style="text-wrap: pretty;">{highlight}</span>
 				</li>
 			{/each}
