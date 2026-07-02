@@ -6,7 +6,6 @@ import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
 import { visit } from 'unist-util-visit';
 import { createHighlighter } from 'shiki';
-import { enhancedImages } from '@sveltejs/enhanced-img';
 
 let highlighter;
 
@@ -14,7 +13,10 @@ let highlighter;
 function rehypeInlineCode() {
 	return (tree) => {
 		visit(tree, 'element', (node) => {
-			if (node.tagName === 'code' && (!node.properties.className || !node.properties.className.includes('language-'))) {
+			if (
+				node.tagName === 'code' &&
+				(!node.properties.className || !node.properties.className.includes('language-'))
+			) {
 				node.properties.className = node.properties.className || [];
 				node.properties.className.push('inline-code');
 			}
@@ -61,8 +63,7 @@ const config = {
 	],
 	kit: {
 		adapter: adapter()
-	},
-	plugins: [enhancedImages()]
+	}
 };
 
 export default config;

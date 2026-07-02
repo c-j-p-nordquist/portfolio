@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Philip Nordquist — Resume</title>
+		<style>
+			@page {
+				size: A4;
+				margin: 13mm 18mm;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+				color: #292524;
+				font-size: 9.8pt;
+				line-height: 1.42;
+				-webkit-font-smoothing: antialiased;
+			}
+
+			h1,
+			h2,
+			h3 {
+				margin: 0;
+				font-weight: 600;
+			}
+
+			.header {
+				text-align: center;
+				margin-bottom: 11pt;
+			}
+
+			.header h1 {
+				font-size: 19pt;
+				letter-spacing: -0.01em;
+				color: #1c1917;
+			}
+
+			.contact {
+				margin-top: 4pt;
+				font-size: 8.5pt;
+				color: #57534e;
+			}
+
+			.contact a {
+				color: #57534e;
+				text-decoration: none;
+			}
+
+			section {
+				margin-bottom: 8pt;
+			}
+
+			h2.section-title {
+				font-size: 8pt;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: #78716c;
+				border-bottom: 0.75pt solid #d6d3d1;
+				padding-bottom: 2.5pt;
+				margin-bottom: 6pt;
+			}
+
+			.summary {
+				color: #44403c;
+			}
+
+			ul.skills {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			ul.skills li {
+				margin-bottom: 3pt;
+				color: #44403c;
+			}
+
+			ul.skills li strong {
+				color: #1c1917;
+			}
+
+			.job,
+			.edu-entry,
+			.project {
+				margin-bottom: 7pt;
+				page-break-inside: avoid;
+			}
+
+			.job:last-child,
+			.edu-entry:last-child,
+			.project:last-child {
+				margin-bottom: 0;
+			}
+
+			.row {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 10pt;
+			}
+
+			.job-title,
+			.edu-name,
+			.project-name {
+				font-size: 10.3pt;
+				font-weight: 600;
+				color: #1c1917;
+			}
+
+			.dates {
+				font-size: 9pt;
+				color: #78716c;
+				white-space: nowrap;
+			}
+
+			.job-sub,
+			.edu-sub {
+				font-size: 9pt;
+				font-style: italic;
+				color: #57534e;
+				margin-top: 1pt;
+				margin-bottom: 4pt;
+			}
+
+			ul.bullets {
+				margin: 0;
+				padding-left: 12pt;
+			}
+
+			ul.bullets li {
+				margin-bottom: 2pt;
+				color: #292524;
+			}
+
+			.projects-note {
+				font-size: 8.5pt;
+				font-style: italic;
+				color: #78716c;
+				margin-bottom: 4pt;
+			}
+
+			.langs {
+				color: #44403c;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<h1>Philip Nordquist</h1>
+			<div class="contact">
+				Mantorp, Sweden &nbsp;·&nbsp; +46 70 898 85 78 &nbsp;·&nbsp;
+				<a href="mailto:philip@nordquist.me">philip@nordquist.me</a>
+			</div>
+			<div class="contact">
+				philip.nordquist.me &nbsp;·&nbsp; linkedin.com/in/philip-nordquist-269949a0 &nbsp;·&nbsp;
+				github.com/c-j-p-nordquist
+			</div>
+		</div>
+
+		<section>
+			<h2 class="section-title">Summary</h2>
+			<p class="summary">
+				Platform and DevSecOps engineer with 10+ years building secure cloud infrastructure across
+				Kubernetes, networking, observability, and automation. I build production platforms,
+				security controls, and operational workflows that reduce toil and hold up under real
+				incidents. Most recently Staff Operations Engineer at ExpressVPN, leading global platform
+				and security initiatives; currently DevSecOps Engineer at STIM, building out the internal
+				Kubernetes platform and security detections.
+			</p>
+		</section>
+
+		<section>
+			<h2 class="section-title">Technical Skills</h2>
+			<ul class="skills">
+				<li>
+					<strong>Cloud &amp; Platform:</strong> AWS, GCP, Azure; Kubernetes (EKS, GKE, K3s);
+					Terraform, Ansible, ArgoCD/GitOps; Helm, GitHub Actions.
+				</li>
+				<li>
+					<strong>Security:</strong> Zero trust, OIDC/SAML/RBAC, SIEM, threat modelling, CIS/NIST
+					hardening, PKI.
+				</li>
+				<li>
+					<strong>Observability:</strong> SLOs, Prometheus, Grafana, OpenTelemetry, incident
+					response.
+				</li>
+				<li>
+					<strong>Networking:</strong> BGP, VPN/proxy architectures, traffic analysis, protocol
+					obfuscation.
+				</li>
+				<li><strong>Languages:</strong> Python, Go, Bash.</li>
+				<li>
+					<strong>AI tooling (side projects):</strong> LLM APIs (OpenAI, Anthropic, Gemini), MCP,
+					agent workflows, human-in-the-loop automation.
+				</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="section-title">Experience</h2>
+
+			<div class="job">
+				<div class="row">
+					<span class="job-title">DevSecOps Engineer</span>
+					<span class="dates">Nov 2023 – Present</span>
+				</div>
+				<div class="job-sub">STIM, Stockholm, SE</div>
+				<ul class="bullets">
+					<li>
+						Designed and built the internal Kubernetes platform end-to-end: Terraform, Ansible, and
+						custom Python automation provisioning VMs, networking, DNS, and storage, with
+						ArgoCD/GitOps managing cluster addons (ingress, operators, etc.). Cut new-cluster
+						provisioning from days to under 20 minutes.
+					</li>
+					<li>
+						Implemented enterprise SIEM and detection workflows on Microsoft Sentinel, reducing
+						security alert MTTD from days to minutes.
+					</li>
+					<li>
+						Added an LLM agent (via Azure Logic Apps) to the Sentinel incident workflow that
+						summarises and contextualises alerts, so routine incidents can be triaged at a glance.
+					</li>
+					<li>
+						Automated server patching with Azure Arc, standardising maintenance windows and cutting
+						~100 hours/year of after-hours work.
+					</li>
+					<li>
+						Hardened CI/CD pipelines to CIS benchmarks and rolled out 1Password as the org-wide
+						secrets store.
+					</li>
+				</ul>
+			</div>
+
+			<div class="job">
+				<div class="row">
+					<span class="job-title">Staff Operations Engineer</span>
+					<span class="dates">Apr 2021 – Jul 2023</span>
+				</div>
+				<div class="job-sub">ExpressVPN, Hong Kong / Remote</div>
+				<ul class="bullets">
+					<li>
+						Technical owner for the global launch of ExpressVPN Keys; defined operational readiness,
+						support model, and sub-15-minute cross-region failover design.
+					</li>
+					<li>
+						Reverse-engineered how adversarial networks fingerprinted and blocked VPN traffic, then
+						shipped continuous protocol-level countermeasures (proxy protocols, packet obfuscation)
+						that kept the service reachable for users in heavily censored regions.
+					</li>
+					<li>
+						Built and ran the Prometheus/Grafana observability stack (dashboards, metrics, log
+						collection) used to monitor 3,000+ servers and the global proxy fleet.
+					</li>
+					<li>
+						Operationalized regional accessibility work: converted ad-hoc specialist tasks into
+						documented playbooks and training for the global service desk, reducing escalations.
+					</li>
+					<li>
+						Led weekly releases across 3,000+ VPN servers with canary deploys, sustaining 99.9%
+						uptime.
+					</li>
+					<li>
+						Co-designed the Operations technical interview loop and conducted 50+ technical
+						interviews, evaluating candidates against production engineering scenarios.
+					</li>
+				</ul>
+			</div>
+
+			<div class="job">
+				<div class="row">
+					<span class="job-title">Senior Cloud &amp; Infrastructure Engineer</span>
+					<span class="dates">Apr 2019 – Apr 2021</span>
+				</div>
+				<div class="job-sub">ExpressVPN, Hong Kong</div>
+				<ul class="bullets">
+					<li>
+						Designed and led deployment of the corporate network across offices (firewalls,
+						switching, routing) with zero-trust controls on Palo Alto firewalls, reducing
+						lateral-movement risk.
+					</li>
+					<li>
+						Automated IAM via Okta across 200+ SaaS apps, cutting user provisioning from 3 hours to
+						15 minutes.
+					</li>
+					<li>
+						Delivered secure remote-work infrastructure for 1,000+ staff during COVID with zero
+						downtime.
+					</li>
+				</ul>
+			</div>
+
+			<div class="job">
+				<div class="row">
+					<span class="job-title">IT Infrastructure &amp; Operations Manager</span>
+					<span class="dates">Sep 2017 – Apr 2019</span>
+				</div>
+				<div class="job-sub">Universum Communications AB, Stockholm, SE</div>
+				<ul class="bullets">
+					<li>
+						Led IT operations and reliability for the Stockholm headquarters (100–200 staff) and
+						satellite offices in New York, London, Singapore, Shanghai, Germany, and Switzerland.
+					</li>
+					<li>Owned technical due diligence and the G Suite to O365 migration during M&amp;A.</li>
+					<li>Drove GDPR readiness through technical controls and data governance.</li>
+				</ul>
+			</div>
+
+			<div class="job">
+				<div class="row">
+					<span class="job-title">IT Engineer</span>
+					<span class="dates">Sep 2015 – Sep 2017</span>
+				</div>
+				<div class="job-sub">ExternIT, Stockholm, SE</div>
+				<ul class="bullets">
+					<li>
+						Promoted internally from Binero (same group). Managed Windows/Linux servers and Cisco/HP
+						networks for MSP clients; improved reliability through monitoring and automation.
+					</li>
+				</ul>
+			</div>
+
+			<div class="job">
+				<div class="row">
+					<span class="job-title">Support Engineer</span>
+					<span class="dates">Oct 2014 – Sep 2015</span>
+				</div>
+				<div class="job-sub">Binero AB, Stockholm, SE</div>
+				<ul class="bullets">
+					<li>
+						Provided L1 and L2 support for Linux web hosting, DNS, and email, including escalations
+						from other engineers.
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="section-title">Education</h2>
+			<div class="edu-entry">
+				<div class="row">
+					<span class="edu-name">Högskolan i Skövde</span>
+					<span class="dates">2011 – 2014</span>
+				</div>
+				<div class="edu-sub">Computer Game Development, coursework</div>
+			</div>
+			<div class="edu-entry">
+				<div class="row">
+					<span class="edu-name">Linköpings Universitet</span>
+					<span class="dates">2008 – 2011</span>
+				</div>
+				<div class="edu-sub">Communication, Media &amp; Society, coursework</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="section-title">Side Projects</h2>
+			<p class="projects-note">Built outside of core role responsibilities.</p>
+			<div class="project">
+				<ul class="bullets">
+					<li>
+						<strong>Trading research stack:</strong> MCP server exposing Interactive Brokers tools
+						to LLM agents with audit logging and human-in-the-loop approvals; agentic workflows for
+						portfolio analysis using live broker APIs.
+					</li>
+					<li>
+						<strong>LLM integrations:</strong> Hands-on experience with OpenAI, Anthropic, and
+						Gemini APIs; evaluated cost, latency, reliability, and workflow trade-offs.
+					</li>
+					<li>
+						<strong>Ops assistants:</strong> Telegram and Slack bots wrapping LLMs as daily
+						operational assistants; full-stack apps across API, backend, and frontend.
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section style="margin-bottom: 0">
+			<h2 class="section-title">Languages</h2>
+			<p class="langs">Swedish (native), English (fluent)</p>
+		</section>
+	</body>
+</html>

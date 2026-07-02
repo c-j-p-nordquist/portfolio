@@ -1,43 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/images/logos/favicon-light.svg" id="favicon" />
+		<meta name="viewport" content="width=device-width" />
 
-<head>
-	<meta charset="utf-8" />
-	<link rel="icon" href="%sveltekit.assets%/images/logos/favicon-light.svg" id="favicon" />
-	<meta name="viewport" content="width=device-width" />
-
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload"
-		href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
-		as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<noscript>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
+			rel="preload"
 			href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
-			rel="stylesheet" type="text/css">
-	</noscript>
+			as="style"
+			onload="this.onload=null;this.rel='stylesheet'"
+		/>
+		<noscript>
+			<link
+				href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+				rel="stylesheet"
+				type="text/css"
+			/>
+		</noscript>
 
-	<script>
-		function setFavicon() {
-			const favicon = document.getElementById('favicon');
-			const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-			favicon.href = prefersDarkScheme.matches
-				? '%sveltekit.assets%/images/logos/favicon-dark.svg'
-				: '%sveltekit.assets%/images/logos/favicon-light.svg';
-		}
-		setFavicon();
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFavicon);
-	</script>
+		<script>
+			function setFavicon() {
+				const favicon = document.getElementById('favicon');
+				const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+				favicon.href = prefersDarkScheme.matches
+					? '%sveltekit.assets%/images/logos/favicon-dark.svg'
+					: '%sveltekit.assets%/images/logos/favicon-light.svg';
+			}
+			setFavicon();
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFavicon);
+		</script>
 
-	%sveltekit.head%
-</head>
+		%sveltekit.head%
+	</head>
 
-<body data-sveltekit-preload-data="hover">
-	<div style="display: contents">%sveltekit.body%</div>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
 
-	<!-- Cloudflare Web Analytics -->
-	<script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-		data-cf-beacon='{"token": "d26df3caa1eb430d9acfd51ba5345281"}'></script>
-</body>
-
+		<!-- Cloudflare Web Analytics -->
+		<script
+			defer
+			src="https://static.cloudflareinsights.com/beacon.min.js"
+			data-cf-beacon='{"token": "d26df3caa1eb430d9acfd51ba5345281"}'
+		></script>
+	</body>
 </html>

@@ -16,13 +16,13 @@
 	<div class="flex gap-4">
 		<a
 			href="/"
-			class="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
+			class="text-sm text-muted dark:text-muted-dark hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
 		>
 			Go home
 		</a>
 		<button
 			onclick={() => history.back()}
-			class="text-sm text-stone-500 hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
+			class="text-sm text-muted dark:text-muted-dark hover:text-stone-900 dark:hover:text-stone-300 underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-stone-500 transition-colors"
 		>
 			Go back
 		</button>
