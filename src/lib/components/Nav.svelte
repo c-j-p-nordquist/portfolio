@@ -18,10 +18,7 @@
 	class:scrolled
 >
 	<div class="max-w-[640px] mx-auto px-6 h-[54px] flex items-center">
-		<a
-			href="/"
-			class="text-sm font-medium tracking-[-0.02em] text-stone-900 dark:text-stone-100"
-		>
+		<a href="/" class="text-sm font-medium tracking-[-0.02em] text-stone-900 dark:text-stone-100">
 			Philip Nordquist
 		</a>
 	</div>
