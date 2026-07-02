@@ -53,21 +53,22 @@
 	<!-- Hero -->
 	<section class="mb-[88px]">
 		<h1
-			class="text-[30px] font-semibold tracking-[-0.03em] text-stone-900 dark:text-stone-100 mb-[18px] leading-[1.1]"
+			class="fade-up text-[30px] font-semibold tracking-[-0.03em] text-stone-900 dark:text-stone-100 mb-[18px] leading-[1.1]"
+			style="text-wrap: balance;"
 		>
 			Philip Nordquist
 		</h1>
 
 		<p
-			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-2.5 max-w-[460px]"
-			style="text-wrap: pretty;"
+			class="fade-up text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-2.5 max-w-[460px]"
+			style="text-wrap: pretty; --delay: 60ms;"
 		>
 			Platform and DevSecOps engineer in Mantorp, Sweden. I build and run cloud platforms, security
 			operations, and deep networking, plus the automation around them.
 		</p>
 		<p
-			class="text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-[30px] max-w-[460px]"
-			style="text-wrap: pretty;"
+			class="fade-up text-[15.5px] text-stone-600 dark:text-stone-400 leading-[1.75] mb-[30px] max-w-[460px]"
+			style="text-wrap: pretty; --delay: 120ms;"
 		>
 			Currently at <strong class="text-stone-900 dark:text-stone-100 font-medium">STIM</strong>,
 			working on the Kubernetes platform and Sentinel detections. Previously at
@@ -75,7 +76,7 @@
 			global VPN infrastructure and protocol-level countermeasures.
 		</p>
 
-		<div class="flex items-center gap-[18px] flex-wrap">
+		<div class="fade-up flex items-center gap-[18px] flex-wrap" style="--delay: 180ms;">
 			<a
 				href="https://github.com/c-j-p-nordquist"
 				target="_blank"
@@ -84,7 +85,7 @@
 			>
 				GitHub
 				<svg
-					class="w-[11px] h-[11px]"
+					class="w-[11px] h-[11px] transition-transform group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] motion-reduce:transition-none motion-reduce:group-hover:transform-none"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -105,7 +106,7 @@
 			>
 				LinkedIn
 				<svg
-					class="w-[11px] h-[11px]"
+					class="w-[11px] h-[11px] transition-transform group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] motion-reduce:transition-none motion-reduce:group-hover:transform-none"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -124,28 +125,7 @@
 			>
 				Email
 				<svg
-					class="w-[11px] h-[11px]"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					aria-hidden="true"
-					focusable="false"
-				>
-					<path d="M7 17L17 7M17 7H7M17 7v10" />
-				</svg>
-			</a>
-			<a
-				href="/files/pn_resume_26.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="group inline-flex items-center gap-1 py-1 text-[13px] text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 transition-colors"
-			>
-				Resume
-				<svg
-					class="w-[11px] h-[11px]"
+					class="w-[11px] h-[11px] transition-transform group-hover:translate-x-[1.5px] group-hover:-translate-y-[1.5px] motion-reduce:transition-none motion-reduce:group-hover:transform-none"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -162,7 +142,7 @@
 	</section>
 
 	<!-- Experience -->
-	<section class="mb-20">
+	<section id="experience" class="fade-up mb-20 scroll-mt-[70px]" style="--delay: 240ms;">
 		<div class="flex items-center gap-[14px] mb-6">
 			<h2
 				class="text-[10.5px] tracking-[0.1em] uppercase font-medium text-muted dark:text-muted-dark whitespace-nowrap"
@@ -181,7 +161,7 @@
 	</section>
 
 	<!-- Education -->
-	<section class="mb-20">
+	<section id="education" class="fade-up mb-20 scroll-mt-[70px]" style="--delay: 300ms;">
 		<div class="flex items-center gap-[14px] mb-6">
 			<h2
 				class="text-[10.5px] tracking-[0.1em] uppercase font-medium text-muted dark:text-muted-dark whitespace-nowrap"
@@ -212,7 +192,7 @@
 	</section>
 
 	<!-- Day to day -->
-	<section>
+	<section class="fade-up scroll-mt-[70px]" style="--delay: 360ms;">
 		<div class="flex items-center gap-[14px] mb-6">
 			<h2
 				class="text-[10.5px] tracking-[0.1em] uppercase font-medium text-muted dark:text-muted-dark whitespace-nowrap"

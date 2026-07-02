@@ -3,7 +3,9 @@
 	const visibleHighlights = job.highlights.slice(0, highlightLimit);
 </script>
 
-<article class="py-5">
+<article
+	class="py-5 -mx-4 px-4 rounded-lg hover:bg-stone-100/60 dark:hover:bg-stone-900/50 transition-colors duration-200"
+>
 	<div class="flex justify-between items-baseline gap-4 mb-[5px]">
 		<h3
 			class="text-[14.5px] font-medium tracking-[-0.01em] leading-[1.3] text-stone-900 dark:text-stone-100"

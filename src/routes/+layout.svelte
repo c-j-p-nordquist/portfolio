@@ -25,6 +25,12 @@
 	aria-hidden="true"
 ></div>
 
+<!-- Faint warm glow at the top of the page for a little depth -->
+<div
+	class="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgb(214_211_209/0.35),transparent)] dark:bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgb(41_37_36/0.5),transparent)]"
+	aria-hidden="true"
+></div>
+
 <div class="min-h-screen flex flex-col relative z-0">
 	<Nav />
 

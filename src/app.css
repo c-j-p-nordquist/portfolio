@@ -34,6 +34,22 @@
 	}
 }
 
+/* Staggered entrance for the home page. Guarded so users who prefer
+   reduced motion get instant, static content. */
+@media (prefers-reduced-motion: no-preference) {
+	.fade-up {
+		animation: fade-up 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation-delay: var(--delay, 0ms);
+	}
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+}
+
 @keyframes fade-in {
 	from {
 		opacity: 0;
