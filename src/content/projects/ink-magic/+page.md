@@ -11,7 +11,7 @@ coverAlt: 'Tracing the character 山 (mountain) on a practice grid in Ink Magic'
 published: true
 ---
 
-Our kids are growing up bilingual in Sweden, far from anywhere Chinese is spoken day to day. Without that environment, reading comes slowly and writing comes slower. I wanted practice to feel like play rather than homework, so I built a small spellbook for the iPad.
+Kids learning Chinese outside a Chinese-speaking environment get little everyday exposure to the written language. Reading comes slowly and writing comes slower. I wanted practice to feel like play rather than homework, so I built a small spellbook for the iPad.
 
 ## How it works
 
