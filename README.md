@@ -1,8 +1,9 @@
-# Philip Nordquist's Personal Website
+# CJP IT Consulting AB — Company Site & Portfolio
 
-Source for [philip.nordquist.me](https://philip.nordquist.me) — a single-page resume site with a
-fuller about page and a writing/projects section staged behind a feature gate until there's real
-content to publish.
+Source for [philip.nordquist.me](https://philip.nordquist.me) — the company site for
+CJP IT Consulting AB (services, how we work, contact) with Philip's personal resume/portfolio as a
+secondary section at `/philip`, plus a writing/projects section staged behind a feature gate until
+there's real content to publish.
 
 ## Technologies Used
 
@@ -13,17 +14,24 @@ content to publish.
 
 ## Features
 
-- Single-page resume: hero, work history, education, and a "day to day" summary, all driven by
-  `src/lib/data/workHistory.js`
-- Responsive layout with dark mode (`prefers-color-scheme`, no manual toggle)
+- Company landing page at `/`: company introduction, services, engagement options, and contact, all driven by
+  `src/lib/data/company.js` (services, copy, and the contact email live there)
+- Single-page resume at `/philip`: summary, work history, technical skills, education, languages, and side projects, all
+  driven by `src/lib/data/workHistory.js`
+- One shared nav across the whole site (Services/Philip/Contact) so `/philip` reads as a page of
+  the company site; the resume PDF download lives on that page's hero
+- Responsive editorial design with an ivory/cobalt palette, direct service descriptions, and dark mode (`prefers-color-scheme`, no manual toggle)
+- Visible service capabilities and expandable career contributions, keyboard focus indicators, a skip link, and reduced-motion support
 - View transitions on navigation (falls back silently in unsupported browsers)
-- A fuller `/about` page and a `/posts` writing section exist in the codebase but currently
-  redirect to `/`: `/about` is hidden until there's a reason to split it out from the home page,
+- A fuller `/about` page and a `/posts` writing section exist in the codebase but are currently
+  hidden: `/about` redirects to `/philip` until there's a reason to split it out,
   and `/posts` auto-hides itself whenever every post in `src/content/posts` has
   `published: false` in its frontmatter — flip one to `true` and the section goes live with no
   other changes needed
-- Resume PDF and Open Graph image are generated from HTML/CSS sources via headless Chrome rather
-  than committed as opaque binaries — see [Regenerating the resume and OG image](#regenerating-the-resume-and-og-image)
+- The downloadable resume is imported unchanged from the base PDF in the sibling `cv` project.
+  Open Graph images are generated from HTML/CSS via headless Chrome — see
+  [Updating the resume and OG images](#updating-the-resume-and-og-images)
+- `sitemap.xml` is generated at build time from the page list and published posts
 
 ## Project Structure
 
@@ -32,19 +40,20 @@ content to publish.
 ├── src/
 │   ├── lib/
 │   │   ├── components/    # Nav, Footer, JobEntry
-│   │   ├── data/          # workHistory.js — the single source for experience/education
+│   │   ├── data/          # company.js (services/contact) + workHistory.js (experience/education)
 │   │   ├── utils/         # formatDate, readingTime, posts (frontmatter loader)
 │   │   └── site.js        # SITE_URL / OG_IMAGE constants used across svelte:head blocks
 │   ├── content/
 │   │   └── posts/         # One directory per post/project, each a +page.md with frontmatter
 │   ├── routes/
-│   │   ├── +page.svelte   # Home (the live page)
-│   │   ├── about/         # Fuller write-up; currently redirects to / (see Features)
+│   │   ├── +page.svelte   # Company landing page (CJP IT Consulting AB)
+│   │   ├── philip/        # Philip's resume/portfolio page
+│   │   ├── about/         # Fuller write-up; currently redirects to /philip (see Features)
 │   │   └── posts/         # Writing/projects index + [slug] detail pages via mdsvex
 │   ├── app.css
 │   └── app.html
 ├── static/              # Images, robots.txt, resume PDF
-├── resume/              # HTML/CSS source + build script for the downloadable resume PDF
+├── resume/              # Resume import script + legacy HTML source (no longer used)
 ├── og-image/            # HTML/CSS source + build script for the social preview image
 └── svelte.config.js, tailwind.config.js, vite.config.js
 ```
@@ -67,19 +76,38 @@ npm run dev
 
 Then open `http://localhost:5173`.
 
-## Regenerating the resume and OG image
+## Selected design
 
-The downloadable resume and the social-share preview image are both built from HTML/CSS sources
-using local, headless Chrome — no puppeteer/playwright dependency, and no binary committed without
-a way to reproduce it:
+Ivory (A) is the selected design at `/` and `/philip`. The comparison switcher is removed.
+The previous `/b` and `/b/philip` URLs redirect to their Ivory counterparts. The unused B source
+is retained for reference, but its stylesheet and shell are no longer loaded by the site.
+
+Use `npm run dev -- --host 127.0.0.1 --port 5180 --strictPort` for the local preview without
+using the game's port.
+
+## Updating the resume and OG images
+
+The authoritative resume is maintained in the sibling `cv` project. The current personal page
+was updated from `cv/dist/base.pdf`, supplied on 2026-09-17. Import that PDF unchanged:
 
 ```
-npm run resume:build     # resume/resume.html   -> static/files/pn_resume_26.pdf
-npm run og-image:build   # og-image/og-image.html -> static/images/og-image.png
+npm run resume:sync                           # ../cv/dist/base.pdf -> static/files/pn_resume_26.pdf
+npm run resume:sync -- /path/to/base.pdf       # explicit source
 ```
 
-Both scripts look for Chrome/Chromium in the usual install locations (see `CHROME_CANDIDATES` in
-each `build.mjs` if yours lives elsewhere).
+`resume:build` remains an alias for this import. The older `resume/resume.html` is retained for
+reference and is no longer used to generate the download. A missing or invalid source fails
+without replacing the existing PDF. Update `src/lib/data/workHistory.js` separately when the
+resume content changes; this holds the profile summary, roles, skills, projects, and languages.
+
+Social-share preview images are generated from HTML/CSS using local headless Chrome:
+
+```
+npm run og-image:build   # og-image/og-company.html -> static/images/og-company.png
+                         # og-image/og-philip.html  -> static/images/og-philip.png
+```
+
+The OG build script looks for Chrome/Chromium in the usual install locations.
 
 ## Adding a post or project
 

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>{$page.status} – Philip Nordquist</title>
+	<title>{$page.status} – CJP IT Consulting AB</title>
 </svelte:head>
 
 <div class="max-w-[640px] mx-auto px-6 pt-[72px] pb-[100px]">

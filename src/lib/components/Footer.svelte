@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { COMPANY_NAME, ORG_NUMBER } from '$lib/data/company.js';
 
 	let time = $state('');
 
@@ -16,15 +17,16 @@
 	});
 </script>
 
-<footer class="border-t border-stone-200 dark:border-stone-800">
-	<div
-		class="max-w-[640px] mx-auto px-6 py-[22px] flex items-center justify-between gap-4 flex-wrap"
-	>
-		<span class="text-xs text-muted dark:text-muted-dark">
-			&copy; {new Date().getFullYear()} Philip Nordquist
-		</span>
-		<span class="text-xs text-muted dark:text-muted-dark tabular-nums">
-			Mantorp, Sweden{#if time}&ensp;&middot;&ensp;{time} local{/if}
-		</span>
+<footer class="site-footer">
+	<div class="site-container footer-inner">
+		<div>
+			<a class="footer-brand" href="/">cjp.</a><span
+				>&copy; {new Date().getFullYear()} {COMPANY_NAME}</span
+			>
+		</div>
+		<span>Org.nr {ORG_NUMBER}</span><span
+			>Mantorp, Sweden{#if time}
+				· {time} local{/if}</span
+		><a href="#main-content">Back to top ↑</a>
 	</div>
 </footer>

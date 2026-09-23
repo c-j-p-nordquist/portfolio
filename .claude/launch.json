@@ -7,6 +7,12 @@
 			"runtimeArgs": ["run", "dev"],
 			"port": 5173,
 			"autoPort": true
+		},
+		{
+			"name": "ink-magic",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev", "--prefix", "/Users/philip/Documents/GitHub/learn-to-write", "--", "--port", "5199", "--strictPort"],
+			"port": 5199
 		}
 	]
 }

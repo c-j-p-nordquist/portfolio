@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { workHistory, education } from '$lib/data/workHistory.js';
-	import { SITE_URL, OG_IMAGE } from '$lib/site.js';
+	import { SITE_URL, OG_IMAGE_PHILIP } from '$lib/site.js';
 
 	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
 </script>
@@ -17,12 +17,12 @@
 	<meta property="og:description" content="Background, experience, and education." />
 	<meta property="og:type" content="profile" />
 	<meta property="og:url" content={canonicalUrl} />
-	<meta property="og:image" content={OG_IMAGE} />
+	<meta property="og:image" content={OG_IMAGE_PHILIP} />
 	<meta property="og:image:alt" content="Philip Nordquist — Platform & DevSecOps Engineer" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="About – Philip Nordquist" />
 	<meta name="twitter:description" content="Background, experience, and education." />
-	<meta name="twitter:image" content={OG_IMAGE} />
+	<meta name="twitter:image" content={OG_IMAGE_PHILIP} />
 </svelte:head>
 
 <div class="max-w-2xl mx-auto px-6 py-16 sm:py-24">

@@ -1,3 +1,12 @@
+// Personal content is based on cv/dist/base.pdf, supplied on 2026-09-17.
+export const profile = {
+	title: 'Platform & security engineer',
+	description:
+		'Philip Nordquist, platform and security engineer in Mantorp, Sweden. Previously Staff Operations Engineer at ExpressVPN.',
+	summary:
+		'I set the technical direction and built the platform hosting all of STIM’s production applications. Previously, as Staff Operations Engineer at ExpressVPN, I led releases across 3,000+ VPN servers and shipped countermeasures to keep services reachable in censored regions. I use AI agents and automation throughout my daily work.'
+};
+
 export const workHistory = [
 	{
 		company: 'STIM',
@@ -5,13 +14,14 @@ export const workHistory = [
 		location: 'Stockholm',
 		period: 'Nov 2023 – Present',
 		description:
-			'Building the internal Kubernetes platform, security detections on Sentinel, and an LLM agent that helps triage incidents, plus day-to-day SOC engineering, incident investigation, and certificate management.',
+			'Designed and built the Kubernetes platform on VMware that now hosts all production applications. Responsible for platform automation, security monitoring, and incident response.',
 		highlights: [
-			'Built the internal Kubernetes platform end-to-end with Terraform, Ansible, and custom Python automation, with ArgoCD/GitOps for cluster addons. Cut new-cluster provisioning from days to under 20 minutes',
-			'Implemented enterprise SIEM and detection workflows on Microsoft Sentinel, reducing security alert MTTD from days to minutes',
-			'Added an LLM agent to the Sentinel incident workflow that summarises and contextualises alerts, so routine incidents can be triaged at a glance',
-			'Automated server patching with Azure Arc, cutting around 100 hours/year of after-hours work',
-			'Hardened CI/CD pipelines to CIS benchmarks and rolled out 1Password as the org-wide secrets store'
+			'Architected and built STIM’s Kubernetes platform on VMware, now hosting all production applications. Automated provisioning with Terraform and Ansible, cutting new-cluster setup from days to about 15 minutes.',
+			'Established GitOps with Argo CD across the platform’s clusters, standardising deployment and configuration management for shared platform services.',
+			'Designed the platform so nodes and clusters can be rebuilt from code, with persistent application data backed up separately.',
+			'Established security monitoring and incident response in Microsoft Sentinel across Entra ID, Intune and Microsoft 365. Carry out forensic investigations and contain incidents as part of the security on-call rotation.',
+			'Automated server patching with Azure Arc, cutting about 100 hours a year of after-hours maintenance.',
+			'Expanded 1Password from IT credential storage to application secrets management across the organisation.'
 		]
 	},
 	{
@@ -20,14 +30,14 @@ export const workHistory = [
 		location: 'Hong Kong / Remote',
 		period: 'Apr 2021 – Jul 2023',
 		description:
-			'Operations tech lead for the Keys launch and weekly releases across 3,000+ VPN servers, with hands-on VPN traffic engineering (packet capture, proxy/obfuscation configs, traffic analysis, and IP/route management including BGP) as part of a larger engineering team.',
+			'Led operational readiness for the ExpressVPN Keys launch and weekly releases across 3,000+ VPN servers. Built monitoring and protocol-level countermeasures for the global VPN and proxy fleet.',
 		highlights: [
-			'Technical owner for the global launch of ExpressVPN Keys; defined operational readiness, support model, and sub-15-minute cross-region failover design',
-			'Reverse-engineered how adversarial networks fingerprinted and blocked VPN traffic, then shipped continuous protocol-level countermeasures (proxy protocols, packet obfuscation) that kept the service reachable in heavily censored regions',
-			'Built and ran the Prometheus/Grafana observability stack (dashboards, metrics, and log collection) that the operations team used to monitor 3,000+ servers and the global proxy fleet',
-			'Operationalised regional accessibility work into documented playbooks and training for the global service desk, reducing escalations',
-			'Led weekly releases across 3,000+ VPN servers with canary deploys, sustaining 99.9% uptime',
-			'Co-designed the Operations technical interview loop and conducted 50+ technical interviews'
+			'Led operational readiness for the global ExpressVPN Keys launch, defining the support model and a cross-region failover design with a recovery target under 15 minutes.',
+			'Reverse-engineered how adversarial networks fingerprinted and blocked VPN traffic, then shipped protocol-level countermeasures (proxy protocols, packet obfuscation) keeping the service reachable in heavily censored regions.',
+			'Built the Prometheus/Grafana monitoring stack for 3,000+ servers and the global proxy fleet.',
+			'Enabled the global service desk to resolve more VPN connectivity issues through playbooks and technical training, reducing engineering escalations.',
+			'Led weekly releases across 3,000+ VPN servers with canary deploys, sustaining 99.9% uptime.',
+			'Co-designed the Operations interview loop and conducted 50+ technical interviews on production engineering scenarios.'
 		]
 	},
 	{
@@ -36,23 +46,23 @@ export const workHistory = [
 		location: 'Hong Kong',
 		period: 'Apr 2019 – Apr 2021',
 		description:
-			'Designed and deployed the corporate network across offices, built out Zero-Trust controls, automated identity management, and set up secure remote work for 1,000+ staff when COVID hit.',
+			'Led corporate network design and rollout across global offices, automated identity management, and delivered secure remote-work infrastructure for 1,000+ staff during COVID.',
 		highlights: [
-			'Designed and led the deployment of the corporate network across offices (firewalls, switching, and routing) with Zero-Trust controls on Palo Alto firewalls',
-			'Automated IAM for 200+ SaaS apps through Okta, cutting provisioning time by 90%',
-			'Got secure remote work infrastructure up for 1,000+ staff with zero downtime'
+			'Led corporate network design and rollout across global offices, using Palo Alto firewalls and zero-trust controls to reduce lateral-movement risk.',
+			'Automated IAM via Okta across 200+ SaaS apps, cutting user provisioning from 3 hours to 15 minutes.',
+			'Delivered secure remote-work infrastructure for 1,000+ staff during COVID with zero downtime.'
 		]
 	},
 	{
-		company: 'Universum',
+		company: 'Universum Communications AB',
 		position: 'IT Infrastructure & Operations Manager',
 		location: 'Stockholm',
 		period: 'Sep 2017 – Apr 2019',
 		description:
-			'Led IT operations and reliability for the Stockholm HQ and satellite offices in New York, London, Singapore, Shanghai, Germany, and Switzerland.',
+			'Led IT operations for the Stockholm headquarters and offices across Europe, Asia and North America, including migration and governance work during M&A.',
 		highlights: [
-			'Owned technical due diligence and the G Suite to O365 migration during M&A',
-			'Drove GDPR readiness through technical controls and data governance'
+			'Led IT operations for the Stockholm headquarters (100–200 staff) and offices across Europe, Asia and North America.',
+			'Led technical due diligence and a G Suite to Office 365 migration during M&A; implemented technical and data governance controls to support GDPR readiness.'
 		]
 	},
 	{
@@ -60,18 +70,62 @@ export const workHistory = [
 		position: 'IT Engineer',
 		location: 'Stockholm',
 		period: 'Sep 2015 – Sep 2017',
-		description: 'Server infrastructure and network configuration for various client environments.',
+		description:
+			'Promoted internally from Binero (same group). Managed Windows/Linux servers and Cisco/HP networks for MSP clients; improved reliability through monitoring and automation.',
 		highlights: []
 	},
 	{
-		company: 'Binero',
+		company: 'Binero AB',
 		position: 'Support Engineer',
 		location: 'Stockholm',
 		period: 'Oct 2014 – Sep 2015',
-		description: 'Technical support for web hosting, DNS, and email.',
+		description:
+			'Provided L1/L2 support for Linux web hosting, DNS, and email, including escalations.',
 		highlights: []
 	}
 ];
+
+export const technicalSkills = [
+	{
+		category: 'Cloud & platform',
+		skills:
+			'AWS, GCP, Azure, VMware vSphere; Kubernetes (K3s, EKS, GKE); Terraform, Ansible, Argo CD/GitOps, Helm.'
+	},
+	{
+		category: 'Security',
+		skills:
+			'Microsoft Sentinel, detection engineering, incident response; zero trust, OIDC/SAML/RBAC, CIS/NIST hardening, PKI.'
+	},
+	{
+		category: 'Networking',
+		skills: 'VLANs, routing, firewall policy, DNS, BGP; VPN/proxy architectures, traffic analysis.'
+	},
+	{ category: 'Observability', skills: 'Datadog, OpenTelemetry, Prometheus, Grafana, SLOs.' },
+	{
+		category: 'Code & automation',
+		skills: 'Python, Go, Bash, GitHub Actions; Azure Arc, cert-manager, 1Password.'
+	},
+	{
+		category: 'AI & agents',
+		skills:
+			'Agent workflows, MCP tool integrations, prompt design, human-in-the-loop automation; OpenAI, Anthropic and Gemini APIs.'
+	}
+];
+
+export const sideProjects = [
+	{
+		title: 'Interactive Brokers MCP server',
+		description:
+			'Connects AI agents to Interactive Brokers for portfolio research, with audit logging and human approval controls.'
+	},
+	{
+		title: 'LLM assistants for Telegram & Slack',
+		description:
+			'Built the API integrations, backend, and frontend, and evaluated model cost, latency, and reliability across OpenAI, Anthropic, and Gemini.'
+	}
+];
+
+export const languages = 'Swedish (native), English (fluent)';
 
 export const education = [
 	{
