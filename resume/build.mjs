@@ -1,44 +1,27 @@
-// Regenerates static/files/pn_resume_26.pdf from resume/resume.html using
-// locally installed Chrome's headless print-to-pdf. No extra dependencies
-// (no puppeteer/playwright) — just a system Chrome binary.
-//
-// Usage: node resume/build.mjs
-
-import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+// Import the authoritative base resume from the sibling cv project, unchanged.
+// Usage: npm run resume:sync -- /path/to/base.pdf
+// resume:build remains a compatibility alias; it no longer renders resume.html.
+import { copyFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const source = path.join(__dirname, 'resume.html');
-const output = path.join(__dirname, '..', 'static', 'files', 'pn_resume_26.pdf');
+const directory = path.dirname(fileURLToPath(import.meta.url));
+const source = process.argv[2]
+	? path.resolve(process.argv[2])
+	: path.resolve(directory, '../../cv/dist/base.pdf');
+const output = path.resolve(directory, '../static/files/pn_resume_26.pdf');
 
-const CHROME_CANDIDATES = [
-	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-	'/Applications/Chromium.app/Contents/MacOS/Chromium',
-	'/usr/bin/google-chrome',
-	'/usr/bin/chromium-browser',
-	'/usr/bin/chromium'
-];
-
-const chrome = CHROME_CANDIDATES.find((p) => existsSync(p));
-
-if (!chrome) {
-	console.error('Could not find a Chrome/Chromium binary in the usual locations.');
-	console.error('Install Google Chrome, or edit CHROME_CANDIDATES in resume/build.mjs.');
-	process.exit(1);
+try {
+	const pdf = readFileSync(source);
+	if (pdf.subarray(0, 5).toString() !== '%PDF-') {
+		throw new Error('The source does not have a PDF header.');
+	}
+	copyFileSync(source, output);
+	console.log(`Resume imported unchanged: ${source} -> ${output}`);
+} catch (error) {
+	console.error(`Could not import resume: ${error.message}`);
+	console.error(
+		'Build the base resume in the cv project, or pass its PDF path to npm run resume:sync.'
+	);
+	process.exitCode = 1;
 }
-
-execFileSync(
-	chrome,
-	[
-		'--headless=new',
-		'--disable-gpu',
-		'--no-pdf-header-footer',
-		`--print-to-pdf=${output}`,
-		`file://${source}`
-	],
-	{ stdio: 'inherit' }
-);
-
-console.log(`Resume built: ${path.relative(process.cwd(), output)}`);

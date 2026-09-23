@@ -1,5 +1,6 @@
-// Regenerates static/images/og-image.png from og-image/og-image.html using
-// locally installed Chrome's headless screenshot mode. No extra dependencies.
+// Regenerates the Open Graph images in static/images/ from the HTML sources in
+// this directory using locally installed Chrome's headless screenshot mode. No
+// extra dependencies.
 //
 // Usage: node og-image/build.mjs
 
@@ -9,8 +10,17 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const source = path.join(__dirname, 'og-image.html');
-const output = path.join(__dirname, '..', 'static', 'images', 'og-image.png');
+
+const IMAGES = [
+	{ source: 'og-philip.html', output: 'og-philip.png', size: '1200,630' },
+	// Project covers are rendered at 2x for sharp cards and write-up headers.
+	{
+		source: 'covers/brokerage-mcp.html',
+		output: 'projects/brokerage-mcp/cover.png',
+		size: '800,556',
+		scale: 2
+	}
+];
 
 const CHROME_CANDIDATES = [
 	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
@@ -28,16 +38,24 @@ if (!chrome) {
 	process.exit(1);
 }
 
-execFileSync(
-	chrome,
-	[
-		'--headless=new',
-		'--disable-gpu',
-		'--window-size=1200,630',
-		`--screenshot=${output}`,
-		`file://${source}`
-	],
-	{ stdio: 'inherit' }
-);
+for (const { source, output, size, scale = 1 } of IMAGES) {
+	const sourcePath = path.join(__dirname, source);
+	const outputPath = path.join(__dirname, '..', 'static', 'images', output);
 
-console.log(`OG image built: ${path.relative(process.cwd(), output)}`);
+	execFileSync(
+		chrome,
+		[
+			'--headless=new',
+			'--disable-gpu',
+			`--window-size=${size}`,
+			`--force-device-scale-factor=${scale}`,
+			'--hide-scrollbars',
+			'--virtual-time-budget=3000',
+			`--screenshot=${outputPath}`,
+			`file://${sourcePath}`
+		],
+		{ stdio: 'inherit' }
+	);
+
+	console.log(`OG image built: ${path.relative(process.cwd(), outputPath)}`);
+}

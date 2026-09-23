@@ -1,97 +1,101 @@
-# Philip Nordquist's Personal Website
+# Philip Nordquist: projects and profile
 
-Source for [philip.nordquist.me](https://philip.nordquist.me) — a single-page resume site with a
-fuller about page and a writing/projects section staged behind a feature gate until there's real
-content to publish.
+Source for [philip.nordquist.me](https://philip.nordquist.me), a personal site whose main content is
+finished side projects, each with a short write-up. A condensed resume lives at `/about`.
 
-## Technologies Used
+## The one rule
 
-- [SvelteKit 5](https://kit.svelte.dev/) — framework, SSR, routing
-- [TailwindCSS](https://tailwindcss.com/) — styling, with `@tailwindcss/typography` for post content
-- [mdsvex](https://mdsvex.pngwn.io/) — Markdown-as-Svelte-components for posts/projects
-- [Shiki](https://shiki.style/) — syntax highlighting for code blocks in posts
+Only finished projects get published. A project is ready when it can honestly fill the write-up
+template below: what it is, why it exists, a picture, and a way to try it or read the code. If a
+project is too big for that, publish a finished slice of it instead of waiting for the whole thing.
 
-## Features
+## Adding a project
 
-- Single-page resume: hero, work history, education, and a "day to day" summary, all driven by
-  `src/lib/data/workHistory.js`
-- Responsive layout with dark mode (`prefers-color-scheme`, no manual toggle)
-- View transitions on navigation (falls back silently in unsupported browsers)
-- A fuller `/about` page and a `/posts` writing section exist in the codebase but currently
-  redirect to `/`: `/about` is hidden until there's a reason to split it out from the home page,
-  and `/posts` auto-hides itself whenever every post in `src/content/posts` has
-  `published: false` in its frontmatter — flip one to `true` and the section goes live with no
-  other changes needed
-- Resume PDF and Open Graph image are generated from HTML/CSS sources via headless Chrome rather
-  than committed as opaque binaries — see [Regenerating the resume and OG image](#regenerating-the-resume-and-og-image)
+Create `src/content/projects/<slug>/+page.md`:
 
-## Project Structure
+```md
+---
+title: 'Project name'
+date: '2026-09-23' # the day it shipped; sorts the list
+summary: 'One or two sentences. Shown on the card and as the page lead.'
+tags:
+  - TypeScript
+cover: '/images/projects/<slug>/cover.jpg' # optional, 16:11 works best (e.g. 1600x1112)
+coverAlt: 'What the cover shows'
+liveUrl: 'https://…' # optional, renders "Try it"
+repoUrl: 'https://github.com/…' # optional, renders "Source on GitHub"
+published: true # anything else keeps it hidden and 404s the page
+---
 
-```
-.
-├── src/
-│   ├── lib/
-│   │   ├── components/    # Nav, Footer, JobEntry
-│   │   ├── data/          # workHistory.js — the single source for experience/education
-│   │   ├── utils/         # formatDate, readingTime, posts (frontmatter loader)
-│   │   └── site.js        # SITE_URL / OG_IMAGE constants used across svelte:head blocks
-│   ├── content/
-│   │   └── posts/         # One directory per post/project, each a +page.md with frontmatter
-│   ├── routes/
-│   │   ├── +page.svelte   # Home (the live page)
-│   │   ├── about/         # Fuller write-up; currently redirects to / (see Features)
-│   │   └── posts/         # Writing/projects index + [slug] detail pages via mdsvex
-│   ├── app.css
-│   └── app.html
-├── static/              # Images, robots.txt, resume PDF
-├── resume/              # HTML/CSS source + build script for the downloadable resume PDF
-├── og-image/            # HTML/CSS source + build script for the social preview image
-└── svelte.config.js, tailwind.config.js, vite.config.js
+Why you built it, then a few short sections: how it works, what's in it, what you learned.
+Aim for 150 to 400 words and one or two images.
 ```
 
-## Getting Started
+Put images in `static/images/projects/<slug>/`. Projects without a `cover` get a typographic
+placeholder card. The home page, `/projects/<slug>` and `sitemap.xml` pick the file up with no other
+changes.
 
-### Prerequisites
+## Stack
 
-- Node.js 18+
-- npm
+- [SvelteKit 5](https://kit.svelte.dev/) with `adapter-auto`
+- [mdsvex](https://mdsvex.pngwn.io/) for Markdown project pages, laid out by
+  `src/routes/projects/project.svelte`
+- [Shiki](https://shiki.style/) for code blocks
+- Hand-written CSS in `src/app.css` (ivory/cobalt palette, dark mode via `prefers-color-scheme`),
+  with Tailwind still available for utilities
 
-### Installation
+## Structure
 
 ```
-git clone https://github.com/c-j-p-nordquist/portfolio.git
-cd portfolio
+src/
+├── content/projects/     # One directory per finished project (+page.md)
+├── lib/
+│   ├── components/       # Nav, Footer
+│   ├── data/             # workHistory.js: profile, roles, skills, education for /about
+│   ├── utils/            # projects.js (frontmatter loader), formatDate.js
+│   └── site.js           # URL, name, email, social links, company footer details
+└── routes/
+    ├── +page.svelte      # Intro + project list
+    ├── projects/         # [slug] pages and the mdsvex layout
+    ├── about/            # Resume-style profile
+    ├── philip/, posts/   # Redirects from old URLs
+    └── sitemap.xml/
+og-image/                 # HTML sources for the social image and generated project covers
+resume/                   # Resume PDF import script
+```
+
+## Getting started
+
+```
 npm install
 npm run dev
 ```
 
 Then open `http://localhost:5173`.
 
-## Regenerating the resume and OG image
+## Resume, OG image and generated covers
 
-The downloadable resume and the social-share preview image are both built from HTML/CSS sources
-using local, headless Chrome — no puppeteer/playwright dependency, and no binary committed without
-a way to reproduce it:
+The resume PDF is maintained in the sibling `cv` project and imported unchanged:
 
 ```
-npm run resume:build     # resume/resume.html   -> static/files/pn_resume_26.pdf
-npm run og-image:build   # og-image/og-image.html -> static/images/og-image.png
+npm run resume:sync                        # ../cv/dist/base.pdf -> static/files/pn_resume_26.pdf
+npm run resume:sync -- /path/to/base.pdf   # explicit source
 ```
 
-Both scripts look for Chrome/Chromium in the usual install locations (see `CHROME_CANDIDATES` in
-each `build.mjs` if yours lives elsewhere).
+Update `src/lib/data/workHistory.js` separately when the resume content changes.
 
-## Adding a post or project
+The social preview image and any HTML-drawn project covers are rendered with local headless Chrome:
 
-Add a new directory at `src/content/posts/<slug>/+page.md` with frontmatter (`title`, `date`,
-`type`, `summary`, `published`, etc. — see any existing post for the full shape). Posts with
-`published: false` are excluded from the `/posts` index and 404 directly. Once at least one post
-is published, `/posts` stops redirecting to `/` automatically.
+```
+npm run og-image:build
+```
+
+Add a cover to the `IMAGES` list in `og-image/build.mjs` to render it from `og-image/covers/`.
 
 ## Deployment
 
-Builds via SvelteKit's `adapter-auto`, which selects the appropriate adapter for the hosting
-platform at build time. Cloudflare Web Analytics is wired into `src/app.html`.
+Builds via SvelteKit's `adapter-auto`. Cloudflare Web Analytics is wired into `src/app.html`.
+Contract work is invoiced through CJP IT Consulting AB, which appears only in the footer.
 
 ## License
 
@@ -99,7 +103,3 @@ Copyright © 2026 Philip Nordquist. All Rights Reserved.
 
 This project and its contents are proprietary and confidential. Unauthorized copying, transfer, or
 reproduction of the contents of this project, via any medium, is strictly prohibited.
-
-## Contact
-
-Philip Nordquist — philip@nordquist.me

@@ -9,6 +9,7 @@
 		"lint": "prettier --check .",
 		"format": "prettier --write .",
 		"resume:build": "node resume/build.mjs",
+		"resume:sync": "node resume/build.mjs",
 		"og-image:build": "node og-image/build.mjs"
 	},
 	"devDependencies": {
