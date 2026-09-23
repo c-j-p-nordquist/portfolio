@@ -12,8 +12,14 @@ import path from 'node:path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const IMAGES = [
-	{ source: 'og-company.html', output: 'og-company.png' },
-	{ source: 'og-philip.html', output: 'og-philip.png' }
+	{ source: 'og-philip.html', output: 'og-philip.png', size: '1200,630' },
+	// Project covers are rendered at 2x for sharp cards and write-up headers.
+	{
+		source: 'covers/brokerage-mcp.html',
+		output: 'projects/brokerage-mcp/cover.png',
+		size: '800,556',
+		scale: 2
+	}
 ];
 
 const CHROME_CANDIDATES = [
@@ -32,7 +38,7 @@ if (!chrome) {
 	process.exit(1);
 }
 
-for (const { source, output } of IMAGES) {
+for (const { source, output, size, scale = 1 } of IMAGES) {
 	const sourcePath = path.join(__dirname, source);
 	const outputPath = path.join(__dirname, '..', 'static', 'images', output);
 
@@ -41,7 +47,10 @@ for (const { source, output } of IMAGES) {
 		[
 			'--headless=new',
 			'--disable-gpu',
-			'--window-size=1200,630',
+			`--window-size=${size}`,
+			`--force-device-scale-factor=${scale}`,
+			'--hide-scrollbars',
+			'--virtual-time-budget=3000',
 			`--screenshot=${outputPath}`,
 			`file://${sourcePath}`
 		],

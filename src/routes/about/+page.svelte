@@ -1,162 +1,121 @@
 <script>
 	import { page } from '$app/stores';
-	import { workHistory, education } from '$lib/data/workHistory.js';
-	import { SITE_URL, OG_IMAGE_PHILIP } from '$lib/site.js';
+	import {
+		profile,
+		workHistory,
+		education,
+		technicalSkills,
+		languages
+	} from '$lib/data/workHistory.js';
+	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL, LINKEDIN_URL } from '$lib/site.js';
 
 	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
 </script>
 
 <svelte:head>
-	<title>About – Philip Nordquist</title>
-	<meta
-		name="description"
-		content="Background, experience, and education. Philip Nordquist, platform and DevSecOps engineer."
-	/>
+	<title>About · {NAME}</title>
+	<meta name="description" content={profile.description} />
 	<link rel="canonical" href={canonicalUrl} />
-	<meta property="og:title" content="About – Philip Nordquist" />
-	<meta property="og:description" content="Background, experience, and education." />
+	<meta property="og:title" content="About {NAME}" />
+	<meta property="og:description" content={profile.description} />
 	<meta property="og:type" content="profile" />
 	<meta property="og:url" content={canonicalUrl} />
-	<meta property="og:image" content={OG_IMAGE_PHILIP} />
-	<meta property="og:image:alt" content="Philip Nordquist — Platform & DevSecOps Engineer" />
+	<meta property="og:image" content={OG_IMAGE} />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="About – Philip Nordquist" />
-	<meta name="twitter:description" content="Background, experience, and education." />
-	<meta name="twitter:image" content={OG_IMAGE_PHILIP} />
+	<meta name="twitter:title" content="About {NAME}" />
+	<meta name="twitter:description" content={profile.description} />
+	<meta name="twitter:image" content={OG_IMAGE} />
 </svelte:head>
 
-<div class="max-w-2xl mx-auto px-6 py-16 sm:py-24">
-	<h1
-		class="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 mb-6"
-	>
-		About
-	</h1>
-	<div class="text-stone-600 dark:text-stone-400 leading-relaxed space-y-4 mb-16">
-		<p>
-			I've been working in infrastructure and operations for about 10 years now, doing everything
-			from web hosting support to running global VPN infrastructure.
-		</p>
-		<p>
-			These days that's cloud platforms, security operations, and deep networking, plus the
-			automation around all of it: Kubernetes, infrastructure as code, and observability day to day.
-			Now and then that includes wiring an LLM into a workflow where it helps cut through noisy
-			alerts, but it's a small piece next to the platform and security work.
-		</p>
-		<p>
-			Based in Mantorp, Sweden. Outside of work I'm into music, games, and the occasional side
-			project.
-		</p>
-		<a
-			href="/files/pn_resume_26.pdf"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="group inline-flex items-center gap-1 text-sm text-muted dark:text-muted-dark hover:text-stone-900 dark:hover:text-stone-300 transition-colors"
-		>
-			Download resume (PDF)
-			<svg
-				class="w-3 h-3 text-muted dark:text-muted-dark group-hover:text-stone-900 dark:group-hover:text-stone-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-				aria-hidden="true"
-				focusable="false"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-				/></svg
+<div class="site-container profile-page">
+	<section class="profile-hero fade-up">
+		<p class="eyebrow">About</p>
+		<h1>Philip<br /><span class="accent">Nordquist</span></h1>
+		<div class="profile-intro">
+			<p>{profile.title}.<br />Mantorp, Sweden.</p>
+			<div>
+				<p>{profile.summary}</p>
+				<div class="hero-actions">
+					<a
+						class="button primary"
+						href="/files/pn_resume_26.pdf"
+						target="_blank"
+						rel="noopener noreferrer">Resume (PDF) ↗</a
+					><a class="text-link" href="mailto:{EMAIL}">Email ↗</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="experience-section section-block" id="experience">
+		<div class="experience-label">
+			<p class="eyebrow">Career</p>
+			<h2>Experience</h2>
+			<a class="text-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub ↗</a
+			><a class="text-link" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"
+				>LinkedIn ↗</a
 			>
-		</a>
-	</div>
-
-	<hr class="border-stone-200 dark:border-stone-800 mb-16" />
-
-	<section class="mb-16">
-		<h2 class="text-xs font-medium uppercase tracking-widest text-muted dark:text-muted-dark mb-8">
-			Experience
-		</h2>
-		<div class="space-y-1">
-			{#each workHistory as job, i}
-				<div
-					class="-mx-4 px-4 py-5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-900/40 transition-colors"
-				>
-					<div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
-						<h3 class="font-medium text-stone-900 dark:text-stone-100">
-							{job.position}
-						</h3>
-						<span class="text-sm text-muted dark:text-muted-dark shrink-0">
-							{job.period}
-						</span>
+		</div>
+		<div class="career-list">
+			{#each workHistory as job, i}<article class="career-entry">
+					<div class="career-top">
+						<h3>{job.company}</h3>
+						<span class="eyebrow">{job.period}</span>
 					</div>
-					<p class="text-sm text-muted dark:text-muted-dark mb-3">
-						{job.company} · {job.location}
-					</p>
-					<p class="text-stone-600 dark:text-stone-400 leading-relaxed mb-3">
-						{job.description}
-					</p>
-					{#if job.highlights && job.highlights.length > 0}
-						<ul class="space-y-1.5">
-							{#each job.highlights as highlight}
-								<li
-									class="text-sm text-muted dark:text-muted-dark leading-relaxed pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-stone-300 dark:before:text-stone-700"
-								>
-									{highlight}
-								</li>
-							{/each}
-						</ul>
-					{/if}
-				</div>
-				{#if i < workHistory.length - 1}
-					<hr class="border-stone-100 dark:border-stone-800/50 mx-0" />
-				{/if}
-			{/each}
+					<h4>{job.position}</h4>
+					<p>{job.description}</p>
+					{#if job.highlights.length}<details open={i < 2}>
+							<summary>Selected contributions <span aria-hidden="true">+</span></summary>
+							<ul>
+								{#each job.highlights as highlight}<li>{highlight}</li>{/each}
+							</ul>
+						</details>{/if}
+				</article>{/each}
 		</div>
 	</section>
-
-	<hr class="border-stone-200 dark:border-stone-800 mb-16" />
-
-	<section class="mb-16">
-		<h2 class="text-xs font-medium uppercase tracking-widest text-muted dark:text-muted-dark mb-8">
-			Education
-		</h2>
-		<div class="space-y-6">
-			{#each education as edu}
-				<div>
-					<div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-						<h3 class="font-medium text-stone-900 dark:text-stone-100">
-							{edu.institution}
-						</h3>
-						<span class="text-sm text-muted dark:text-muted-dark shrink-0">
-							{edu.period}
-						</span>
-					</div>
-					<p class="text-sm text-muted dark:text-muted-dark">
-						{edu.program}
-					</p>
-				</div>
-			{/each}
+	<section class="section-block profile-skills" id="skills">
+		<div class="section-heading">
+			<h2>Technical skills</h2>
+		</div>
+		<dl class="skills-grid">
+			{#each technicalSkills as group}<div>
+					<dt>{group.category}</dt>
+					<dd>{group.skills}</dd>
+				</div>{/each}
+		</dl>
+	</section>
+	<section class="section-block profile-bottom">
+		<div>
+			<p class="eyebrow">Education</p>
+			{#each education as edu}<article class="education-entry">
+					<span class="eyebrow">{edu.period}</span>
+					<h3>{edu.institution}</h3>
+					<p>{edu.program}</p>
+				</article>{/each}
+		</div>
+		<div>
+			<p class="eyebrow">Languages</p>
+			<div class="profile-languages">
+				<p>{languages}</p>
+			</div>
+			<p class="eyebrow profile-projects-label">Projects</p>
+			<div class="profile-project">
+				<p>
+					Things I build outside of work get a short write-up on the <a class="inline-link" href="/"
+						>home page</a
+					>, once they're finished.
+				</p>
+			</div>
 		</div>
 	</section>
-
-	<hr class="border-stone-200 dark:border-stone-800 mb-16" />
-
-	<section>
-		<h2 class="text-xs font-medium uppercase tracking-widest text-muted dark:text-muted-dark mb-8">
-			Day to day
-		</h2>
-		<div class="text-stone-600 dark:text-stone-400 leading-relaxed space-y-4">
-			<p>
-				Mostly Kubernetes, Terraform, and CI/CD pipelines. I spend a lot of time in AWS, GCP, and
-				Azure. For observability I lean on Prometheus and Grafana. When something needs automating
-				I'll reach for Python, Go, or Bash depending on what fits.
-			</p>
-			<p>
-				There's security and incident work in the mix too, and I'll bring in an LLM where it
-				genuinely earns its place. Most of my LLM tinkering, though, is side projects: MCP servers,
-				agent tooling, and small AI and trading tools I build for my own use, across the OpenAI,
-				Anthropic, and Gemini APIs.
-			</p>
+	<section class="contact-panel">
+		<div class="contact-grid">
+			<div>
+				<h2>Get in touch</h2>
+				<p>Email is the best way to reach me.</p>
+			</div>
+			<a class="contact-link" href="mailto:{EMAIL}">{EMAIL} <span aria-hidden="true">↗</span></a>
 		</div>
 	</section>
 </div>

@@ -112,19 +112,6 @@ export const technicalSkills = [
 	}
 ];
 
-export const sideProjects = [
-	{
-		title: 'Interactive Brokers MCP server',
-		description:
-			'Connects AI agents to Interactive Brokers for portfolio research, with audit logging and human approval controls.'
-	},
-	{
-		title: 'LLM assistants for Telegram & Slack',
-		description:
-			'Built the API integrations, backend, and frontend, and evaluated model cost, latency, and reliability across OpenAI, Anthropic, and Gemini.'
-	}
-];
-
 export const languages = 'Swedish (native), English (fluent)';
 
 export const education = [

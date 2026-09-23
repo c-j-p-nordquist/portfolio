@@ -1,16 +1,15 @@
 import { SITE_URL } from '$lib/site.js';
-import { getPosts } from '$lib/utils/posts.js';
+import { getProjects } from '$lib/utils/projects.js';
 
 export const prerender = true;
 
-export async function GET() {
-	const posts = await getPosts();
+export function GET() {
+	const projects = getProjects();
 
 	const pages = [
-		{ path: '/', priority: '1.0' },
-		{ path: '/philip', priority: '0.8' },
-		...(posts.length ? [{ path: '/posts', priority: '0.6' }] : []),
-		...posts.map((post) => ({ path: post.path, priority: '0.5', lastmod: post.date }))
+		{ path: '/', priority: '1.0', lastmod: projects[0]?.date },
+		{ path: '/about', priority: '0.7' },
+		...projects.map((project) => ({ path: project.path, priority: '0.8', lastmod: project.date }))
 	];
 
 	const body = `<?xml version="1.0" encoding="UTF-8"?>
