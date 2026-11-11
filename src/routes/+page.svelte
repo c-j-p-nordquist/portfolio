@@ -1,11 +1,13 @@
 <script>
 	import { page } from '$app/stores';
 	import { formatDate } from '$lib/utils/formatDate';
+	import { workHistory } from '$lib/data/workHistory.js';
 	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL } from '$lib/site.js';
 
 	let { data } = $props();
 
 	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
+	const featuredRoles = workHistory.slice(0, 4);
 
 	const metaDescription =
 		'Philip Nordquist, platform and security engineer in Sweden. Small tools and apps, each with a short write-up.';
@@ -46,20 +48,26 @@
 
 <div class="site-container">
 	<section class="intro fade-up">
-		<p class="eyebrow">{NAME} <span aria-hidden="true">/</span> Mantorp, Sweden</p>
+		<p class="eyebrow">
+			{NAME} <span aria-hidden="true">/</span> Platform &amp; Security Engineer
+			<span aria-hidden="true">/</span> Mantorp, Sweden
+		</p>
 		<h1>Things I've built,<br /><span class="accent">and finished.</span></h1>
 		<div class="intro-body">
 			<p>
-				My day job is building and securing platforms. Outside of it I make small tools and apps.
-				This is where the finished ones end up, each with a short write-up of what it does and how
-				it works.
+				By day I build and secure production platforms at <strong>STIM</strong>, and previously led
+				global releases and anti-censorship engineering across 3,000+ servers at
+				<strong>ExpressVPN</strong>. Outside of work I make small tools and games—this is where the
+				finished ones end up, each with a short write-up.
 			</p>
 			<p class="intro-links">
-				<a class="text-link" href="/about">About me <span aria-hidden="true">→</span></a><a
+				<a class="text-link" href="/about">About &amp; CV <span aria-hidden="true">→</span></a><a
 					class="text-link"
-					href={GITHUB_URL}
+					href="/files/pn_resume_26.pdf"
 					target="_blank"
-					rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a
+					rel="noopener noreferrer">Resume (PDF) <span aria-hidden="true">↗</span></a
+				><a class="text-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
+					>GitHub <span aria-hidden="true">↗</span></a
 				><a class="text-link" href="mailto:{EMAIL}">Email <span aria-hidden="true">↗</span></a>
 			</p>
 		</div>
@@ -67,15 +75,17 @@
 
 	<section id="projects" class="projects-section" aria-labelledby="projects-heading">
 		<div class="section-heading">
-			<h2 id="projects-heading">Projects</h2>
-			<span class="eyebrow">{data.projects.length} shipped</span>
+			<h2 id="projects-heading">Selected projects</h2>
+			<span class="eyebrow">{String(data.projects.length).padStart(2, '0')} shipped</span>
 		</div>
 		<ol class="project-list">
 			{#each data.projects as project, i}
+				{@const num = String(i + 1).padStart(2, '0')}
 				<li class="project-card fade-up" style="--delay: {i * 80}ms">
 					<div class="project-cover" aria-hidden="true">
 						{#if project.cover}
 							<img
+								style:view-transition-name={`project-cover-${project.slug}`}
 								src={project.cover}
 								alt=""
 								width="1600"
@@ -88,16 +98,70 @@
 					</div>
 					<div class="project-text">
 						<p class="eyebrow project-meta">
+							<span class="project-index">{num}</span>
+							<span aria-hidden="true">/</span>
 							<time datetime={project.date}>{formatDate(project.date)}</time>
 							{#each project.tags ?? [] as tag}<span aria-hidden="true">/</span><span>{tag}</span
 								>{/each}
 						</p>
-						<h3><a href={project.path}>{project.title}</a></h3>
+						<h3 style:view-transition-name={`project-title-${project.slug}`}>
+							<a class="card-primary-link" href={project.path}>{project.title}</a>
+						</h3>
 						<p>{project.summary}</p>
-						<span class="text-link read-more" aria-hidden="true">Read the write-up →</span>
+						<div class="project-card-footer">
+							<span class="text-link read-more" aria-hidden="true">Read the write-up →</span>
+							{#if project.liveUrl || project.repoUrl}
+								<div class="card-direct-links">
+									{#if project.liveUrl}
+										<a
+											class="card-pill"
+											href={project.liveUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											Try live <span aria-hidden="true">↗</span>
+										</a>
+									{/if}
+									{#if project.repoUrl}
+										<a
+											class="card-pill"
+											href={project.repoUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											Source <span aria-hidden="true">↗</span>
+										</a>
+									{/if}
+								</div>
+							{/if}
+						</div>
 					</div>
 				</li>
 			{/each}
 		</ol>
+	</section>
+
+	<section class="home-career-section" aria-labelledby="career-snapshot-heading">
+		<div class="section-heading">
+			<div>
+				<p class="eyebrow">Day job &amp; track record</p>
+				<h2 id="career-snapshot-heading">Experience</h2>
+			</div>
+			<a class="text-link" href="/about"
+				>Full profile &amp; skills <span aria-hidden="true">→</span></a
+			>
+		</div>
+		<div class="home-career-ledger">
+			{#each featuredRoles as role}
+				<div class="ledger-row">
+					<div class="ledger-role">
+						<strong>{role.company}</strong>
+						<span class="ledger-position">{role.position}</span>
+					</div>
+					<p class="ledger-summary">{role.description}</p>
+					<span class="eyebrow ledger-period">{role.period}</span>
+				</div>
+			{/each}
+		</div>
 	</section>
 </div>

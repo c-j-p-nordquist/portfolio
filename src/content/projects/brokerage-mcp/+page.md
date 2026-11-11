@@ -12,6 +12,10 @@ repoUrl: 'https://github.com/c-j-p-nordquist/ai-brokerage-mcp'
 published: true
 ---
 
+<script>
+	import BrokerageMcpDemo from '$lib/components/projects/BrokerageMcpDemo.svelte';
+</script>
+
 I wanted to use Claude and Codex for portfolio reviews without handing a language model the keys to a brokerage account. The Interactive Brokers API is large, and exposing it one endpoint per tool gives an agent too many ways to do the wrong thing. So I built a small MCP server with an opinionated tool surface instead.
 
 ## Small tools, clear boundaries
@@ -19,6 +23,8 @@ I wanted to use Claude and Codex for portfolio reviews without handing a languag
 Twelve tools map to workflows rather than endpoints. `portfolio` returns the account context an agent needs before suggesting anything. `position_size` does advisory risk sizing from account value, stop distance and exposure. `submit_order` returns a dry-run bracket preview by default.
 
 Multi-step judgement lives in the client's prompts and skills. The server's job is to enforce the boundaries.
+
+<BrokerageMcpDemo />
 
 ## Safety model
 

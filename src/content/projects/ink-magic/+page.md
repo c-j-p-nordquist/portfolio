@@ -11,6 +11,10 @@ coverAlt: 'Tracing the character 山 (mountain) on a practice grid in Ink Magic'
 published: true
 ---
 
+<script>
+	import InkMagicDemo from '$lib/components/projects/InkMagicDemo.svelte';
+</script>
+
 Kids learning Chinese outside a Chinese-speaking environment get little everyday exposure to the written language. Reading comes slowly and writing comes slower. I wanted practice to feel like play rather than homework, so I built a small spellbook for the iPad.
 
 ## How it works
@@ -18,6 +22,8 @@ Kids learning Chinese outside a Chinese-speaking environment get little everyday
 A character first draws itself, stroke by stroke, on a classic 米字格 practice grid. Then it's the child's turn to trace it. Grading is forgiving for small fingers: hints appear after a couple of misses, and a stroke is never a dead end.
 
 When the last stroke lands, the ink lifts off the page. For pictographic characters the droplets scatter and reassemble into a line drawing of the meaning, so 山 becomes a mountain ridge and 火 becomes a flame.
+
+<InkMagicDemo />
 
 ![The ink of 山 breaking into droplets on its way to becoming a mountain](/images/projects/ink-magic/morph.jpg)
 

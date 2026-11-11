@@ -22,15 +22,38 @@
 		</noscript>
 
 		<script>
-			function setFavicon() {
-				const favicon = document.getElementById('favicon');
-				const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-				favicon.href = prefersDarkScheme.matches
-					? '%sveltekit.assets%/images/logos/favicon-dark.svg'
-					: '%sveltekit.assets%/images/logos/favicon-light.svg';
-			}
-			setFavicon();
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFavicon);
+			(function () {
+				const media = window.matchMedia('(prefers-color-scheme: dark)');
+				let stored = null;
+				try {
+					stored = localStorage.getItem('theme');
+				} catch {}
+				const resolved =
+					stored === 'dark' || stored === 'light' ? stored : media.matches ? 'dark' : 'light';
+				document.documentElement.dataset.theme = resolved;
+
+				function syncFavicon(theme) {
+					const favicon = document.getElementById('favicon');
+					if (!favicon) return;
+					favicon.href =
+						theme === 'dark'
+							? '%sveltekit.assets%/images/logos/favicon-dark.svg'
+							: '%sveltekit.assets%/images/logos/favicon-light.svg';
+				}
+				syncFavicon(resolved);
+
+				media.addEventListener('change', (e) => {
+					let userPref = null;
+					try {
+						userPref = localStorage.getItem('theme');
+					} catch {}
+					if (userPref !== 'dark' && userPref !== 'light') {
+						const next = e.matches ? 'dark' : 'light';
+						document.documentElement.dataset.theme = next;
+						syncFavicon(next);
+					}
+				});
+			})();
 		</script>
 
 		%sveltekit.head%

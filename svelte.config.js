@@ -2,7 +2,6 @@ import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { mdsvex, escapeSvelte } from 'mdsvex';
 import remarkUnwrapImages from 'remark-unwrap-images';
-import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
 import { visit } from 'unist-util-visit';
 import { createHighlighter } from 'shiki';
@@ -24,6 +23,48 @@ function rehypeInlineCode() {
 	};
 }
 
+// Wraps markdown images with alt text into <figure> + <figcaption> so editorial
+// descriptions are visible below each image instead of hidden in alt attributes.
+function rehypeFigureCaptions() {
+	return (tree) => {
+		// Cover image on project pages is FIG. 01, so body figures start at 02.
+		let figureIndex = 1;
+		visit(tree, 'element', (node, index, parent) => {
+			if (!parent || typeof index !== 'number' || node.tagName !== 'img') return;
+			if (parent.tagName === 'figure') return;
+
+			figureIndex += 1;
+			const alt = typeof node.properties?.alt === 'string' ? node.properties.alt.trim() : '';
+			const numLabel = `FIG. ${String(figureIndex).padStart(2, '0')}`;
+
+			const children = [node];
+			if (alt) {
+				children.push({
+					type: 'element',
+					tagName: 'figcaption',
+					properties: { className: ['project-figcaption'] },
+					children: [
+						{
+							type: 'element',
+							tagName: 'span',
+							properties: { className: ['fig-index'], 'aria-hidden': 'true' },
+							children: [{ type: 'text', value: numLabel }]
+						},
+						{ type: 'text', value: alt }
+					]
+				});
+			}
+
+			parent.children[index] = {
+				type: 'element',
+				tagName: 'figure',
+				properties: { className: ['project-figure'] },
+				children
+			};
+		});
+	};
+}
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	extensions: ['.svelte', '.md'],
@@ -38,27 +79,35 @@ const config = {
 				highlighter: async (code, lang = 'text') => {
 					if (!highlighter) {
 						highlighter = await createHighlighter({
-							themes: ['github-dark'],
+							themes: ['github-light', 'github-dark'],
 							langs: []
 						});
-						await highlighter.loadTheme('github-dark');
 					}
 
 					if (!highlighter.getLoadedLanguages().includes(lang)) {
 						try {
 							await highlighter.loadLanguage(lang);
-						} catch (error) {
+						} catch {
 							console.warn(`Failed to load language: ${lang}. Falling back to plain text.`);
 							lang = 'text';
 						}
 					}
 
-					const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: 'github-dark' }));
+					const html = escapeSvelte(
+						highlighter.codeToHtml(code, {
+							lang,
+							themes: {
+								light: 'github-light',
+								dark: 'github-dark'
+							},
+							defaultColor: false
+						})
+					);
 					return `{@html \`${html}\`}`;
 				}
 			},
-			remarkPlugins: [remarkUnwrapImages, [remarkToc, { tight: true }]],
-			rehypePlugins: [rehypeSlug, rehypeInlineCode]
+			remarkPlugins: [remarkUnwrapImages],
+			rehypePlugins: [rehypeSlug, rehypeInlineCode, rehypeFigureCaptions]
 		})
 	],
 	kit: {
