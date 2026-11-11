@@ -23,35 +23,22 @@ function rehypeInlineCode() {
 	};
 }
 
-// Wraps markdown images with alt text into <figure> + <figcaption> so editorial
-// descriptions are visible below each image instead of hidden in alt attributes.
+// Wraps markdown images with alt text into <figure> + <figcaption> so the description
+// is visible below each image instead of hidden in the alt attribute.
 function rehypeFigureCaptions() {
 	return (tree) => {
-		// Cover image on project pages is FIG. 01, so body figures start at 02.
-		let figureIndex = 1;
 		visit(tree, 'element', (node, index, parent) => {
 			if (!parent || typeof index !== 'number' || node.tagName !== 'img') return;
 			if (parent.tagName === 'figure') return;
 
-			figureIndex += 1;
 			const alt = typeof node.properties?.alt === 'string' ? node.properties.alt.trim() : '';
-			const numLabel = `FIG. ${String(figureIndex).padStart(2, '0')}`;
-
 			const children = [node];
 			if (alt) {
 				children.push({
 					type: 'element',
 					tagName: 'figcaption',
 					properties: { className: ['project-figcaption'] },
-					children: [
-						{
-							type: 'element',
-							tagName: 'span',
-							properties: { className: ['fig-index'], 'aria-hidden': 'true' },
-							children: [{ type: 'text', value: numLabel }]
-						},
-						{ type: 'text', value: alt }
-					]
+					children: [{ type: 'text', value: alt }]
 				});
 			}
 

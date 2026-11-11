@@ -10,14 +10,20 @@
 	const featuredRoles = workHistory.slice(0, 4);
 
 	// Small utilities hosted on this site. Each also answers plain text to curl.
+	// `sample` is real output, trimmed to its first and last line.
 	const tools = [
 		{
 			name: 'Lookslike',
 			kind: 'Lookalike domain scanner',
 			path: '/lookslike',
 			summary:
-				'Finds registered typo and homoglyph versions of a domain, and which of them are set up for email.',
-			usage: 'curl philip.nordquist.me/lookslike/example.se'
+				'Finds registered typo and homoglyph versions of a domain, and which of them are set up for email. Open it in a browser, or ask from a terminal.',
+			command: 'curl philip.nordquist.me/lookslike/nordquist.me',
+			sample: [
+				'lookslike nordquist.me: 250 variants, Cloudflare DNS',
+				'…',
+				'checked 22, registered 12, live 11, email 9 (0.6s)'
+			]
 		}
 	];
 
@@ -69,7 +75,7 @@
 			<p>
 				By day I build and secure production platforms at <strong>STIM</strong>, and previously led
 				global releases and anti-censorship engineering across 3,000+ servers at
-				<strong>ExpressVPN</strong>. Outside of work I make small tools and games—this is where the
+				<strong>ExpressVPN</strong>. Outside of work I make small tools and games. This is where the
 				finished ones end up, each with a short write-up.
 			</p>
 			<p class="intro-links">
@@ -87,13 +93,13 @@
 
 	<section id="projects" class="projects-section" aria-labelledby="projects-heading">
 		<div class="section-heading">
-			<h2 id="projects-heading">Selected projects</h2>
-			<span class="eyebrow">{String(data.projects.length).padStart(2, '0')} shipped</span>
+			<h2 id="projects-heading">Projects</h2>
+			<span class="eyebrow">{data.projects.length} shipped</span>
 		</div>
+
 		<ol class="project-list">
 			{#each data.projects as project, i}
-				{@const num = String(i + 1).padStart(2, '0')}
-				<li class="project-card fade-up" style="--delay: {i * 80}ms">
+				<li class="project-card">
 					<div class="project-cover" aria-hidden="true">
 						{#if project.cover}
 							<img
@@ -102,7 +108,7 @@
 								alt=""
 								width="1600"
 								height="1112"
-								loading={i ? 'lazy' : 'eager'}
+								loading={i < 3 ? 'eager' : 'lazy'}
 							/>
 						{:else}
 							<span>{project.title}</span>
@@ -110,8 +116,6 @@
 					</div>
 					<div class="project-text">
 						<p class="eyebrow project-meta">
-							<span class="project-index">{num}</span>
-							<span aria-hidden="true">/</span>
 							<time datetime={project.date}>{formatDate(project.date)}</time>
 							{#each project.tags ?? [] as tag}<span aria-hidden="true">/</span><span>{tag}</span
 								>{/each}
@@ -120,70 +124,66 @@
 							<a class="card-primary-link" href={project.path}>{project.title}</a>
 						</h3>
 						<p>{project.summary}</p>
-						<div class="project-card-footer">
-							<span class="text-link read-more" aria-hidden="true">Read the write-up →</span>
-							{#if project.liveUrl || project.repoUrl}
-								<div class="card-direct-links">
-									{#if project.liveUrl}
-										<a
-											class="card-pill"
-											href={project.liveUrl}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											Try live <span aria-hidden="true">↗</span>
-										</a>
-									{/if}
-									{#if project.repoUrl}
-										<a
-											class="card-pill"
-											href={project.repoUrl}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											Source <span aria-hidden="true">↗</span>
-										</a>
-									{/if}
-								</div>
-							{/if}
-						</div>
+						{#if project.liveUrl || project.repoUrl}
+							<div class="card-direct-links">
+								{#if project.liveUrl}
+									<a
+										class="card-pill"
+										href={project.liveUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Try live <span aria-hidden="true">↗</span>
+									</a>
+								{/if}
+								{#if project.repoUrl}
+									<a
+										class="card-pill"
+										href={project.repoUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Source <span aria-hidden="true">↗</span>
+									</a>
+								{/if}
+							</div>
+						{/if}
 					</div>
 				</li>
 			{/each}
 		</ol>
 	</section>
 
-	<section class="home-career-section home-tools-section" aria-labelledby="tools-heading">
+	<section id="tools" class="tools-section" aria-labelledby="tools-heading">
 		<div class="section-heading">
-			<div>
-				<p class="eyebrow">Browser &amp; terminal</p>
-				<h2 id="tools-heading">Tools</h2>
-			</div>
+			<h2 id="tools-heading">Tools</h2>
+			<span class="eyebrow">Browser or curl</span>
 		</div>
-		<div class="home-career-ledger">
+
+		<ul class="tool-list">
 			{#each tools as tool}
-				<a class="ledger-row tool-row" href={tool.path}>
-					<div class="ledger-role">
-						<strong>{tool.name}</strong>
-						<span class="ledger-position">{tool.kind}</span>
+				<li class="tool-card">
+					<div class="tool-text">
+						<h3><a class="card-primary-link" href={tool.path}>{tool.name}</a></h3>
+						<p class="tool-kind">{tool.kind}</p>
+						<p>{tool.summary}</p>
 					</div>
-					<p class="ledger-summary">{tool.summary}</p>
-					<code class="tool-usage">$ {tool.usage}</code>
-				</a>
+					<pre class="tool-terminal"><code
+							><i>$ </i><b>{tool.command}</b>{'\n' + tool.sample.join('\n')}</code
+						></pre>
+				</li>
 			{/each}
-		</div>
+		</ul>
 	</section>
 
 	<section class="home-career-section" aria-labelledby="career-snapshot-heading">
 		<div class="section-heading">
-			<div>
-				<p class="eyebrow">Day job &amp; track record</p>
-				<h2 id="career-snapshot-heading">Experience</h2>
-			</div>
+			<h2 id="career-snapshot-heading">Experience</h2>
 			<a class="text-link" href="/about"
 				>Full profile &amp; skills <span aria-hidden="true">→</span></a
 			>
 		</div>
+
 		<div class="home-career-ledger">
 			{#each featuredRoles as role}
 				<div class="ledger-row">

@@ -184,7 +184,7 @@
 	<div class="specimen-header">
 		<div>
 			<p class="eyebrow">
-				Interactive specimen <span aria-hidden="true">/</span> Light-avoidant pathfinding
+				Try it <span aria-hidden="true">/</span> Light-avoidant pathfinding
 			</p>
 			<p class="specimen-sub">
 				Foes never cross firepots and detour around lamplight unless walled in.

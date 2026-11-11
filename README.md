@@ -51,13 +51,15 @@ src/
 ├── content/projects/     # One directory per finished project (+page.md)
 ├── lib/
 │   ├── components/       # Nav, Footer
+│   ├── lookalike/        # Variant generation and DNS lookups shared by page and endpoint
 │   ├── data/             # workHistory.js: profile, roles, skills, education for /about
 │   ├── utils/            # projects.js (frontmatter loader), formatDate.js
 │   └── site.js           # URL, name, email, social links, company footer details
 └── routes/
-    ├── +page.svelte      # Intro + project list
+    ├── +page.svelte      # Intro, project grid, tools, experience
     ├── projects/         # [slug] pages and the mdsvex layout
     ├── about/            # Resume-style profile
+    ├── lookslike/        # Lookalike domain scanner: page for browsers, text/JSON for curl
     ├── philip/, posts/   # Redirects from old URLs
     └── sitemap.xml/
 og-image/                 # HTML sources for the social image and generated project covers

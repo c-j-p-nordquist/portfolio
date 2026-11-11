@@ -338,8 +338,8 @@
 
 	.ll-form {
 		margin-top: 44px;
-		padding: 28px 0;
-		border-block: 1px solid var(--line);
+		padding-top: 28px;
+		border-top: 1px solid var(--line);
 		display: flex;
 		flex-direction: column;
 		gap: 20px;

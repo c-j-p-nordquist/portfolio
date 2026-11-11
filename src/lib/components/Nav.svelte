@@ -32,6 +32,7 @@
 			<a
 				href="/#projects"
 				aria-current={path === '/' || path.startsWith('/projects') ? 'page' : undefined}>Projects</a
+			><a href="/#tools" aria-current={path.startsWith('/lookslike') ? 'page' : undefined}>Tools</a
 			><a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a><button
 				type="button"
 				class="theme-toggle"

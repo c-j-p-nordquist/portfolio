@@ -100,7 +100,7 @@
 	<div class="mcp-header">
 		<div>
 			<p class="eyebrow">
-				Interactive specimen <span aria-hidden="true">/</span> Tool boundary &amp; dry-run gate
+				Try it <span aria-hidden="true">/</span> Tool boundary &amp; dry-run gate
 			</p>
 			<p class="mcp-sub">
 				Compare how the 12-tool surface handles read context, risk sizing, and order submission.

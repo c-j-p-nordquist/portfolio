@@ -125,7 +125,7 @@
 	<div class="ink-header">
 		<div>
 			<p class="eyebrow">
-				Interactive specimen <span aria-hidden="true">/</span> Practice grid &amp; reveal
+				Try it <span aria-hidden="true">/</span> Practice grid &amp; reveal
 			</p>
 			<p class="ink-sub">
 				Tap the 米字格 grid to trace each stroke and trigger the pictograph reveal.
