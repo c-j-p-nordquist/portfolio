@@ -9,6 +9,18 @@
 	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
 	const featuredRoles = workHistory.slice(0, 4);
 
+	// Small utilities hosted on this site. Each also answers plain text to curl.
+	const tools = [
+		{
+			name: 'Lookslike',
+			kind: 'Lookalike domain scanner',
+			path: '/lookslike',
+			summary:
+				'Finds registered typo and homoglyph versions of a domain, and which of them are set up for email.',
+			usage: 'curl philip.nordquist.me/lookslike/example.se'
+		}
+	];
+
 	const metaDescription =
 		'Philip Nordquist, platform and security engineer in Sweden. Small tools and apps, each with a short write-up.';
 
@@ -139,6 +151,27 @@
 				</li>
 			{/each}
 		</ol>
+	</section>
+
+	<section class="home-career-section home-tools-section" aria-labelledby="tools-heading">
+		<div class="section-heading">
+			<div>
+				<p class="eyebrow">Browser &amp; terminal</p>
+				<h2 id="tools-heading">Tools</h2>
+			</div>
+		</div>
+		<div class="home-career-ledger">
+			{#each tools as tool}
+				<a class="ledger-row tool-row" href={tool.path}>
+					<div class="ledger-role">
+						<strong>{tool.name}</strong>
+						<span class="ledger-position">{tool.kind}</span>
+					</div>
+					<p class="ledger-summary">{tool.summary}</p>
+					<code class="tool-usage">$ {tool.usage}</code>
+				</a>
+			{/each}
+		</div>
 	</section>
 
 	<section class="home-career-section" aria-labelledby="career-snapshot-heading">

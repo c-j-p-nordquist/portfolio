@@ -498,6 +498,22 @@ h3 {
 	white-space: nowrap;
 }
 
+/* Home: tools (reuses the ledger rows) */
+.home-tools-section {
+	padding-bottom: 60px;
+}
+.tool-row:hover strong {
+	color: var(--blue);
+}
+.tool-usage {
+	font:
+		12px/1.6 'Geist Mono',
+		ui-monospace,
+		monospace;
+	color: var(--muted);
+	overflow-wrap: anywhere;
+}
+
 /* Project page: Asymmetric 2-Column Dossier */
 .project-page {
 	padding: 52px 0 72px;

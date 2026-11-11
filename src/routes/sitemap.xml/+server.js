@@ -9,6 +9,7 @@ export function GET() {
 	const pages = [
 		{ path: '/', priority: '1.0', lastmod: projects[0]?.date },
 		{ path: '/about', priority: '0.7' },
+		{ path: '/lookslike', priority: '0.6' },
 		...projects.map((project) => ({ path: project.path, priority: '0.8', lastmod: project.date }))
 	];
 
