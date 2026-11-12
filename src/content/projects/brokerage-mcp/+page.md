@@ -2,6 +2,8 @@
 title: 'Brokerage MCP server'
 date: '2026-05-07'
 summary: 'An MCP server that lets AI agents review an Interactive Brokers account and prepare orders, with dry-run previews, an audit log and human approval before anything trades.'
+kind: 'MCP server'
+pitch: 'I wanted to use AI agents for portfolio reviews without handing a language model the keys to a brokerage account. So the agent can look and prepare orders, and a human approves before anything trades.'
 tags:
   - Python
   - MCP

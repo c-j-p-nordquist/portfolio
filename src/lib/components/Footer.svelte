@@ -20,9 +20,7 @@
 <footer class="site-footer">
 	<div class="site-container footer-inner">
 		<div>
-			<a class="footer-brand" href="/">philip.</a><span
-				>&copy; {new Date().getFullYear()} {NAME}</span
-			>
+			<a class="footer-brand" href="/">{NAME}</a><span>&copy; {new Date().getFullYear()}</span>
 		</div>
 		<span>{COMPANY_NAME} <span aria-hidden="true">·</span> Org.nr {ORG_NUMBER}</span><span
 			>{time ? `Mantorp, Sweden · ${time} local` : 'Mantorp, Sweden'}</span

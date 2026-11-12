@@ -1,6 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import { formatDate } from '$lib/utils/formatDate';
 	import { SITE_URL, OG_IMAGE, NAME } from '$lib/site.js';
 
 	let {
@@ -8,6 +7,8 @@
 		date,
 		summary,
 		tags = [],
+		kind,
+		stats = [],
 		cover,
 		coverAlt,
 		repoUrl,
@@ -15,11 +16,18 @@
 		slug = '',
 		prevProject = null,
 		nextProject = null,
+		firstProject = null,
 		children
 	} = $props();
 
 	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
 	let ogImage = $derived(cover ? SITE_URL + cover : OG_IMAGE);
+
+	// The way out is the next (older) project; from the oldest, loop back to the newest.
+	let onward = $derived(nextProject ?? firstProject);
+
+	const formatMonth = (value) =>
+		new Date(value).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' });
 </script>
 
 <svelte:head>
@@ -38,44 +46,35 @@
 </svelte:head>
 
 <article class="site-container project-page">
-	<header class="project-header fade-up">
-		<a class="text-link back-link" href="/#projects"
-			><span aria-hidden="true">←</span> All projects</a
-		>
+	<header class="project-header">
+		<p class="band-kind">
+			{kind ?? tags[0] ?? 'Project'}, <time datetime={date}>{formatMonth(date)}</time>
+		</p>
 		<h1 style:view-transition-name={slug ? `project-title-${slug}` : undefined}>{title}</h1>
 		<p class="project-lead">{summary}</p>
-
-		<div class="project-facts">
-			<p class="eyebrow project-meta">
-				<time datetime={date}>Shipped {formatDate(date)}</time>
-				{#each tags as tag}<span aria-hidden="true">/</span><span>{tag}</span>{/each}
-			</p>
-			{#if liveUrl || repoUrl}
-				<div class="project-actions">
-					{#if liveUrl}
-						<a class="button primary" href={liveUrl} target="_blank" rel="noopener noreferrer">
-							<span>Try it live</span>
-							<span aria-hidden="true">↗</span>
-						</a>
-					{/if}
-					{#if repoUrl}
-						<a
-							class={liveUrl ? 'button secondary' : 'button primary'}
-							href={repoUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<span>Source on GitHub</span>
-							<span aria-hidden="true">↗</span>
-						</a>
-					{/if}
-				</div>
-			{/if}
-		</div>
+		{#if liveUrl || repoUrl}
+			<div class="project-actions">
+				{#if liveUrl}
+					<a class="button primary" href={liveUrl} target="_blank" rel="noopener noreferrer">
+						Try it now
+					</a>
+				{/if}
+				{#if repoUrl}
+					<a
+						class={liveUrl ? 'button secondary' : 'button primary'}
+						href={repoUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Source on GitHub
+					</a>
+				{/if}
+			</div>
+		{/if}
 	</header>
 
 	{#if cover}
-		<figure class="project-hero-figure fade-up">
+		<figure class="project-hero-figure">
 			<img
 				class="project-hero-image"
 				style:view-transition-name={slug ? `project-cover-${slug}` : undefined}
@@ -84,35 +83,30 @@
 				width="1600"
 				height="1112"
 			/>
-			{#if coverAlt}
-				<figcaption class="project-figcaption">{coverAlt}</figcaption>
-			{/if}
 		</figure>
+	{/if}
+
+	{#if stats.length}
+		<dl class="project-stats">
+			{#each stats as stat}
+				<div>
+					<dt>{stat.label}</dt>
+					<dd>{stat.value}</dd>
+				</div>
+			{/each}
+		</dl>
 	{/if}
 
 	<div class="project-body">
 		{@render children()}
 	</div>
-
-	<footer class="project-footer" aria-label="Project navigation">
-		<div class="project-Adjacent">
-			{#if prevProject}
-				<a class="adjacent-card" href={prevProject.path}>
-					<span class="eyebrow"><span aria-hidden="true">←</span> Newer project</span>
-					<strong>{prevProject.title}</strong>
-				</a>
-			{/if}
-			{#if nextProject}
-				<a class="adjacent-card next" href={nextProject.path}>
-					<span class="eyebrow">Older project <span aria-hidden="true">→</span></span>
-					<strong>{nextProject.title}</strong>
-				</a>
-			{/if}
-		</div>
-		<div class="project-footer-back">
-			<a class="text-link" href="/#projects"
-				><span aria-hidden="true">←</span> Back to all projects</a
-			>
-		</div>
-	</footer>
 </article>
+
+{#if onward}
+	<a class="world world-{onward.slug} next-band" href={onward.path}>
+		<span class="site-container next-band-inner">
+			<span>{nextProject ? 'Next finished thing' : 'Back to the newest'}</span>
+			<strong>{onward.title}</strong>
+		</span>
+	</a>
+{/if}

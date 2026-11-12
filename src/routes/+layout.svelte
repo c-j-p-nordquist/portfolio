@@ -3,8 +3,16 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { onNavigate } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	let { children } = $props();
+
+	// A project write-up takes over the whole page, nav and footer included.
+	let world = $derived(
+		$page.route.id === '/projects/[slug]' && $page.params.slug
+			? `world world-${$page.params.slug}`
+			: ''
+	);
 
 	onNavigate((navigation) => {
 		if (
@@ -23,7 +31,7 @@
 </script>
 
 <a class="skip-link" href="#main-content">Skip to content</a>
-<div class="min-h-screen flex flex-col">
+<div class="min-h-screen flex flex-col {world}">
 	<Nav />
 	<main id="main-content" class="flex-grow">{@render children()}</main>
 	<Footer />

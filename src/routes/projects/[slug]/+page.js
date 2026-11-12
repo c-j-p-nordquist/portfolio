@@ -26,6 +26,7 @@ export async function load({ params }) {
 			index: currentIndex !== -1 ? currentIndex + 1 : 1,
 			total: allProjects.length,
 			prevProject,
+			firstProject: currentIndex > 0 ? allProjects[0] : null,
 			nextProject
 		}
 	};

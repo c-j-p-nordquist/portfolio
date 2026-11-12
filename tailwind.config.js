@@ -5,7 +5,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+				sans: ['Schibsted Grotesk', 'system-ui', '-apple-system', 'sans-serif'],
 				mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
 			},
 			colors: {

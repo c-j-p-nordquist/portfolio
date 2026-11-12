@@ -1,6 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import { formatDate } from '$lib/utils/formatDate';
 	import { workHistory } from '$lib/data/workHistory.js';
 	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL } from '$lib/site.js';
 
@@ -9,15 +8,30 @@
 	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
 	const featuredRoles = workHistory.slice(0, 4);
 
+	const formatMonth = (date) =>
+		new Date(date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' });
+
 	// Small utilities hosted on this site. Each also answers plain text to curl.
 	// `sample` is real output, trimmed to its first and last line.
 	const tools = [
 		{
 			name: 'Lookslike',
-			kind: 'Lookalike domain scanner',
 			path: '/lookslike',
 			summary:
-				'Finds registered typo and homoglyph versions of a domain, and which of them are set up for email. Open it in a browser, or ask from a terminal.',
+				'A small tool on this site. It finds registered typo and homoglyph versions of a domain, and which of them are set up for email. Open it in a browser, or ask from a terminal.',
+			action: 'Try it on your domain',
+			// Decoration only: the kind of lookalikes the tool hunts for.
+			real: 'nordquist.me',
+			variants: [
+				'nordqu1st.me',
+				'n0rdquist.me',
+				'nordquist.me',
+				'nordquíst.me',
+				'nordquist.rne',
+				'norqduist.me',
+				'nordquist.co',
+				'nοrdquist.me'
+			],
 			command: 'curl philip.nordquist.me/lookslike/nordquist.me',
 			sample: [
 				'lookslike nordquist.me: 250 variants, Cloudflare DNS',
@@ -64,137 +78,124 @@
 	{@html personJsonLdScript}
 </svelte:head>
 
-<div class="site-container">
-	<section class="intro fade-up">
-		<p class="eyebrow">
-			{NAME} <span aria-hidden="true">/</span> Platform &amp; Security Engineer
-			<span aria-hidden="true">/</span> Mantorp, Sweden
-		</p>
-		<h1>Things I've built,<br /><span class="accent">and finished.</span></h1>
-		<div class="intro-body">
-			<p>
-				By day I build and secure production platforms at <strong>STIM</strong>, and previously led
-				global releases and anti-censorship engineering across 3,000+ servers at
-				<strong>ExpressVPN</strong>. Outside of work I make small tools and games. This is where the
-				finished ones end up, each with a short write-up.
-			</p>
-			<p class="intro-links">
-				<a class="text-link" href="/about">About &amp; CV <span aria-hidden="true">→</span></a><a
-					class="text-link"
-					href="/files/pn_resume_26.pdf"
-					target="_blank"
-					rel="noopener noreferrer">Resume (PDF) <span aria-hidden="true">↗</span></a
-				><a class="text-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
-					>GitHub <span aria-hidden="true">↗</span></a
-				><a class="text-link" href="mailto:{EMAIL}">Email <span aria-hidden="true">↗</span></a>
-			</p>
-		</div>
-	</section>
+<section class="site-container home-intro">
+	<h1 class="sr-only">{NAME}</h1>
+	<p>
+		Hello, I'm Philip. I am a platform and security engineer in Sweden, and outside of work I make
+		small tools and games. I tend to start projects that are too big, so this page only shows the
+		ones I finished. Each one gets to decorate its own part of the page.
+	</p>
+</section>
 
-	<section id="projects" class="projects-section" aria-labelledby="projects-heading">
-		<div class="section-heading">
-			<h2 id="projects-heading">Projects</h2>
-			<span class="eyebrow">{data.projects.length} shipped</span>
-		</div>
-
-		<ol class="project-list">
-			{#each data.projects as project, i}
-				<li class="project-card">
-					<div class="project-cover" aria-hidden="true">
-						{#if project.cover}
-							<img
-								style:view-transition-name={`project-cover-${project.slug}`}
-								src={project.cover}
-								alt=""
-								width="1600"
-								height="1112"
-								loading={i < 3 ? 'eager' : 'lazy'}
-							/>
-						{:else}
-							<span>{project.title}</span>
-						{/if}
-					</div>
-					<div class="project-text">
-						<p class="eyebrow project-meta">
-							<time datetime={project.date}>{formatDate(project.date)}</time>
-							{#each project.tags ?? [] as tag}<span aria-hidden="true">/</span><span>{tag}</span
-								>{/each}
-						</p>
-						<h3 style:view-transition-name={`project-title-${project.slug}`}>
-							<a class="card-primary-link" href={project.path}>{project.title}</a>
-						</h3>
-						<p>{project.summary}</p>
-						{#if project.liveUrl || project.repoUrl}
-							<div class="card-direct-links">
-								{#if project.liveUrl}
-									<a
-										class="card-pill"
-										href={project.liveUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Try live <span aria-hidden="true">↗</span>
-									</a>
-								{/if}
-								{#if project.repoUrl}
-									<a
-										class="card-pill"
-										href={project.repoUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Source <span aria-hidden="true">↗</span>
-									</a>
-								{/if}
-							</div>
-						{/if}
-					</div>
-				</li>
-			{/each}
-		</ol>
-	</section>
-
-	<section id="tools" class="tools-section" aria-labelledby="tools-heading">
-		<div class="section-heading">
-			<h2 id="tools-heading">Tools</h2>
-			<span class="eyebrow">Browser or curl</span>
-		</div>
-
-		<ul class="tool-list">
-			{#each tools as tool}
-				<li class="tool-card">
-					<div class="tool-text">
-						<h3><a class="card-primary-link" href={tool.path}>{tool.name}</a></h3>
-						<p class="tool-kind">{tool.kind}</p>
-						<p>{tool.summary}</p>
-					</div>
-					<pre class="tool-terminal"><code
-							><i>$ </i><b>{tool.command}</b>{'\n' + tool.sample.join('\n')}</code
-						></pre>
-				</li>
-			{/each}
-		</ul>
-	</section>
-
-	<section class="home-career-section" aria-labelledby="career-snapshot-heading">
-		<div class="section-heading">
-			<h2 id="career-snapshot-heading">Experience</h2>
-			<a class="text-link" href="/about"
-				>Full profile &amp; skills <span aria-hidden="true">→</span></a
-			>
-		</div>
-
-		<div class="home-career-ledger">
-			{#each featuredRoles as role}
-				<div class="ledger-row">
-					<div class="ledger-role">
-						<strong>{role.company}</strong>
-						<span class="ledger-position">{role.position}</span>
-					</div>
-					<p class="ledger-summary">{role.description}</p>
-					<span class="eyebrow ledger-period">{role.period}</span>
+<div id="projects">
+	{#each data.projects as project, i}
+		<section class="world world-{project.slug} band" aria-labelledby="project-{project.slug}">
+			<div class="site-container band-inner">
+				<div class="band-media">
+					{#if project.slug === 'ink-magic'}
+						<div class="practice-grid" aria-hidden="true"><span>山</span></div>
+					{/if}
+					{#if project.cover}
+						<img
+							style:view-transition-name={`project-cover-${project.slug}`}
+							src={project.cover}
+							alt={project.coverAlt ?? ''}
+							width="1600"
+							height="1112"
+							loading={i < 2 ? 'eager' : 'lazy'}
+						/>
+					{/if}
 				</div>
-			{/each}
-		</div>
-	</section>
+				<div class="band-text">
+					<p class="band-kind">
+						{project.kind ?? project.tags?.[0] ?? 'Project'},
+						<time datetime={project.date}>{formatMonth(project.date)}</time>
+					</p>
+					<h2
+						id="project-{project.slug}"
+						style:view-transition-name={`project-title-${project.slug}`}
+					>
+						<a href={project.path}>{project.title}</a>
+					</h2>
+					<p class="band-pitch">{project.pitch ?? project.summary}</p>
+					{#if project.slug === 'brokerage-mcp'}
+						<div class="ticket">
+							<p class="ticket-head"><span>ORDER TICKET</span><span>DEMO</span></p>
+							<dl>
+								<div>
+									<dt>requested by</dt>
+									<dd>AI agent</dd>
+								</div>
+								<div>
+									<dt>mode</dt>
+									<dd>dry run</dd>
+								</div>
+								<div>
+									<dt>audit log</dt>
+									<dd>written</dd>
+								</div>
+								<div>
+									<dt>approval</dt>
+									<dd>waiting for a human</dd>
+								</div>
+							</dl>
+							<p class="ticket-stamp">NOTHING TRADES YET</p>
+						</div>
+					{/if}
+					<p class="band-links">
+						{#if project.liveUrl}
+							<a href={project.liveUrl} target="_blank" rel="noopener noreferrer">Try it now</a>
+						{/if}
+						<a href={project.path}>Read the write-up</a>
+						{#if project.repoUrl}
+							<a href={project.repoUrl} target="_blank" rel="noopener noreferrer">Source</a>
+						{/if}
+					</p>
+				</div>
+			</div>
+		</section>
+	{/each}
 </div>
+
+<div id="tools">
+	{#each tools as tool}
+		<section class="world band band-tool" aria-labelledby="tool-{tool.name}">
+			<div class="site-container band-inner">
+				{#if tool.variants}
+					<p class="tool-variants" aria-hidden="true">
+						{#each tool.variants as variant}
+							<span class:real={variant === tool.real}>{variant}</span>
+						{/each}
+					</p>
+				{/if}
+				<div class="band-text">
+					<h2 id="tool-{tool.name}"><a href={tool.path}>{tool.name}</a></h2>
+					<p class="band-pitch">{tool.summary}</p>
+					<p class="band-links"><a href={tool.path}>{tool.action}</a></p>
+				</div>
+				<pre class="tool-terminal"><code
+						><i>$ </i><b>{tool.command}</b>{'\n' + tool.sample.join('\n')}</code
+					></pre>
+			</div>
+		</section>
+	{/each}
+</div>
+
+<section class="site-container day-job" aria-labelledby="day-job-heading">
+	<div class="day-job-text">
+		<h2 id="day-job-heading">And the day job</h2>
+		<p>
+			I build and secure the production platform at STIM. Before that I led global releases and
+			anti-censorship engineering across 3,000+ servers at ExpressVPN.
+		</p>
+		<a href="/about">About and CV</a>
+	</div>
+	<ul class="role-list">
+		{#each featuredRoles as role}
+			<li>
+				<span><strong>{role.company}</strong>, {role.position}</span>
+				<span>{role.period}</span>
+			</li>
+		{/each}
+	</ul>
+</section>

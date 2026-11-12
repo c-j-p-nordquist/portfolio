@@ -2,6 +2,15 @@
 title: 'Where the Light Holds'
 date: '2026-09-25'
 summary: 'A maze tower-defense for desktop browsers that is easy to get started with. No install or account, and the next wave only starts when you send it.'
+kind: 'A game for desktop browsers'
+pitch: 'I wanted a tower defense I could leave open beside other work, so there is no clock. You build a maze out of firepots, foes avoid the light, and the next wave only starts when you send it.'
+stats:
+  - value: '30'
+    label: 'waves'
+  - value: '9'
+    label: 'towers'
+  - value: '1'
+    label: 'map, The Moor'
 tags:
   - TypeScript
   - Canvas

@@ -2,6 +2,15 @@
 title: 'Ink Magic'
 date: '2026-08-01'
 summary: 'An iPad app that teaches kids to write Chinese characters. Trace a character stroke by stroke, and the ink turns into what it means.'
+kind: 'iPad app'
+pitch: 'I wanted writing practice to feel like play rather than homework, so I built a small spellbook for the iPad. Kids trace a Chinese character stroke by stroke, and the ink turns into what it means.'
+stats:
+  - value: '107'
+    label: 'characters'
+  - value: '17'
+    label: 'chapters'
+  - value: '3'
+    label: 'games in the play corner'
 tags:
   - TypeScript
   - iPad
