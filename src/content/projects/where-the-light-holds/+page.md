@@ -3,20 +3,20 @@ title: 'Where the Light Holds'
 date: '2026-09-25'
 summary: 'A maze tower-defense for desktop browsers that is easy to get started with. No install or account, and the next wave only starts when you send it.'
 kind: 'A game for desktop browsers'
-pitch: 'I wanted a tower defense I could leave open beside other work, so there is no clock. You build a maze out of firepots, foes avoid the light, and the next wave only starts when you send it.'
+pitch: 'I wanted a tower defense I could leave open beside other work, so there is no clock. You build a maze out of firepots, some foes jump it and some fly over it, and the next wave only starts when you send it.'
 stats:
-  - value: '30'
-    label: 'waves'
+  - value: '40'
+    label: 'waves in 5 chapters'
   - value: '9'
     label: 'towers'
-  - value: '1'
-    label: 'map, The Moor'
+  - value: '4'
+    label: 'maps'
 tags:
   - TypeScript
   - Canvas
   - Game
 cover: '/images/projects/where-the-light-holds/cover.jpg'
-coverAlt: 'A wave of dark foes with pale eyes entering a winding maze of firepot walls, with tower lights along the lanes'
+coverAlt: 'A green moor seen from above, with rows of firepots forming a maze, towers beside the lanes and a line of dark foes walking through it'
 liveUrl: 'https://where-the-light-holds.philip-bd6.workers.dev'
 published: true
 ---
@@ -27,11 +27,13 @@ published: true
 
 I wanted a tower defense game for myself, something easy to get started with that I could play in a browser on the side while doing other work. So there is no clock. You decide when the next wave starts, and you can leave the game sitting between waves for as long as you like.
 
-You build a maze out of firepots, which foes won't cross, and place towers whose lamplight is their reach. Foes avoid light when they can, so where you put light shapes their path. There are 30 waves, nine towers and one map, The Moor.
+You build a maze out of firepots and place towers along it. Foes take the shortest way to your hall, so a longer road gives your towers more time. Then the game starts bending that rule. Hounds jump over firepots and only a tower stops them. Wraiths fly straight to the hall, where catapults can't reach them.
+
+There are 40 waves in five chapters, nine towers and four maps. Each chapter brings in one new idea, mixes it with everything before it, and ends with a boss built around that idea.
 
 <LightHoldsDemo />
 
-The look is dusk fog with towers as lights in the dark. A light's colour shows its damage type, and foes are dark silhouettes with pale eyes.
+The first version was set at night, and foes avoided the light of your towers. It looked good but played badly: the towers needed foes close, and the rule pushed them away. I replaced it with a daylight board that is easier to read, and with the jumpers and flyers.
 
 ## Under the hood
 

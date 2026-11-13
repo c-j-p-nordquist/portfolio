@@ -5,15 +5,21 @@
 	const ROWS = 5;
 	const START = { r: 2, c: 0 };
 	const GOAL = { r: 2, c: COLS - 1 };
+	/** What a leap over one firepot costs a jumper, in steps. */
+	const LEAP_COST = 3;
 
-	let tool = $state('tower'); // 'firepot' | 'tower'
+	const DEFAULT_POTS = ['0,3', '1,3', '2,3', '3,3', '1,6', '3,6', '4,6'];
+	const DEFAULT_TOWERS = ['2,6'];
 
-	// Initial layout that already shows foes bending around lantern light
-	let firepots = $state(new Set(['1,2', '2,2', '2,6', '3,6']));
-	let towers = $state(new Set(['1,4']));
+	let tool = $state('firepot'); // 'firepot' | 'tower'
+
+	// Two firepot walls with a tower set into the second one: walkers wind round both,
+	// jumpers leap the first and have to find a firepot to leap in the second.
+	let firepots = $state(new Set(DEFAULT_POTS));
+	let towers = $state(new Set(DEFAULT_TOWERS));
 	let waveActive = $state(false);
 	let foeStep = $state(0);
-	let statusNote = $state('Click any tile on the Moor to place or remove a tower or firepot.');
+	let statusNote = $state('Click any tile to place or remove a firepot or a tower.');
 
 	function key(r, c) {
 		return `${r},${c}`;
@@ -23,29 +29,8 @@
 		return (r === START.r && c === START.c) || (r === GOAL.r && c === GOAL.c);
 	}
 
-	function getLitTiles(towerSet) {
-		const lit = new Map();
-		for (const item of towerSet) {
-			const [tr, tc] = item.split(',').map(Number);
-			for (let dr = -1; dr <= 1; dr++) {
-				for (let dc = -1; dc <= 1; dc++) {
-					if (dr === 0 && dc === 0) continue;
-					const nr = tr + dr;
-					const nc = tc + dc;
-					if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS) {
-						const k = key(nr, nc);
-						const dist = Math.abs(dr) + Math.abs(dc);
-						const intensity = dist === 1 ? 2 : 1;
-						lit.set(k, Math.max(lit.get(k) ?? 0, intensity));
-					}
-				}
-			}
-		}
-		return lit;
-	}
-
-	function findPath(potSet, towerSet) {
-		const lit = getLitTiles(towerSet);
+	/** Cheapest way across. Towers block everyone; firepots block walkers and cost jumpers a leap. */
+	function findPath(potSet, towerSet, jumper) {
 		const dist = Array.from({ length: ROWS }, () => Array(COLS).fill(Infinity));
 		const prev = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
 		const visited = Array.from({ length: ROWS }, () => Array(COLS).fill(false));
@@ -81,11 +66,10 @@
 				const nc = bestC + dc;
 				if (nr < 0 || nr >= ROWS || nc < 0 || nc >= COLS) continue;
 				const k = key(nr, nc);
-				if (potSet.has(k) || towerSet.has(k)) continue;
+				if (towerSet.has(k)) continue;
+				if (potSet.has(k) && !jumper) continue;
 
-				// Foes strongly prefer dark tiles over lit tiles
-				const lightLevel = lit.get(k) ?? 0;
-				const stepCost = 1 + lightLevel * 3.2;
+				const stepCost = potSet.has(k) ? LEAP_COST : 1;
 				const cand = dist[bestR][bestC] + stepCost;
 				if (cand < dist[nr][nc]) {
 					dist[nr][nc] = cand;
@@ -105,12 +89,11 @@
 		return path.reverse();
 	}
 
-	let litMap = $derived(getLitTiles(towers));
-	let currentPath = $derived(findPath(firepots, towers) ?? []);
-	let pathSet = $derived(new Set(currentPath.map((p) => key(p.r, p.c))));
-	let litStepsCount = $derived(
-		currentPath.filter((p) => (litMap.get(key(p.r, p.c)) ?? 0) > 0).length
-	);
+	let walkPath = $derived(findPath(firepots, towers, false) ?? []);
+	let leapPath = $derived(findPath(firepots, towers, true) ?? []);
+	let walkIndex = $derived(new Map(walkPath.map((p, i) => [key(p.r, p.c), i])));
+	let leapIndex = $derived(new Map(leapPath.map((p, i) => [key(p.r, p.c), i])));
+	let leaps = $derived(leapPath.filter((p) => firepots.has(key(p.r, p.c))).length);
 
 	function toggleTile(r, c) {
 		if (isEndpoint(r, c)) return;
@@ -124,7 +107,7 @@
 			nextTowers.delete(k);
 			firepots = nextPots;
 			towers = nextTowers;
-			statusNote = 'Cleared tile — path recalculated.';
+			statusNote = 'Cleared the tile.';
 			return;
 		}
 
@@ -134,9 +117,8 @@
 			nextTowers.add(k);
 		}
 
-		const testPath = findPath(nextPots, nextTowers);
-		if (!testPath) {
-			statusNote = 'Foes need at least one open lane across the Moor.';
+		if (!findPath(nextPots, nextTowers, false)) {
+			statusNote = 'Walkers need one open way to the hall.';
 			return;
 		}
 
@@ -144,28 +126,28 @@
 		towers = nextTowers;
 		statusNote =
 			tool === 'tower'
-				? 'Placed lantern tower — foes bend away from its lamplight.'
-				: 'Placed firepot wall — lane blocked.';
+				? 'Placed a tower. Nothing gets past it.'
+				: 'Placed a firepot. Walkers go round; jumpers may leap it.';
 	}
 
 	function sendWave() {
-		if (waveActive || currentPath.length === 0) return;
+		if (waveActive || walkPath.length === 0) return;
 		waveActive = true;
 		foeStep = 0;
 	}
 
 	function resetBoard() {
-		firepots = new Set(['1,2', '2,2', '2,6', '3,6']);
-		towers = new Set(['1,4']);
+		firepots = new Set(DEFAULT_POTS);
+		towers = new Set(DEFAULT_TOWERS);
 		waveActive = false;
 		foeStep = 0;
-		statusNote = 'Reset to default lane.';
+		statusNote = 'Reset.';
 	}
 
 	onMount(() => {
 		const id = setInterval(() => {
 			if (!waveActive) return;
-			if (foeStep < currentPath.length + 2) {
+			if (foeStep < Math.max(walkPath.length, leapPath.length) + 2) {
 				foeStep += 1;
 			} else {
 				waveActive = false;
@@ -184,28 +166,29 @@
 	<div class="specimen-header">
 		<div>
 			<p class="eyebrow">
-				Try it <span aria-hidden="true">/</span> Light-avoidant pathfinding
+				Try it <span aria-hidden="true">/</span> Walkers and jumpers
 			</p>
 			<p class="specimen-sub">
-				Foes never cross firepots and detour around lamplight unless walled in.
+				Walkers go round firepots. Jumpers leap them when the way round is longer. Only a tower
+				stops both.
 			</p>
 		</div>
 		<div class="specimen-controls">
 			<button
 				type="button"
 				class="spec-chip"
-				class:active={tool === 'tower'}
-				onclick={() => (tool = 'tower')}
+				class:active={tool === 'firepot'}
+				onclick={() => (tool = 'firepot')}
 			>
-				<span class="dot tower-dot" aria-hidden="true"></span> Lantern tower
+				<span class="dot pot-dot" aria-hidden="true"></span> Firepot
 			</button>
 			<button
 				type="button"
 				class="spec-chip"
-				class:active={tool === 'firepot'}
-				onclick={() => (tool = 'firepot')}
+				class:active={tool === 'tower'}
+				onclick={() => (tool = 'tower')}
 			>
-				<span class="dot pot-dot" aria-hidden="true"></span> Firepot wall
+				<span class="dot tower-dot" aria-hidden="true"></span> Tower
 			</button>
 			<button type="button" class="spec-chip action" onclick={sendWave} disabled={waveActive}>
 				{waveActive ? 'Wave in motion…' : 'Send wave →'}
@@ -222,47 +205,52 @@
 				{@const isGoal = r === GOAL.r && c === GOAL.c}
 				{@const hasPot = firepots.has(k)}
 				{@const hasTower = towers.has(k)}
-				{@const light = litMap.get(k) ?? 0}
-				{@const onPath = pathSet.has(k)}
-				{@const pathIdx = currentPath.findIndex((p) => p.r === r && p.c === c)}
-				{@const hasFoe =
-					waveActive &&
-					pathIdx !== -1 &&
-					(pathIdx === foeStep || pathIdx === foeStep - 2 || pathIdx === foeStep - 4)}
+				{@const walkIdx = walkIndex.get(k) ?? -1}
+				{@const leapIdx = leapIndex.get(k) ?? -1}
+				{@const hasWalker = waveActive && walkIdx !== -1 && walkIdx === foeStep}
+				{@const hasJumper = waveActive && leapIdx !== -1 && leapIdx === foeStep}
 				<button
 					type="button"
 					class="moor-tile"
-					class:lit-1={light === 1}
-					class:lit-2={light === 2}
-					class:on-path={onPath}
 					class:has-pot={hasPot}
 					class:has-tower={hasTower}
 					disabled={isStart || isGoal}
 					onclick={() => toggleTile(r, c)}
 					aria-label="Row {r + 1}, Column {c + 1}{hasTower
-						? ', Lantern tower'
+						? ', Tower'
 						: hasPot
-							? ', Firepot'
-							: onPath
-								? ', Foe path'
-								: ''}"
+							? leapIdx !== -1
+								? ', Firepot, jumpers leap here'
+								: ', Firepot'
+							: walkIdx !== -1
+								? ', Walker path'
+								: leapIdx !== -1
+									? ', Jumper path'
+									: ''}"
 				>
 					{#if isStart}
-						<span class="tile-tag">SPAWN</span>
+						<span class="tile-tag">GATE</span>
 					{:else if isGoal}
-						<span class="tile-tag">HOLD</span>
+						<span class="tile-tag">HALL</span>
 					{:else if hasTower}
 						<span class="tower-glyph" aria-hidden="true">✦</span>
 					{:else if hasPot}
 						<span class="pot-glyph" aria-hidden="true">▪</span>
 					{/if}
 
-					{#if hasFoe}
+					{#if hasJumper}
+						<span class="foe-silhouette jumper" class:leaping={hasPot} aria-hidden="true">
+							<span class="foe-eye"></span><span class="foe-eye"></span>
+						</span>
+					{:else if hasWalker}
 						<span class="foe-silhouette" aria-hidden="true">
 							<span class="foe-eye"></span><span class="foe-eye"></span>
 						</span>
-					{:else if onPath && !isStart && !isGoal}
-						<span class="path-crumb" aria-hidden="true"></span>
+					{:else if !isStart && !isGoal && (walkIdx !== -1 || leapIdx !== -1)}
+						<span class="crumbs" aria-hidden="true">
+							{#if walkIdx !== -1}<span class="path-crumb"></span>{/if}
+							{#if leapIdx !== -1}<span class="path-crumb leap"></span>{/if}
+						</span>
 					{/if}
 				</button>
 			{/each}
@@ -272,8 +260,10 @@
 	<div class="specimen-footer">
 		<span class="eyebrow">{statusNote}</span>
 		<span class="eyebrow">
-			Route: {currentPath.length} tiles <span aria-hidden="true">/</span> Lit exposure: {litStepsCount}
-			{litStepsCount === 1 ? 'tile' : 'tiles'}
+			<span class="legend walk" aria-hidden="true"></span> Walkers: {walkPath.length} tiles
+			<span aria-hidden="true">/</span>
+			<span class="legend leap" aria-hidden="true"></span> Jumpers: {leapPath.length} tiles, {leaps}
+			{leaps === 1 ? 'leap' : 'leaps'}
 		</span>
 	</div>
 </div>
@@ -348,14 +338,13 @@
 		border-radius: 999px;
 	}
 	.tower-dot {
-		background: #f5b942;
-		box-shadow: 0 0 6px #f5b942;
+		background: #9aa6b1;
 	}
 	.pot-dot {
 		background: #d96b43;
 	}
 	.moor-board {
-		background: #141716;
+		background: #3d5a3a;
 		padding: 18px;
 		display: grid;
 		grid-template-columns: repeat(9, minmax(0, 1fr));
@@ -365,8 +354,8 @@
 		aspect-ratio: 1.25 / 1;
 		min-height: 40px;
 		border-radius: 4px;
-		border: 1px solid #252b28;
-		background: #1b201e;
+		border: 1px solid #4f7049;
+		background: #557a4d;
 		position: relative;
 		display: grid;
 		place-items: center;
@@ -378,23 +367,15 @@
 			transform 0.1s;
 	}
 	.moor-tile:hover:not(:disabled) {
-		border-color: #5b6861;
-	}
-	.moor-tile.lit-1 {
-		background: radial-gradient(circle, rgba(245, 185, 66, 0.22), rgba(27, 32, 30, 0.95));
-		border-color: rgba(245, 185, 66, 0.35);
-	}
-	.moor-tile.lit-2 {
-		background: radial-gradient(circle, rgba(245, 185, 66, 0.38), rgba(35, 34, 24, 0.95));
-		border-color: rgba(245, 185, 66, 0.55);
+		border-color: #dfe9d2;
 	}
 	.moor-tile.has-tower {
-		background: radial-gradient(circle, rgba(251, 205, 92, 0.55), #252218);
-		border-color: #f5b942;
+		background: #7b8791;
+		border-color: #c9d2da;
 	}
 	.moor-tile.has-pot {
-		background: #271f1c;
-		border-color: #9e5236;
+		background: #4a6a44;
+		border-color: #c8693f;
 	}
 	.tile-tag {
 		font:
@@ -402,35 +383,61 @@
 			ui-monospace,
 			monospace;
 		letter-spacing: 0.08em;
-		color: #9aa59e;
+		color: #eef3e6;
 	}
 	.tower-glyph {
-		color: #ffd670;
+		color: #fff3cf;
 		font-size: 16px;
-		text-shadow: 0 0 10px #f5b942;
 	}
 	.pot-glyph {
-		color: #e0744a;
+		color: #ff9a5c;
 		font-size: 15px;
 	}
-	.path-crumb {
+	.crumbs {
+		position: absolute;
+		inset: auto 0 5px 0;
+		display: flex;
+		justify-content: center;
+		gap: 4px;
+	}
+	.moor-tile:not(.has-pot) .crumbs {
+		inset: 0;
+		align-items: center;
+	}
+	.path-crumb,
+	.legend {
 		width: 6px;
 		height: 6px;
 		border-radius: 999px;
-		background: #7da2ff;
-		opacity: 0.75;
+		background: #f4e7b0;
+	}
+	.path-crumb.leap,
+	.legend.leap {
+		background: #f4a03c;
+	}
+	.legend {
+		display: inline-block;
+		vertical-align: middle;
 	}
 	.foe-silhouette {
 		width: 20px;
 		height: 20px;
 		border-radius: 999px;
 		background: #090b0a;
-		border: 1.5px solid #8eabff;
+		border: 1.5px solid #f4e7b0;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		gap: 3px;
-		box-shadow: 0 0 10px rgba(142, 171, 255, 0.5);
+		position: relative;
+		z-index: 1;
+	}
+	.foe-silhouette.jumper {
+		border-color: #f4a03c;
+	}
+	.foe-silhouette.leaping {
+		transform: translateY(-7px) scale(1.1);
+		box-shadow: 0 9px 6px -4px rgba(0, 0, 0, 0.45);
 	}
 	.foe-eye {
 		width: 3px;
