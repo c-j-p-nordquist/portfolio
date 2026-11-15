@@ -19,6 +19,12 @@ const IMAGES = [
 		output: 'projects/brokerage-mcp/cover.png',
 		size: '800,556',
 		scale: 2
+	},
+	{
+		source: 'covers/gitops-bootstrap.html',
+		output: 'projects/gitops-bootstrap/cover.png',
+		size: '800,556',
+		scale: 2
 	}
 ];
 

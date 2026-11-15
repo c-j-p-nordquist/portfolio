@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			* {
+				margin: 0;
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				width: 800px;
+				height: 556px;
+			}
+			body {
+				background: #0c1626;
+				background-image: linear-gradient(#16263d 1px, transparent 1px),
+					linear-gradient(90deg, #16263d 1px, transparent 1px);
+				background-size: 28px 28px;
+				display: grid;
+				place-items: center;
+				font-family: 'Geist Mono', ui-monospace, monospace;
+			}
+			.window {
+				width: 668px;
+				background: #111f33;
+				border: 1px solid #2c4160;
+				border-radius: 10px;
+				box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+				overflow: hidden;
+			}
+			.bar {
+				display: flex;
+				align-items: center;
+				gap: 7px;
+				padding: 13px 16px;
+				border-bottom: 1px solid #2c4160;
+			}
+			.bar i {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: #2c4160;
+			}
+			.bar span {
+				margin-left: 10px;
+				font-size: 11px;
+				color: #8fa3bd;
+				letter-spacing: 0.5px;
+			}
+			.bar b {
+				margin-left: auto;
+				font-weight: 400;
+				font-size: 10px;
+				color: #6fe3b1;
+				border: 1px solid #2f6f5a;
+				border-radius: 3px;
+				padding: 2px 7px;
+				letter-spacing: 1px;
+			}
+			.log {
+				padding: 22px 24px 26px;
+				font-size: 13px;
+				line-height: 1.75;
+				color: #dce6f2;
+			}
+			.cmd {
+				color: #8fa3bd;
+			}
+			.cmd b {
+				font-weight: 500;
+				color: #dce6f2;
+			}
+			.meta {
+				color: #8fa3bd;
+				margin-bottom: 14px;
+			}
+			.row {
+				display: flex;
+				gap: 14px;
+			}
+			.row b {
+				flex: none;
+				width: 44px;
+				font-weight: 500;
+			}
+			.pass b {
+				color: #6fe3b1;
+			}
+			.fail b {
+				color: #ff8f73;
+			}
+			.fail {
+				color: #f3d5cc;
+			}
+			.total {
+				margin-top: 14px;
+				padding-top: 12px;
+				border-top: 1px dashed #2c4160;
+				display: flex;
+				justify-content: space-between;
+				color: #8fa3bd;
+			}
+			.total b {
+				font-weight: 500;
+				color: #dce6f2;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="window">
+			<div class="bar">
+				<i></i><i></i><i></i><span>akd verify · context "default"</span><b>READ-ONLY</b>
+			</div>
+			<div class="log">
+				<div class="cmd">$ <b>akd verify --context default</b></div>
+				<div class="meta">Installed: argo-cd</div>
+				<div class="row pass">
+					<b>PASS</b><span>Every running image is pinned in the lock</span>
+				</div>
+				<div class="row pass">
+					<b>PASS</b><span>Namespaces enforce restricted Pod Security</span>
+				</div>
+				<div class="row pass"><b>PASS</b><span>No platform service is exposed</span></div>
+				<div class="row fail"><b>FAIL</b><span>Namespaces deny all traffic by default</span></div>
+				<div class="row fail"><b>FAIL</b><span>Argo CD's admin account is disabled</span></div>
+				<div class="row fail"><b>FAIL</b><span>Argo CD's default project allows nothing</span></div>
+				<div class="total"><b>3 of 6 checks passed</b><span>exit 4</span></div>
+			</div>
+		</div>
+	</body>
+</html>
