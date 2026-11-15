@@ -80,14 +80,9 @@
 
 <section class="site-container home-intro">
 	<h1 class="sr-only">{NAME}</h1>
-	<p>Hello, I'm Philip. DevSecOps Engineer at STIM, in Sweden.</p>
 	<p>
-		Kubernetes platforms, GitOps and security. I like infrastructure where no single part can take
-		the rest down, and each one can be replaced or rebuilt on its own.
-	</p>
-	<p>
-		Outside of work I build smaller tools, apps and games. These are a few I've enjoyed making
-		lately.
+		I work with infrastructure and security in Sweden, and build smaller tools, apps and games on
+		the side. Here are a few recent ones.
 	</p>
 </section>
 

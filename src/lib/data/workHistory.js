@@ -4,7 +4,7 @@ export const profile = {
 	description:
 		'Philip Nordquist, platform and security engineer in Mantorp, Sweden. Previously Staff Operations Engineer at ExpressVPN.',
 	summary:
-		'I’m an engineer with a decade of experience across infrastructure, platforms, networks and security. Most of my work comes down to finding gaps in security, reliability, usability or cost and closing them. Today I do that at STIM, and before that I did it as Staff Operations Engineer at ExpressVPN.'
+		'Over the last ten years I’ve worked with infrastructure, networks, Kubernetes and security. Most of my work is finding weak spots in how systems are built or run and fixing them. Today I’m at STIM, and before that I was Staff Operations Engineer at ExpressVPN.'
 };
 
 export const workHistory = [
