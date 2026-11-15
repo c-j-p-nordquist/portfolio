@@ -128,7 +128,7 @@
 				Try it <span aria-hidden="true">/</span> Practice grid &amp; reveal
 			</p>
 			<p class="ink-sub">
-				Tap the 米字格 grid to trace each stroke and trigger the pictograph reveal.
+				Tap the 米字格 grid to write each stroke. After the last one, the ink turns into a drawing.
 			</p>
 		</div>
 		<div class="ink-tabs">
@@ -216,7 +216,7 @@
 			</div>
 
 			<div class="vocab-list">
-				<p class="eyebrow">Example words unlocked on reveal</p>
+				<p class="eyebrow">Example words, shown after the reveal</p>
 				<div class="vocab-cards">
 					{#each active.words as w}
 						<div class="vocab-card" class:unlocked={isRevealed}>

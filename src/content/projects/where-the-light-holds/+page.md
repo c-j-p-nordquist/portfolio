@@ -1,9 +1,9 @@
 ---
 title: 'Where the Light Holds'
 date: '2026-09-25'
-summary: 'A maze tower-defense for desktop browsers that is easy to get started with. No install or account, and the next wave only starts when you send it.'
-kind: 'A game for desktop browsers'
-pitch: 'I wanted a tower defense I could leave open beside other work, so there is no clock. You build a maze out of firepots, some foes jump it and some fly over it, and the next wave only starts when you send it.'
+summary: 'A maze tower defense game for desktop browsers. There is no install, account or timer between waves: you build the maze at your own pace and send the next wave when you are ready.'
+kind: 'Game for desktop browsers'
+pitch: 'A tower defense game made to sit open beside other work. There is no clock: you build a maze out of firepots, some foes jump it and some fly over it, and the next wave only starts when you send it.'
 stats:
   - value: '40'
     label: 'waves in 5 chapters'
@@ -25,15 +25,15 @@ published: true
 	import LightHoldsDemo from '$lib/components/projects/LightHoldsDemo.svelte';
 </script>
 
-I wanted a tower defense game for myself, something easy to get started with that I could play in a browser on the side while doing other work. So there is no clock. You decide when the next wave starts, and you can leave the game sitting between waves for as long as you like.
+I made this game for myself: something quick to pick up that I could keep open in a browser tab alongside other work. Between waves the board sits still for as long as you like, so you can lay out a maze, step away and send the next wave when you come back.
 
-You build a maze out of firepots and place towers along it. Foes take the shortest way to your hall, so a longer road gives your towers more time. Then the game starts bending that rule. Hounds jump over firepots and only a tower stops them. Wraiths fly straight to the hall, where catapults can't reach them.
+You build the maze out of firepots and place towers along it. Foes take the shortest path to your hall, so a longer road gives your towers more time to work. Later chapters start bending that rule: hounds jump over firepots unless a tower blocks them, and wraiths fly straight to the hall where catapults can't reach them.
 
-There are 40 waves in five chapters, nine towers and four maps. Each chapter brings in one new idea, mixes it with everything before it, and ends with a boss built around that idea.
+There are 40 waves in five chapters, nine towers and four maps. Each chapter brings in one new idea, mixes it with everything before it and ends with a boss built around that idea.
 
 <LightHoldsDemo />
 
-The first version was set at night, and foes avoided the light of your towers. It looked good but played badly: the towers needed foes close, and the rule pushed them away. I replaced it with a daylight board that is easier to read, and with the jumpers and flyers.
+The first version was set at night, and foes avoided the light of your towers. It looked good but played badly: the towers needed foes close, and the rule pushed them away. I replaced it with a daylight board that's much easier to read, and used jumpers and flyers to keep the pathfinding interesting.
 
 ## Under the hood
 

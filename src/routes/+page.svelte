@@ -18,7 +18,7 @@
 			name: 'Lookslike',
 			path: '/lookslike',
 			summary:
-				'A small tool on this site. It finds registered typo and homoglyph versions of a domain, and which of them are set up for email. Open it in a browser, or ask from a terminal.',
+				'Checks which typo and lookalike versions of a domain are already registered, and which of those can send or receive email. Run it in the browser or from a terminal with curl.',
 			action: 'Try it on your domain',
 			// Decoration only: the kind of lookalikes the tool hunts for.
 			real: 'nordquist.me',
@@ -42,7 +42,7 @@
 	];
 
 	const metaDescription =
-		'Philip Nordquist, platform and security engineer in Sweden. Small tools and apps, each with a short write-up.';
+		'Philip Nordquist, platform and security engineer in Sweden. Selected side projects, each with a short write-up.';
 
 	const personJsonLd = JSON.stringify({
 		'@context': 'https://schema.org',
@@ -80,10 +80,14 @@
 
 <section class="site-container home-intro">
 	<h1 class="sr-only">{NAME}</h1>
+	<p>Hello, I'm Philip. DevSecOps Engineer at STIM, in Sweden.</p>
 	<p>
-		Hello, I'm Philip. I am a platform and security engineer in Sweden, and outside of work I make
-		small tools and games. I tend to start projects that are too big, so this page only shows the
-		ones I finished. Each one gets to decorate its own part of the page.
+		Kubernetes platforms, GitOps and security. I like infrastructure where no single part can take
+		the rest down, and each one can be replaced or rebuilt on its own.
+	</p>
+	<p>
+		Outside of work I build smaller tools, apps and games. These are a few I've enjoyed making
+		lately.
 	</p>
 </section>
 
@@ -144,7 +148,7 @@
 					{/if}
 					<p class="band-links">
 						{#if project.liveUrl}
-							<a href={project.liveUrl} target="_blank" rel="noopener noreferrer">Try it now</a>
+							<a href={project.liveUrl} target="_blank" rel="noopener noreferrer">Try it</a>
 						{/if}
 						<a href={project.path}>Read the write-up</a>
 						{#if project.repoUrl}
@@ -185,10 +189,12 @@
 	<div class="day-job-text">
 		<h2 id="day-job-heading">And the day job</h2>
 		<p>
-			I build and secure the production platform at STIM. Before that I led global releases and
-			anti-censorship engineering across 3,000+ servers at ExpressVPN.
+			At STIM, I built the Kubernetes platform that runs our production applications and now split
+			my time between the platform and security monitoring. Before that I was at ExpressVPN, leading
+			weekly releases across 3,000+ VPN servers and working to keep the service reachable in
+			censored regions.
 		</p>
-		<a href="/about">About and CV</a>
+		<a href="/about">About and resume</a>
 	</div>
 	<ul class="role-list">
 		{#each featuredRoles as role}

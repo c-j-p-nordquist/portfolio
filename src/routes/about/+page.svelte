@@ -102,9 +102,10 @@
 			<p class="eyebrow profile-projects-label">Projects</p>
 			<div class="profile-project">
 				<p>
-					Things I build outside of work get a short write-up on the <a class="inline-link" href="/"
-						>home page</a
-					>, once they're finished.
+					Side projects I build outside of work get a short write-up on the <a
+						class="inline-link"
+						href="/">home page</a
+					>.
 				</p>
 			</div>
 		</div>

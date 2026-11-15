@@ -3,7 +3,7 @@ title: 'Ink Magic'
 date: '2026-08-01'
 summary: 'An iPad app that teaches kids to write Chinese characters. Trace a character stroke by stroke, and the ink turns into what it means.'
 kind: 'iPad app'
-pitch: 'I wanted writing practice to feel like play rather than homework, so I built a small spellbook for the iPad. Kids trace a Chinese character stroke by stroke, and the ink turns into what it means.'
+pitch: 'Made for kids learning to write Chinese without much of the language around them. They trace a character stroke by stroke and the ink turns into a drawing of what it means, so practice feels more like play than homework.'
 stats:
   - value: '107'
     label: 'characters'
@@ -28,9 +28,9 @@ Kids learning Chinese outside a Chinese-speaking environment get little everyday
 
 ## How it works
 
-A character first draws itself, stroke by stroke, on a classic 米字格 practice grid. Then it's the child's turn to trace it. Grading is forgiving for small fingers: hints appear after a couple of misses, and a stroke is never a dead end.
+A character first draws itself, stroke by stroke, on a classic 米字格 practice grid. Then it's the child's turn to trace it. Grading is forgiving for small fingers: hints appear after a couple of misses, and a wrong stroke is never a dead end.
 
-When the last stroke lands, the ink lifts off the page. For pictographic characters the droplets scatter and reassemble into a line drawing of the meaning, so 山 becomes a mountain ridge and 火 becomes a flame.
+When the last stroke lands, the ink lifts off the page. For pictographic characters, the droplets scatter and reassemble into a line drawing of the meaning, so 山 becomes a mountain ridge and 火 becomes a flame.
 
 <InkMagicDemo />
 
@@ -51,9 +51,9 @@ Each reveal also offers up to two real words that use the character, plus an exa
 
 ![The chapter map, where each chapter opens once most of the previous one is written](/images/projects/ink-magic/map.jpg)
 
-## One rule that mattered
+## One picture per reveal
 
-Every reveal shows one clear picture: either the ink drawing or an emoji scene, never both at once. Small children do better with one thing to look at than with a collage, and cutting features to follow that rule made the app better.
+Every reveal shows one clear picture: either the ink drawing or an emoji scene, never both at once. Small children do better with one thing to look at than with a collage, and the app got easier to follow once I cut the features that broke that rule.
 
 ## Under the hood
 

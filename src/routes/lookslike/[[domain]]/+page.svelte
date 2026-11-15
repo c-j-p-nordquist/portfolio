@@ -14,7 +14,7 @@
 
 	const title = 'Lookalike domain scanner';
 	const description =
-		'Find registered typo and homoglyph variants of your domain, and which of them are set up for email. Runs in your browser over DNS-over-HTTPS, or from a terminal with curl.';
+		'Find registered typo and lookalike variants of your domain, and which of them are set up for email. Runs in your browser over DNS-over-HTTPS, or from a terminal with curl.';
 	const host = SITE_URL.replace(/^https?:\/\//, '');
 
 	// /lookslike/example.se, /lookslike?domain=example.se and /lookslike?example.se all prefill.
@@ -129,7 +129,7 @@
 		<p class="eyebrow">
 			Tool <span aria-hidden="true">/</span> DNS <span aria-hidden="true">/</span> Phishing defence
 		</p>
-		<h1>Who else looks<br /><span class="accent">like your domain?</span></h1>
+		<h1>Lookalike<br /><span class="accent">domain scanner</span></h1>
 		<p class="ll-lede">
 			Enter a domain to see which typo and lookalike versions of it are already registered, and
 			which of those can send or receive email. The scan runs in your browser; the only requests go
@@ -263,7 +263,7 @@
 			<p class="eyebrow">From a terminal</p>
 			<h2>Works with curl</h2>
 			<p>
-				The same address answers in plain text when the request does not come from a browser. Add
+				The same address answers in plain text when the request doesn't come from a browser. Add
 				<code>?format=json</code> for JSON, or call it with no domain for the options.
 			</p>
 			<pre><code>curl {host}/lookslike/{curlTarget}</code></pre>
@@ -283,7 +283,7 @@
 					resolver for each one's name servers.
 				</li>
 				<li>
-					A registered domain is not proof of bad intent. Many are parked by resellers, or belong to
+					A registered domain isn't proof of bad intent. Many are parked by resellers, or belong to
 					an unrelated company with a similar name.
 				</li>
 				<li>

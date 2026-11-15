@@ -56,7 +56,7 @@
 			<div class="project-actions">
 				{#if liveUrl}
 					<a class="button primary" href={liveUrl} target="_blank" rel="noopener noreferrer">
-						Try it now
+						Try it
 					</a>
 				{/if}
 				{#if repoUrl}
@@ -105,7 +105,7 @@
 {#if onward}
 	<a class="world world-{onward.slug} next-band" href={onward.path}>
 		<span class="site-container next-band-inner">
-			<span>{nextProject ? 'Next finished thing' : 'Back to the newest'}</span>
+			<span>{nextProject ? 'Next project' : 'Back to the newest'}</span>
 			<strong>{onward.title}</strong>
 		</span>
 	</a>

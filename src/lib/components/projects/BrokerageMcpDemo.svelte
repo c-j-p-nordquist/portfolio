@@ -9,7 +9,7 @@
   include_risk_metrics: true
 })`,
 			checks: [
-				{ ok: true, label: 'Read-only tool — no mutation possible' },
+				{ ok: true, label: 'Read-only tool, nothing can be changed' },
 				{ ok: true, label: 'Aggregates account cash, exposure & open legs' }
 			],
 			responseDemo: `{
@@ -103,7 +103,8 @@
 				Try it <span aria-hidden="true">/</span> Tool boundary &amp; dry-run gate
 			</p>
 			<p class="mcp-sub">
-				Compare how the 12-tool surface handles read context, risk sizing, and order submission.
+				Three of the twelve tools: one reads the account, one calculates a position size, one
+				submits an order.
 			</p>
 		</div>
 		<div class="mode-switch" role="group" aria-label="Broker mode">
