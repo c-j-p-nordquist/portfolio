@@ -25,6 +25,12 @@ const IMAGES = [
 		output: 'projects/gitops-bootstrap/cover.png',
 		size: '800,556',
 		scale: 2
+	},
+	{
+		source: 'covers/trading-copilot.html',
+		output: 'projects/trading-copilot/cover.png',
+		size: '800,556',
+		scale: 2
 	}
 ];
 

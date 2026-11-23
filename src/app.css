@@ -337,6 +337,21 @@ h3 {
 	color-scheme: dark;
 }
 
+.world-trading-copilot {
+	--paper: #e6ebf0;
+	--ink: #142030;
+	--muted: #46566a;
+	--line: #bcc7d3;
+	--blue: #c9531f;
+	--panel: #ffffff;
+	--body-font: 'Schibsted Grotesk', system-ui, sans-serif;
+	--display-font: 'Instrument Serif', Georgia, serif;
+	--display-weight: 400;
+	--display-tracking: -0.01em;
+	--body-scale: 1.04;
+	color-scheme: light;
+}
+
 /* Home: intro */
 .home-intro {
 	padding: 56px 0 64px;
@@ -571,6 +586,22 @@ h3 {
 }
 .world-gitops-bootstrap .project-stats dd {
 	font-size: 72px;
+}
+
+/* World details: Trading Co-Pilot */
+.world-trading-copilot .band h2 {
+	font-size: clamp(44px, 6vw, 84px);
+	line-height: 0.98;
+}
+.world-trading-copilot .band-media img,
+.world-trading-copilot .project-hero-image {
+	border-radius: 18px;
+}
+.world-trading-copilot .project-header h1 {
+	font-size: clamp(48px, 8vw, 108px);
+}
+.world-trading-copilot .project-stats dd {
+	font-size: 80px;
 }
 
 /* Home: tools hosted on this site */
@@ -832,7 +863,9 @@ h3 {
 .world-ink-magic .shiki,
 .world-ink-magic .shiki span,
 .world-brokerage-mcp .shiki,
-.world-brokerage-mcp .shiki span {
+.world-brokerage-mcp .shiki span,
+.world-trading-copilot .shiki,
+.world-trading-copilot .shiki span {
 	color: var(--shiki-light) !important;
 }
 .world-where-the-light-holds .shiki,
