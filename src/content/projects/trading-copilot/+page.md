@@ -1,14 +1,14 @@
 ---
 title: 'Trading Co-Pilot'
 date: '2026-11-23'
-summary: 'A headless AI agent daemon that watches my Interactive Brokers positions, sector rotation and overnight futures, talks to me in stateful Slack threads, red-teams ideas with a second model and stages orders via MCP for mobile approval.'
+summary: 'A service on my Mac that watches my Interactive Brokers positions, sector rotation and overnight futures, messages me on Slack when something needs a decision and stages orders in IBKR Mobile for me to approve.'
 kind: 'Phone-first AI trading agent'
-pitch: "A service on my Mac that pairs deterministic market math with headless AI agents over MCP. Plain Python watches levels, sector rotation and overnight futures; when something matters, an agent checks live broker data, decides whether to message my phone on Slack, and stages an order in IBKR Mobile for me to approve or challenge with a second model."
+pitch: 'Plain Python watches my positions, sector rotation and overnight futures. When something matters, an AI agent checks live data from my broker, decides whether it is worth a message on my phone and can stage an order in IBKR Mobile. I approve it, ignore it or ask a second model to argue against it.'
 stats:
   - value: '2'
-    label: 'models (primary + red-team)'
+    label: 'models, one as a critic'
   - value: '2'
-    label: 'MCP servers (broker + account)'
+    label: 'MCP servers'
   - value: '0'
     label: 'orders it can send on its own'
 tags:
@@ -24,40 +24,42 @@ published: true
 
 This started as an SPX signal bot. It read the S&P 500 option chain, worked out where dealers' gamma exposure was likely to pin or push the index and posted paper signals to Slack. Over a few weeks it grew into a desktop terminal with live charts, option chains and one-click trading. That made me watch screens more, which was the opposite of what I wanted from it.
 
-So I turned it around. The heavy lifting now runs as a background agent daemon, and the place I meet it is a Slack thread on my phone.
+So I turned it around. Most of the work now happens in the background, and I deal with it in Slack threads on my phone.
 
-## Deterministic math, structured agent judgement
+## Python does the maths, the agent decides
 
-The service separates calculation from judgement into two layers. The first is plain Python running on a market-aware schedule: it clusters support and resistance from swing points, moving averages, VWAP and gamma walls, computes Black-Scholes Greeks and option spreads, checks headlines and macro events, and tracks each open position through a small state machine (`monitoring`, `testing`, then `rejected` or `broken out`).
+The first layer is plain Python on a schedule that follows market hours. It finds support and resistance from swing points, moving averages, VWAP and gamma levels, prices option spreads with Black-Scholes, checks headlines and macro events and follows each open position through a small state machine: `monitoring`, `testing`, then `rejected` or `broken out`.
 
-Only when that layer trips does a language model wake up. Rather than wrapping a raw chat API, the daemon drives a headless agent CLI with strict JSON schemas (`--json-schema`) and tiered reasoning effort — higher for briefings and trade decisions, lighter for quick thread replies and broker syncs. Every trigger passes through an explicit decision gate (`notify_and_stage`, `notify_only` or `veto_silent`). Noisy triggers are dropped silently; real ones become two to five plain sentences: what happened, why it matters, what I could do and what it is watching next. If the agent CLI is ever unreachable, critical stop and exit alerts fall back to deterministic prose so nothing important disappears.
+A language model only gets involved when that layer finds something. The service runs an agent CLI headless and asks for a reply that fits a JSON schema, so it can act on the result without parsing prose. Each trigger ends in one of three decisions: `notify_and_stage`, `notify_only` or `veto_silent`. Most are vetoed. The rest become two to five sentences about what happened, why it matters, what I could do and what it is watching next.
 
-## Stateful Slack threads and MCP tools
+If the agent is unavailable, stop breaches and exit signals still go out as plain templated text, and everything else waits.
 
-Every alert, briefing and position watch stores its Slack `thread_ts` alongside the agent's `conversation_id` in SQLite. Replying from my phone hours later resumes that exact agent session instead of starting cold. The reply schema also carries structured `watch_mutations`, so saying *"move my stop to 264"* or *"snooze this today"* updates the live Python watchers directly without a command syntax.
+## Threads that remember
 
-Under the hood, the agent has live access to two MCP servers:
+Each message stores its Slack thread together with the agent's conversation ID. When I reply hours later, the agent picks up the same conversation instead of starting from nothing. Replies can also change the watchers, so "move my stop to 264" or "snooze this today" updates the Python side directly.
 
-- **Interactive Brokers' official MCP** for pulling live quotes, option chains, Greeks, earnings and positions on demand — which also removes the need to keep TWS or IB Gateway logged in locally (and stops it kicking out my mobile session).
-- **My own `account-command-os` MCP server**, exposing the same portfolio briefing, journal, playbooks, GEX scans and what-if simulator so IDE chat agents share the exact same account state.
+The agent can call two MCP servers:
 
-Multi-step procedures, like verifying live bid/ask spreads before staging a ticket, live in reusable skill files rather than being stuffed into every prompt.
+- **Interactive Brokers' own MCP** for quotes, option chains, earnings and positions. Using it means I no longer need TWS or IB Gateway logged in on the Mac, which used to log me out of IBKR Mobile.
+- **My own `account-command-os` server**, which exposes the portfolio, journal, playbooks, gamma scans and a what-if simulator. Coding agents in my editor use the same server, so they see the same account state.
 
-## Permission-enforced staging
+Longer procedures, such as checking live bid and ask before staging an order, are kept in skill files rather than repeated in every prompt.
 
-Safety isn't left to prompt instructions alone. The agent's CLI permission policy allows read tools plus `create_order_instruction` — which queues a draft waiting for review in IBKR Mobile — and explicitly denies `submit_order`, `modify_order`, `cancel_order` and `delete_order_instruction`. Even if a model tried to execute directly, the tool call is blocked before it leaves the machine.
+## Orders are staged, never sent
 
-## Two-model adversarial red-teaming
+The agent's permission file allows read tools and `create_order_instruction`, which puts a draft order in IBKR Mobile waiting for my review. `submit_order`, `modify_order`, `cancel_order` and `delete_order_instruction` are denied. A model that tries to place a trade gets the call blocked before it leaves the machine.
 
-On any alert or thread I can tap *Second opinion* or ask for one in prose. That spawns a second model (Claude) strictly toolless (`--tools ""`), given only the Slack thread, structured trigger context and a portfolio snapshot. Its single job is to argue against the primary model — hunting for hidden correlation, IV/earnings traps or late-stage crowding — and return `AGREE`, `MODIFY` or `PASS` with its sharpest objection. The primary agent then weighs that pushback and replies in one short message showing where the two models agree and where they diverge.
+## A second opinion
 
-## What the watchers feed it
+On any message I can ask for a second opinion. That runs Claude with no tools at all, given only the thread, the trigger and a snapshot of the portfolio. Its job is to argue against the idea, for example by pointing out correlation with what I already hold, an earnings date or a crowded sector. It answers `AGREE`, `MODIFY` or `PASS` with its main objection. The first model then replies once, saying where the two agree and where they don't.
+
+## What it watches
 
 - **Open positions.** A heads-up when a position tests a level, and a follow-up only when the level clearly holds or breaks.
-- **Sector rotation.** All 11 S&P sectors sorted into early inflection, healthy trend, base-building or crowded late rallies — crowded sectors are kept out of new long ideas.
-- **New setups** on a short focus list, picking the structure to fit liquidity and account size: a debit or credit spread, a single option or shares.
-- **Overnight.** Globex futures, oil, gold, DXY, USD/SEK and bitcoin at a slower cadence outside US hours, plus a morning summary at 06:00 Swedish time.
+- **Sector rotation.** All 11 S&P sectors, sorted into early turns, healthy trends, bases and crowded late rallies. Crowded sectors are left out of new long ideas.
+- **New setups** on a short focus list, with the structure chosen to fit liquidity and account size: a debit or credit spread, a single option or shares.
+- **Overnight.** Futures, oil, gold, the dollar index, USD/SEK and bitcoin at a slower pace outside US hours, and a summary at 06:00 Swedish time.
 
 ## The desktop side
 
-For weekend planning and review there is a small macOS app with five views: today's watches and sector grid, the portfolio with Greeks and payoff curves, the watchlist and trade ideas, a journal filled in automatically from executions, and progress against my own risk rules. It is meant for the weekend, not for watching the market tick.
+For planning and review there is a small macOS app with five views: today's watches and sector grid, the portfolio with Greeks and payoff curves, the watchlist and trade ideas, a journal filled in from executions and progress against my own risk rules. I use it at weekends, not to watch the market move.
