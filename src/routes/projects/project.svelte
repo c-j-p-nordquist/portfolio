@@ -1,6 +1,6 @@
 <script>
-	import { page } from '$app/stores';
-	import { SITE_URL, OG_IMAGE, NAME } from '$lib/site.js';
+	import { page } from '$app/state';
+	import { SITE_URL, OG_IMAGE, NAME } from '#lib/site.js';
 
 	let {
 		title,
@@ -20,7 +20,7 @@
 		children
 	} = $props();
 
-	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
+	let canonicalUrl = $derived(SITE_URL + page.url.pathname);
 	let ogImage = $derived(cover ? SITE_URL + cover : OG_IMAGE);
 
 	// The way out is the next (older) project; from the oldest, loop back to the newest.

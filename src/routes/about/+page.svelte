@@ -1,15 +1,15 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import {
 		profile,
 		workHistory,
 		education,
 		technicalSkills,
 		languages
-	} from '$lib/data/workHistory.js';
-	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL, LINKEDIN_URL } from '$lib/site.js';
+	} from '#lib/data/workHistory.js';
+	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL, LINKEDIN_URL } from '#lib/site.js';
 
-	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
+	let canonicalUrl = $derived(SITE_URL + page.url.pathname);
 </script>
 
 <svelte:head>

@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getProjects } from '$lib/utils/projects.js';
+import { getProjects } from '#lib/utils/projects.js';
 
 const modules = import.meta.glob('/src/content/projects/*/+page.md');
 

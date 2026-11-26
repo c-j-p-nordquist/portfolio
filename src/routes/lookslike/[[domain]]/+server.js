@@ -7,11 +7,11 @@
 // Each DNS question is one Cloudflare subrequest. The free Workers plan allows 50 per
 // request and paid plans 10,000, so the scan stops at LOOKSLIKE_MAX_LOOKUPS (default 45)
 // and prints the command that continues from there.
-import { dev } from '$app/environment';
-import { env } from '$env/dynamic/private';
+import { dev } from '$app/env';
+import { LOOKSLIKE_MAX_LOOKUPS } from '$app/env/private';
 import { json } from '@sveltejs/kit';
-import { DEFAULT_TECHNIQUES, generate, parseDomain } from '$lib/lookalike/variants.js';
-import { check, isFinding, level } from '$lib/lookalike/dns.js';
+import { DEFAULT_TECHNIQUES, generate, parseDomain } from '#lib/lookalike/variants.js';
+import { check, isFinding, level } from '#lib/lookalike/dns.js';
 
 const CONCURRENCY = 6; // Workers only keep six outgoing connections waiting at once.
 const PER_VARIANT = 3; // NS, then A and MX when the name is registered.
@@ -73,7 +73,7 @@ function requestedDomain(url, params) {
 }
 
 function lookupLimit() {
-	const configured = Number(env.LOOKSLIKE_MAX_LOOKUPS);
+	const configured = Number(LOOKSLIKE_MAX_LOOKUPS);
 	if (configured > 0) return configured;
 	return dev ? Infinity : 45;
 }

@@ -1,7 +1,7 @@
 <script>
-	import { page } from '$app/stores';
-	import { SITE_URL, OG_IMAGE, NAME } from '$lib/site.js';
-	import { TECHNIQUES, generate, parseDomain } from '$lib/lookalike/variants.js';
+	import { page } from '$app/state';
+	import { SITE_URL, OG_IMAGE, NAME } from '#lib/site.js';
+	import { TECHNIQUES, generate, parseDomain } from '#lib/lookalike/variants.js';
 	import {
 		check,
 		query,
@@ -10,7 +10,7 @@
 		toCsv,
 		LEVEL_TEXT,
 		LEVEL_ORDER
-	} from '$lib/lookalike/dns.js';
+	} from '#lib/lookalike/dns.js';
 
 	const title = 'Lookalike domain scanner';
 	const description =
@@ -26,7 +26,7 @@
 		return '';
 	}
 
-	let input = $state(preset($page.url, $page.params));
+	let input = $state(preset(page.url, page.params));
 	let provider = $state('cf');
 	let enabled = $state(Object.fromEntries(TECHNIQUES.map((t) => [t.id, t.on])));
 	let showAll = $state(false);

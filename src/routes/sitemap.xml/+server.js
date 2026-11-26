@@ -1,5 +1,5 @@
-import { SITE_URL } from '$lib/site.js';
-import { getProjects } from '$lib/utils/projects.js';
+import { SITE_URL } from '#lib/site.js';
+import { getProjects } from '#lib/utils/projects.js';
 
 export const prerender = true;
 

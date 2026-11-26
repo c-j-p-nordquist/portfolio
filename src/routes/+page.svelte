@@ -1,11 +1,11 @@
 <script>
-	import { page } from '$app/stores';
-	import { workHistory } from '$lib/data/workHistory.js';
-	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL } from '$lib/site.js';
+	import { page } from '$app/state';
+	import { workHistory } from '#lib/data/workHistory.js';
+	import { SITE_URL, OG_IMAGE, NAME, EMAIL, GITHUB_URL } from '#lib/site.js';
 
 	let { data } = $props();
 
-	let canonicalUrl = $derived(SITE_URL + $page.url.pathname);
+	let canonicalUrl = $derived(SITE_URL + page.url.pathname);
 	const featuredRoles = workHistory.slice(0, 4);
 
 	const formatMonth = (date) =>

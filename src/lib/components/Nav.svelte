@@ -1,9 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
-	import { NAME, EMAIL, GITHUB_URL } from '$lib/site.js';
+	import { page } from '$app/state';
+	import { NAME, EMAIL, GITHUB_URL } from '#lib/site.js';
 
-	let path = $derived($page.url.pathname);
+	let path = $derived(page.url.pathname);
 	let theme = $state('light');
 
 	onMount(() => {

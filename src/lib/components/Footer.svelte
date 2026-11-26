@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { NAME, COMPANY_NAME, ORG_NUMBER } from '$lib/site.js';
+	import { NAME, COMPANY_NAME, ORG_NUMBER } from '#lib/site.js';
 
 	let time = $state('');
 

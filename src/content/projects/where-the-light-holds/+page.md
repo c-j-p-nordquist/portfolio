@@ -22,7 +22,7 @@ published: true
 ---
 
 <script>
-	import LightHoldsDemo from '$lib/components/projects/LightHoldsDemo.svelte';
+	import LightHoldsDemo from '#lib/components/projects/LightHoldsDemo.svelte';
 </script>
 
 I made this game for myself: something quick to pick up that I could keep open in a browser tab alongside other work. Between waves the board sits still for as long as you like, so you can lay out a maze, step away and send the next wave when you come back.

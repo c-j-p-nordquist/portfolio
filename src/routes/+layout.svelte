@@ -1,16 +1,16 @@
 <script>
 	import '../app.css';
-	import Nav from '$lib/components/Nav.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import Nav from '#lib/components/Nav.svelte';
+	import Footer from '#lib/components/Footer.svelte';
 	import { onNavigate } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let { children } = $props();
 
 	// A project write-up takes over the whole page, nav and footer included.
 	let world = $derived(
-		$page.route.id === '/projects/[slug]' && $page.params.slug
-			? `world world-${$page.params.slug}`
+		page.route.id === '/projects/[slug]' && page.params.slug
+			? `world world-${page.params.slug}`
 			: ''
 	);
 

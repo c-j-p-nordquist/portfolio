@@ -21,7 +21,7 @@ published: true
 ---
 
 <script>
-	import InkMagicDemo from '$lib/components/projects/InkMagicDemo.svelte';
+	import InkMagicDemo from '#lib/components/projects/InkMagicDemo.svelte';
 </script>
 
 Kids learning Chinese outside a Chinese-speaking environment get little everyday exposure to the written language. Reading comes slowly and writing comes slower. I wanted practice to feel like play rather than homework, so I built a small spellbook for the iPad.

@@ -15,7 +15,7 @@ published: true
 ---
 
 <script>
-	import BrokerageMcpDemo from '$lib/components/projects/BrokerageMcpDemo.svelte';
+	import BrokerageMcpDemo from '#lib/components/projects/BrokerageMcpDemo.svelte';
 </script>
 
 I wanted to use Claude and Codex for portfolio reviews without handing a language model the keys to a brokerage account. The Interactive Brokers API is large, and exposing it one endpoint at a time gives an agent too many ways to do the wrong thing. So I built a small MCP server around a fixed set of workflows instead.
