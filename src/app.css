@@ -352,6 +352,21 @@ h3 {
 	color-scheme: light;
 }
 
+.world-solarscale {
+	--paper: #080c16;
+	--ink: #ecf1f8;
+	--muted: #9fb0c8;
+	--line: #23304a;
+	--blue: #f5b942;
+	--panel: #0f1626;
+	--body-font: 'Schibsted Grotesk', system-ui, sans-serif;
+	--display-font: 'Schibsted Grotesk', system-ui, sans-serif;
+	--display-weight: 700;
+	--display-tracking: -0.03em;
+	--body-scale: 1.02;
+	color-scheme: dark;
+}
+
 /* Home: intro */
 .home-intro {
 	padding: 56px 0 64px;
@@ -601,6 +616,17 @@ h3 {
 	font-size: clamp(48px, 8vw, 108px);
 }
 .world-trading-copilot .project-stats dd {
+	font-size: 80px;
+}
+
+/* World details: Solarscale */
+.world-solarscale .band-media img,
+.world-solarscale .project-hero-image {
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	box-shadow: 0 0 120px rgba(245, 185, 66, 0.16);
+}
+.world-solarscale .project-stats dd {
 	font-size: 80px;
 }
 
@@ -871,7 +897,9 @@ h3 {
 .world-where-the-light-holds .shiki,
 .world-where-the-light-holds .shiki span,
 .world-gitops-bootstrap .shiki,
-.world-gitops-bootstrap .shiki span {
+.world-gitops-bootstrap .shiki span,
+.world-solarscale .shiki,
+.world-solarscale .shiki span {
 	color: var(--shiki-dark) !important;
 }
 
